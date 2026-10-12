@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OR & WA Unemployment Calculator</title>
+<meta name="description" content="Estimate your weekly unemployment benefit in Oregon or Washington for claims filed in 2026, including part-time weeks.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style></head><body>
+<!-- AD NETWORK: paste your AdSense (or other network) loader script into <head>, then fill each .ad-slot below. -->
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <nav aria-label="Calculators"><a href="./">Benefits</a><a href="overtime.html">Overtime</a><a href="tips.html">Tips</a><a href="senior-deduction.html">Seniors 65+</a><a href="eitc.html">EITC</a><a href="child-tax-credit.html">Child credit</a><a href="unemployment.html" aria-current="page">Unemployment</a></nav>
+</div>
+<header class="top" id="top">
+  <h1>Oregon &amp; Washington Unemployment Calculator</h1>
+  <p class="lede">Estimate your weekly benefit, how much a claim can pay in total, and what a week of part-time work does to it.</p>
+  <p class="scopebox job">This tool estimates <b>state unemployment pay</b> after losing work. It isn't a tax or disability benefits tool; those have their own pages.</p>
+</header>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="top">Ad · 728×90</div></aside>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your state</legend>
+<div class="seg"><input type="radio" name="st" id="st-or" value="or" checked><label for="st-or">Oregon</label><input type="radio" name="st" id="st-wa" value="wa"><label for="st-wa">Washington</label></div>
+</fieldset>
+<fieldset><legend>Wages in your base year</legend>
+<p class="hint" style="margin:0">Your base year is usually the first 4 of the last 5 finished calendar quarters. Use gross pay for each quarter.</p>
+<div class="row"><div class="field" id="w-q1"><label for="q1">Quarter 1</label><div class="money"><input type="number" id="q1" inputmode="decimal" min="0" step="any" value="11000"></div></div><div class="field" id="w-q2"><label for="q2">Quarter 2</label><div class="money"><input type="number" id="q2" inputmode="decimal" min="0" step="any" value="12500"></div></div></div>
+<div class="row"><div class="field" id="w-q3"><label for="q3">Quarter 3</label><div class="money"><input type="number" id="q3" inputmode="decimal" min="0" step="any" value="12000"></div></div><div class="field" id="w-q4"><label for="q4">Quarter 4</label><div class="money"><input type="number" id="q4" inputmode="decimal" min="0" step="any" value="11500"></div></div></div>
+<div class="field" id="w-hrs"><label for="hrs">Hours worked in the base year</label><input type="number" id="hrs" inputmode="decimal" min="0" step="1" value="1900"></div>
+</fieldset>
+<fieldset><legend>Part-time work (optional)</legend>
+<div class="field" id="w-earn"><label for="earn">Pay from work this week</label><div class="money"><input type="number" id="earn" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Gross pay for the week you're claiming</span></div>
+</fieldset>
+  <p class="sample">Example numbers are filled in. Replace them with yours.</p>
+  <div class="btns"><button type="button" id="reset">Reset to example</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
+</div>
+</section>
+<section class="prose faq" id="faq"><h2>Common questions</h2><details id="how"><summary>How unemployment is figured</summary><div><p><b>Oregon</b> pays 1.25% of your total wages in the base year each week, between $211 and $902 for claims filed on or after June 28, 2026. You qualify with at least $1,000 in base-year wages and total wages at least 1.5 times your highest quarter, or with 500 hours of work.</p><p><b>Washington</b> pays 3.85% of the average of your two highest base-year quarters, between $383 and $1,208 for claims opened on or after July 5, 2026. You need 680 hours of work in the base year.</p><p>In both states, the total for a claim is the lesser of 26 weekly payments or one-third of your base-year wages.</p></div></details><details><summary>What is the base year?</summary><p>Usually the first four of the last five completed calendar quarters before you file. If you don't qualify with it, both states may let you use an alternate base year with more recent wages.</p></details><details><summary>Can I work part time and still collect?</summary><p>Yes, with a smaller payment. Oregon ignores the greater of 10 times the state minimum wage or one-third of your weekly benefit, then subtracts the rest. Washington subtracts 75% of your weekly pay over $5.</p></details><details><summary>Is unemployment taxed?</summary><p>Yes, by the IRS. Oregon taxes it too. Washington has no state income tax.</p></details><details><summary>Does unemployment affect SSI, SNAP or SSDI?</summary><p>It counts as income for SSI and SNAP. It doesn't reduce SSDI.</p></details></section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="bottom">Ad · 728×90</div></aside>
+<footer id="about">
+  <p>An independent, free calculator. Not affiliated with the IRS, the Oregon Employment Department, Washington ESD or any other agency. Ads keep it free; we don't ask for personal information. Results are estimates, not official decisions.</p>
+  <details><summary>Sources, privacy and fine print</summary><div>
+  <p>Rules checked Oct 12, 2026.</p>
+  <p>This is an estimate from published rules, not tax or legal advice. Your actual result depends on your full return or claim. Check with a tax preparer, free IRS VITA help, or the agency.</p>
+  <div class="links"><a href="https://unemployment.oregon.gov/" target="_blank" rel="noopener">Oregon: file for unemployment</a><a href="https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf" target="_blank" rel="noopener">Oregon 2026 benefit amounts (Employer News, June 2026)</a><a href="https://esd.wa.gov/unemployment/calculate-your-benefit" target="_blank" rel="noopener">Washington ESD: estimate your benefit</a><a href="https://esd.wa.gov/node/1254" target="_blank" rel="noopener">Washington 2026 benefit amounts</a></div>
+  <p id="privacy"><b>Privacy:</b> Everything you type is calculated in your browser and saved only on your device. Third-party ad partners may use cookies to show ads.</p>
+  </div></details>
+</footer>
+</div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+/* Federal income tax, tax year 2026 (Rev. Proc. 2025-32) */
+const TAX={
+  std:{single:16100,mfs:16100,hoh:24150,mfj:32200},
+  add65:{single:2050,hoh:2050,mfs:1650,mfj:1650},
+  br:{
+    single:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[Infinity,.37]],
+    mfs:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[384350,.35],[Infinity,.37]],
+    mfj:[[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[Infinity,.37]],
+    hoh:[[17700,.10],[67450,.12],[105700,.22],[201750,.24],[256200,.32],[640600,.35],[Infinity,.37]]
+  }
+};
+function fedTax(ti,fs){let t=0,prev=0;for(const [top,r] of TAX.br[fs]){if(ti>prev)t+=(Math.min(ti,top)-prev)*r;prev=top;}return Math.round(t);}
+function rate(ti,fs){for(const [top,r] of TAX.br[fs]){if(ti<=top)return r;}return .37;}
+const FSN={single:"Single",hoh:"Head of household",mfj:"Married filing jointly",mfs:"Married filing separately"};
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}f.reset();setTimeout(run,0);});
+  run();
+}
+
+
+const U={or:{min:211,max:902,pct:.0125,disMinWage:15.55,from:"June 28, 2026"},wa:{min:383,max:1208,pct:.0385,from:"July 5, 2026"}};
+function run(){
+  const st=$("st-wa").checked?"wa":"or", c=U[st], q=["q1","q2","q3","q4"].map(num), total=q.reduce((a,b)=>a+b,0), hi=Math.max(...q), hrs=num("hrs"), earn=num("earn");
+  let wba=0, elig=false, rows=[], why="";
+  if(st==="or"){
+    const wageTest=total>=1000&&total>=1.5*hi; elig=wageTest||hrs>=500;
+    const raw=Math.floor(total*c.pct); wba=Math.min(c.max,Math.max(c.min,raw));
+    rows=[["Total base-year wages",m0(total)],["× 1.25%",m0(total*c.pct)],[`Kept between ${m0(c.min)} and ${m0(c.max)}`,m0(wba),"total"]];
+    if(!elig)why=`You need at least $1,000 in base-year wages and total wages at least 1.5 times your highest quarter (${m0(1.5*hi)}), or 500 hours of work.`;
+  } else {
+    const top2=[...q].sort((a,b)=>b-a).slice(0,2), avg=(top2[0]+top2[1])/2, raw=avg*c.pct;
+    elig=hrs>=680;
+    if(raw>c.max)wba=c.max; else if(raw>=c.min)wba=Math.floor(raw); else wba=Math.floor(Math.min(c.min,avg*4/52));
+    rows=[["Average of your 2 highest quarters",m0(avg)],["× 3.85%",m2(raw)],[raw>c.max?`Capped at the maximum`:raw>=c.min?"Rounded down":`Below ${m0(c.min)}: lesser of ${m0(c.min)} or your average weekly wage`,m0(wba),"total"]];
+    if(!elig)why="Washington requires at least 680 hours of work in your base year.";
+  }
+  const maxTot=Math.floor(Math.min(26*wba,total/3)), weeks=wba?maxTot/wba:0;
+  let pay=wba, prow=[];
+  if(earn>0){
+    if(st==="or"){const dis=Math.max(10*c.disMinWage,wba/3);pay=Math.floor(Math.max(0,wba-Math.max(0,earn-dis)));
+      prow=[["Weekly benefit",m0(wba)],["Pay from work this week",m2(earn)],[`Ignored: greater of $155.50 or ⅓ of your benefit`,m2(dis)],["Benefit after earnings",m0(pay),"total"]];}
+    else{pay=Math.floor(Math.max(0,wba-0.75*Math.max(0,earn-5)));
+      prow=[["Weekly benefit",m0(wba)],["Pay from work this week",m2(earn)],["Subtract 75% of pay over $5","−"+m2(0.75*Math.max(0,earn-5))],["Benefit after earnings",m0(pay),"total"]];}
+  }
+  const name=st==="or"?"Oregon":"Washington";
+  if(!elig){wba=0;}
+  $("sum").innerHTML=`<h2>Your ${name} estimate</h2>`+tot([[m0(elig?wba:0),"Weekly benefit"],[m0(elig?maxTot:0),"Most for the claim"],[elig?(weeks>=25.95?"26":weeks.toFixed(1)):"0","Weeks at full rate"]])+
+    `<p>${why||`Uses the amounts for new claims filed on or after ${c.from}.`}</p>`;
+  let out=card({t:"Weekly benefit amount",scope:`${name} unemployment insurance`,amt:m0(elig?wba:0),al:"per week",st:elig?"good":"no",
+    chip:elig?"Wage requirement looks met":"Doesn't meet the work requirement as entered",
+    rows:rows.concat([["Most for the claim: lesser of 26 weeks or ⅓ of base-year wages",m0(maxTot)]]),
+    notes:["You must also have lost work through no fault of your own and be able, available and looking for work each week.",st==="or"?"Oregon pays 1.25% of total base-year wages a week.":"Washington pays 3.85% of the average of your two highest base-year quarters."]});
+  if(earn>0&&elig) out+=card({t:"A week with part-time work",scope:"Benefit after earnings",amt:m0(pay),al:"this week",st:pay>0?"warn":"no",chip:pay>0?"Partial benefit":"Earnings too high for a payment this week",rows:prow,open:true});
+  out+=card({t:"Taxes and other benefits",st:"info",
+    p:[`Unemployment is taxable on your federal return. ${st==="or"?"Oregon taxes it too.":"Washington has no state income tax."} You can ask for 10% federal withholding when you file your claim.`,
+      "It counts as unearned income for SSI (about $1 less SSI for each $1 after the first $20) and as income for SNAP. It doesn't reduce SSDI. See the <a href=\"./\">benefits calculator</a>."]});
+  $("cards").innerHTML=out;
+}
+wire("bm-ui",run);
+})();
+</script>
+</body></html>

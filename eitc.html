@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>EITC Calculator 2026</title>
+<meta name="description" content="Estimate your 2026 Earned Income Tax Credit by income and number of children, with the formula shown.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style></head><body>
+<!-- AD NETWORK: paste your AdSense (or other network) loader script into <head>, then fill each .ad-slot below. -->
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <nav aria-label="Calculators"><a href="./">Benefits</a><a href="overtime.html">Overtime</a><a href="tips.html">Tips</a><a href="senior-deduction.html">Seniors 65+</a><a href="eitc.html" aria-current="page">EITC</a><a href="child-tax-credit.html">Child credit</a><a href="unemployment.html">Unemployment</a></nav>
+</div>
+<header class="top" id="top">
+  <h1>EITC Calculator</h1>
+  <p class="lede">Estimate your Earned Income Tax Credit for 2026 and see where you fall on the phase-in, plateau or phase-out.</p>
+  <p class="scopebox tax">This is a <b>federal income tax</b> tool for tax year 2026 (the return you file in early 2027). It does not change SSI, SNAP or other benefits; those are on the <a href="./">benefits calculator</a>.</p>
+</header>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="top">Ad · 728×90</div></aside>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your household</legend>
+<div class="field"><label for="fs">Filing status</label><select id="fs"><option value="single">Single</option><option value="hoh">Head of household</option><option value="mfj">Married filing jointly</option><option value="mfs">Married filing separately</option></select></div>
+<div class="field" id="w-kids"><label for="kids">Qualifying children</label><select id="kids"><option value="0">None</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3 or more</option></select><span class="hint">Children who lived with you more than half the year</span></div>
+<label class="check" id="w-age"><input type="checkbox" id="age" checked><span>You (or your spouse) are 25 to 64</span></label>
+</fieldset>
+<fieldset><legend>Your income for 2026</legend>
+<div class="field" id="w-earned"><label for="earned">Earned income</label><div class="money"><input type="number" id="earned" inputmode="decimal" min="0" step="any" value="22000"></div><span class="hint">Wages, tips and self-employment profit</span></div>
+<div class="field" id="w-other"><label for="other">Other income</label><div class="money"><input type="number" id="other" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Unemployment, interest, taxable pensions and so on</span></div>
+<div class="field" id="w-inv"><label for="inv">Investment income</label><div class="money"><input type="number" id="inv" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Interest, dividends, capital gains, rental income</span></div>
+<label class="check" id="w-ssn"><input type="checkbox" id="ssn" checked><span>Everyone on the return has a Social Security number valid for work</span></label>
+</fieldset>
+  <p class="sample">Example numbers are filled in. Replace them with yours.</p>
+  <div class="btns"><button type="button" id="reset">Reset to example</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
+</div>
+</section>
+<section class="prose faq" id="faq"><h2>Common questions</h2><details id="how"><summary>How the EITC works</summary><div><p>The Earned Income Tax Credit is for people who work and earn low to moderate pay. It's refundable, so it can come back to you as a refund even if you owe no income tax.</p><ol><li>Phase-in: the credit grows with each dollar you earn, up to a maximum that depends on how many children you have.</li><li>Plateau: you get the maximum while income stays below the phase-out start.</li><li>Phase-out: the credit shrinks as the greater of your AGI or earned income rises, until it reaches zero.</li></ol><p>For 2026 the maximum is $664 with no children, $4,427 with one, $7,316 with two and $8,231 with three or more.</p></div></details><details><summary>Can I get the EITC without children?</summary><p>Yes, if you are 25 to 64 and your income is low enough. The amount is smaller, up to $664 for 2026.</p></details><details><summary>Do disability benefits count as earned income?</summary><p>SSI and SSDI don't count as earned income. Disability pension from an employer plan can count until you reach your plan's minimum retirement age.</p></details><details><summary>Will my EITC refund cut my SNAP or SSI?</summary><p>No. Federal tax refunds aren't counted as income, and they aren't counted as savings for 12 months.</p></details><details><summary>Where can I file for free?</summary><p>IRS VITA sites prepare returns for free for people with moderate income, and many help with the EITC.</p></details></section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="bottom">Ad · 728×90</div></aside>
+<footer id="about">
+  <p>An independent, free calculator. Not affiliated with the IRS, the Oregon Employment Department, Washington ESD or any other agency. Ads keep it free; we don't ask for personal information. Results are estimates, not official decisions.</p>
+  <details><summary>Sources, privacy and fine print</summary><div>
+  <p>Rules checked Oct 12, 2026.</p>
+  <p>This is an estimate from published rules, not tax or legal advice. Your actual result depends on your full return or claim. Check with a tax preparer, free IRS VITA help, or the agency.</p>
+  <div class="links"><a href="https://www.irs.gov/newsroom/one-big-beautiful-bill-provisions" target="_blank" rel="noopener">IRS: One Big Beautiful Bill provisions</a><a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener">IRS 2026 inflation adjustments (Rev. Proc. 2025-32)</a><a href="https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers" target="_blank" rel="noopener">Free tax help (VITA)</a><a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit-eitc" target="_blank" rel="noopener">IRS: Earned Income Tax Credit</a><a href="https://workingfamiliescredit.wa.gov/" target="_blank" rel="noopener">Washington Working Families Tax Credit</a><a href="https://www.oregon.gov/dor/" target="_blank" rel="noopener">Oregon Department of Revenue</a></div>
+  <p id="privacy"><b>Privacy:</b> Everything you type is calculated in your browser and saved only on your device. Third-party ad partners may use cookies to show ads.</p>
+  </div></details>
+</footer>
+</div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+/* Federal income tax, tax year 2026 (Rev. Proc. 2025-32) */
+const TAX={
+  std:{single:16100,mfs:16100,hoh:24150,mfj:32200},
+  add65:{single:2050,hoh:2050,mfs:1650,mfj:1650},
+  br:{
+    single:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[Infinity,.37]],
+    mfs:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[384350,.35],[Infinity,.37]],
+    mfj:[[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[Infinity,.37]],
+    hoh:[[17700,.10],[67450,.12],[105700,.22],[201750,.24],[256200,.32],[640600,.35],[Infinity,.37]]
+  }
+};
+function fedTax(ti,fs){let t=0,prev=0;for(const [top,r] of TAX.br[fs]){if(ti>prev)t+=(Math.min(ti,top)-prev)*r;prev=top;}return Math.round(t);}
+function rate(ti,fs){for(const [top,r] of TAX.br[fs]){if(ti<=top)return r;}return .37;}
+const FSN={single:"Single",hoh:"Head of household",mfj:"Married filing jointly",mfs:"Married filing separately"};
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}f.reset();setTimeout(run,0);});
+  run();
+}
+
+
+const E={ei:[8680,13020,18290,18290],mx:[664,4427,7316,8231],pin:[.0765,.34,.40,.45],pout:[.0765,.1598,.2106,.2106],th:[10860,23890,23890,23890],thj:[18140,31160,31160,31160],inv:12200};
+function run(){
+  const fs=$("fs").value, k=+$("kids").value; $("w-age").hidden=k!==0;
+  const earned=num("earned"), agi=earned+num("other"), inv=num("inv");
+  const th=fs==="mfj"?E.thj[k]:E.th[k], tent=Math.min(E.mx[k],earned*E.pin[k]);
+  const over=Math.max(0,Math.max(agi,earned)-th), red=over*E.pout[k];
+  let cr=Math.max(0,Math.round(tent-red)), why="";
+  if(fs==="mfs"){cr=0;why="Married people filing separately usually can't claim the EITC. There is an exception if you lived apart from your spouse for the last 6 months of the year and have a qualifying child.";}
+  else if(!$("ssn").checked){cr=0;why="Everyone on the return needs a Social Security number valid for work.";}
+  else if(k===0&&!$("age").checked){cr=0;why="Without a qualifying child, you (or your spouse) must be 25 to 64.";}
+  else if(inv>E.inv){cr=0;why=`Investment income over ${m0(E.inv)} rules out the EITC.`;}
+  const end=Math.round(th+E.mx[k]/E.pout[k]);
+  $("sum").innerHTML=`<h2>Your estimate for 2026</h2>`+tot([[m0(cr),"EITC"],[m0(E.mx[k]),"Most you could get"],[m0(end),"Income where it ends"]])+
+    `<p>${why||(cr>0?"The EITC is refundable: you get it as a refund even if you owe no tax.":"Your income is outside the range for this credit.")}</p>`;
+  const phase=earned<E.ei[k]?"Phase-in: the credit grows as you earn more":over>0?"Phase-out: the credit shrinks as income rises":"Plateau: you get the maximum";
+  let out=card({t:"Earned Income Tax Credit",scope:`Federal refundable credit · ${k===3?"3+":k} child${k===1?"":"ren"}`,amt:m0(cr),al:"credit",st:cr>0?"good":"no",
+    chip:why?"Not eligible as entered":phase,
+    rows:[[`${(E.pin[k]*100).toFixed(2).replace(/\.00$/,"")}% of earned income ${m0(earned)}`,m0(earned*E.pin[k])],["Capped at the maximum",m0(tent)],
+      [`Greater of AGI or earned income, over ${m0(th)}`,m0(over)],[`× ${(E.pout[k]*100).toFixed(2)}% phase-out rate`,"−"+m0(red)],["EITC",m0(cr),"total"]],
+    notes:["The IRS figures the credit from a table in $50 steps, so your official amount can differ by a few dollars.","Rules for who counts as a qualifying child (age, relationship, living together) aren't checked here."]});
+  out+=card({t:"Will this refund affect my benefits?",st:"good",chip:"Not counted for 12 months",
+    p:["Federal tax refunds, including the EITC, don't count as income for SNAP, SSI, Medicaid or housing aid. They also don't count as savings for 12 months after you get them, so you have a year to spend them before they could affect an asset limit."]});
+  out+=card({t:"Oregon and Washington have their own credits",st:"info",
+    p:["Oregon has a state earned income credit on your Oregon return, and Washington's Working Families Tax Credit pays a separate amount to people who get the federal EITC. Check each state's site for the current amounts."]});
+  $("cards").innerHTML=out;
+}
+wire("bm-eitc",run);
+})();
+</script>
+</body></html>
