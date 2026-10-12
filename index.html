@@ -1,32 +1,23 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>BenefitMath: Disability &amp; VA Benefits Calculator (2026)</title>
-<meta name="description" content="Free 2026 calculator for SSI, SSDI, SNAP, Medicaid, Medicare Savings, ABLE, HUD rent and VA disability, combined ratings and Veterans Pension. Shows every formula and source.">
-<meta property="og:title" content="BenefitMath: Disability &amp; VA Benefits Calculator (2026)">
-<meta property="og:description" content="Estimate SSI, SNAP, Medicaid, VA disability and VA pension, with the math shown.">
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BenefitMath: Free Benefit &amp; Tax Calculators That Show the Math</title>
+<meta name="description" content="Free calculators for SSI, SNAP, Medicaid, VA disability, Oregon and Washington unemployment, and 2026 tax breaks like no tax on tips and overtime. Every formula shown.">
+<meta property="og:title" content="BenefitMath: Free Benefit &amp; Tax Calculators">
+<meta property="og:description" content="Estimate disability, VA, unemployment and 2026 tax benefits, with the math shown.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
 <!-- Once you have your own domain, uncomment and fill in:
 <link rel="canonical" href="https://YOUR-DOMAIN.com/">
 -->
 <!-- AD NETWORK: paste your AdSense (or other) loader script here, then fill each .ad-slot in the page. -->
-</head><body>
-
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
- {"@type":"WebApplication","name":"BenefitMath","alternateName":"Disability & VA Benefits Calculator","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Estimate SSI, SSDI work limits, SNAP, Medicaid, Medicare Savings Programs, ABLE and HUD rent for Oregon and Washington, plus VA disability compensation, combined VA ratings and Veterans Pension, using 2026 rules."},
- {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"How much SSI will I get if I work?","acceptedAnswer":{"@type":"Answer","text":"SSI ignores the first $20 of income, then $65 of earnings and half of the rest. In 2026 the full rate is $994 a month, so each $2 you earn above $85 lowers SSI by about $1."}},
-  {"@type":"Question","name":"Can I work and keep SSDI?","acceptedAnswer":{"@type":"Answer","text":"Yes. In 2026, months with earnings over $1,210 use one of 9 trial work months. After those, SSDI stops for months over the $1,690 substantial gainful activity limit ($2,830 if blind)."}},
-  {"@type":"Question","name":"Does an ABLE account affect SSI?","acceptedAnswer":{"@type":"Answer","text":"The first $100,000 in an ABLE account is not counted as a resource for SSI. Since 2026, ABLE is open to people whose disability began before age 46."}},
-  {"@type":"Question","name":"How does the VA combine disability ratings?","acceptedAnswer":{"@type":"Answer","text":"VA does not add ratings. It applies each rating, largest first, to the part of you that is still 'able', then rounds the result to the nearest 10%. A 50% and a 30% rating combine to 65%, which rounds to 70%."}},
-  {"@type":"Question","name":"Can I get VA disability and SSDI at the same time?","acceptedAnswer":{"@type":"Answer","text":"Yes. VA disability compensation does not reduce SSDI, and SSDI does not reduce VA compensation. VA payments do count as income for SSI and SNAP."}},
-  {"@type":"Question","name":"Is this an official eligibility decision?","acceptedAnswer":{"@type":"Answer","text":"No. It is an estimate from published rules. Only the agency can decide eligibility, so apply even if the estimate says no."}}
- ]}
-]}
+{"@context":"https://schema.org","@type":"WebSite","name":"BenefitMath","description":"Free benefit and tax calculators that show the math: disability benefits, VA, unemployment and 2026 federal tax breaks."}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
 /* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
 :root{
   --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
@@ -174,6 +165,7 @@ footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
 footer .links a{color:var(--accent)}
 footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
 /* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
 .tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
 .tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
@@ -202,6 +194,7 @@ footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
 .mgroup{display:flex;flex-direction:column;gap:8px}
 .mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .scopebox a,.card a{color:var(--accent)}
+
 
 /* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
 .site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
@@ -239,865 +232,121 @@ details.optional>fieldset{margin-top:14px}
 details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
 details.figs[open]>summary{margin-bottom:10px}
 </style>
-
+<style>
+.hero{display:flex;flex-direction:column;gap:14px;margin:6px 0 8px}
+.hero h1{font-size:clamp(32px,5.4vw,54px);max-width:17ch}
+.hero .lede{font-size:16.5px;max-width:62ch}
+.trust{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 0;padding:0;list-style:none}
+.trust li{font-size:13px;font-weight:500;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 10px;display:inline-flex;gap:7px;align-items:center}
+.trust li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
+.group{margin-top:34px}
+.group>h2{font:600 12.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}}
+.tcard{display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+.tcard:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(0,0,0,.35)}
+.tcard:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tcard .tag{font:500 11.5px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.tcard h3{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.25;margin:0;text-wrap:balance}
+.tcard p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
+.tcard .go{margin-top:auto;padding-top:8px;font-weight:600;font-size:14px;color:var(--accent)}
+.tcard.feature{grid-column:span 2;background:linear-gradient(135deg,var(--accent-soft),var(--surface) 70%)}
+.tcard.feature h3{font-size:clamp(21px,2.4vw,26px)}
+@media (max-width:600px){.tcard.feature{grid-column:auto}}
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:34px}
+@media (max-width:760px){.why{grid-template-columns:minmax(0,1fr)}}
+.why div{padding:4px 2px}
+.why h3{font-family:var(--f-display);font-size:17px;margin:0 0 6px}
+.why p{margin:0;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){.tcard{transition:none}.tcard:hover{transform:none}}
+</style>
+<style>
+/* ===== shared site chrome (menu, phone results bar) ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site nav a small,.nav-home{display:none}
+.navbtn{display:none}
+.site nav{-webkit-mask-image:none!important;mask-image:none!important}
+@media (max-width:800px){
+  .site{flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;position:relative}
+  .site nav{display:none!important}
+  .navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px}
+  .navbtn svg{transition:transform .15s ease}
+  .navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+  .navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .site.open nav{display:flex!important;flex-direction:column;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;margin:0!important;width:auto!important;
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;gap:2px;overflow:visible;-webkit-mask-image:none;mask-image:none;
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.35)}
+  .site.open nav a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 12px;border-radius:9px;font-size:15px;font-weight:600;color:var(--ink);white-space:normal}
+  .site.open nav a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);text-align:right}
+  .site.open nav a.nav-home{display:flex;border-bottom:1px solid var(--line);border-radius:9px 9px 0 0;margin-bottom:2px}
+  .site.open nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+  .site.open nav a:hover{background:var(--sunk)}
+}
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+</head><body>
 <div class="wrap">
 <div class="site">
-  <a class="brand" href="#top"><i>Σ</i>BenefitMath</a>
-  <nav aria-label="Calculators"><a href="./" aria-current="page">Benefits</a><a href="overtime.html">Overtime</a><a href="tips.html">Tips</a><a href="senior-deduction.html">Seniors 65+</a><a href="eitc.html">EITC</a><a href="child-tax-credit.html">Child credit</a><a href="unemployment.html">Unemployment</a></nav>
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <nav id="sitenav" aria-label="Calculators"><a href="./" class="nav-home" aria-current="page">All calculators<small>Home</small></a><a href="benefits.html">Benefits<small>SSI, SNAP, Medicaid, VA</small></a><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a></nav>
 </div>
-<header class="top" id="top">
-  <h1>Disability &amp; VA Benefits Calculator</h1>
-  <p class="lede">Estimate SSI, SSDI, SNAP, Medicaid and housing help in Oregon and Washington, or VA pay in any state. Tap any number to see the math behind it.</p>
+<header class="hero" id="top">
+  <p class="eyebrow">Free · Oregon &amp; Washington · Federal · 2026 rules</p>
+  <h1>Benefit and tax calculators that show their math</h1>
+  <p class="lede">See what you could get from SSI, SNAP, Medicaid, VA, unemployment and the new 2026 tax breaks. Every number comes with the steps behind it and a link to the official rule.</p>
+  <ul class="trust"><li>Rules checked Oct 12, 2026</li><li>Every step shown</li><li>Nothing you type leaves your device</li></ul>
 </header>
 
-<!-- AD SLOT 1: top leaderboard (728×90 desktop, 320×100 phone). Replace .ad-box with your ad unit code. -->
-<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="top">Ad · 728×90</div></aside>
+<section class="group" aria-labelledby="g1"><h2 id="g1">Disability and VA benefits</h2>
+<div class="cards">
+<a class="tcard feature" href="benefits.html"><span class="tag">Oregon · Washington</span><h3>Will working change my SSI, SNAP or Medicaid?</h3><p>Estimate SSI, SSDI work limits, SNAP, Medicaid, Medicare Savings, ABLE and HUD rent together, since each one changes the others.</p><span class="go">Disability benefits calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="benefits.html#va"><span class="tag">All states</span><h3>What will VA pay with my ratings?</h3><p>Combine ratings the way VA does, see monthly compensation with dependents, and check Veterans Pension.</p><span class="go">VA benefits calculator<span aria-hidden="true"> →</span></span></a>
+</div></section>
 
-<div class="tabs" role="tablist" aria-label="Calculator" id="calculator">
-  <button type="button" role="tab" id="tab-dis" aria-controls="panel-dis" aria-selected="true">Disability benefits<small>SSI · SNAP · Medicaid · more (OR / WA)</small></button>
-  <button type="button" role="tab" id="tab-va" aria-controls="panel-va" aria-selected="false">VA benefits<small>Ratings · compensation · pension (all states)</small></button>
-</div>
+<section class="group" aria-labelledby="g2"><h2 id="g2">Work, taxes and unemployment</h2>
+<div class="cards">
+<a class="tcard" href="unemployment.html"><span class="tag">Oregon · Washington</span><h3>How much unemployment would I get?</h3><p>Your weekly benefit, the most a claim can pay, and what a week of part-time work does to it.</p><span class="go">Unemployment calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="overtime.html"><span class="tag">2026 federal tax</span><h3>What does no tax on overtime save me?</h3><p>How much of your overtime you can deduct and how much federal tax that actually saves.</p><span class="go">Overtime calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="tips.html"><span class="tag">2026 federal tax</span><h3>What does no tax on tips save me?</h3><p>How much of your tips you can deduct and what it saves on your federal return.</p><span class="go">Tips calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="eitc.html"><span class="tag">2026 federal tax</span><h3>How much EITC can I get?</h3><p>Your Earned Income Tax Credit by income and number of children, and where you fall on the curve.</p><span class="go">EITC calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="child-tax-credit.html"><span class="tag">2026 federal tax</span><h3>How much is my child tax credit?</h3><p>Your total credit, how much lowers your tax, and how much comes back as a refund.</p><span class="go">Child tax credit calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="senior-deduction.html"><span class="tag">2026 federal tax · 65+</span><h3>What is the new senior deduction worth?</h3><p>How much of the new $6,000 deduction you get at your income and whether it lowers your tax.</p><span class="go">Senior deduction calculator<span aria-hidden="true"> →</span></span></a>
+</div></section>
 
-<div id="panel-dis" role="tabpanel" aria-labelledby="tab-dis">
-<div class="grid">
-<form class="panel" id="f" autocomplete="off">
-  <div class="sample" id="sampleNote">Example person loaded. Replace with your own numbers.</div>
+<!-- AD SLOT: leaderboard below the calculator list (728×90 desktop, 320×100 phone). -->
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home">Ad · 728×90</div></aside>
 
-  <fieldset>
-    <legend>Where and who</legend>
-    <div class="seg" role="radiogroup" aria-label="State">
-      <input type="radio" name="state" id="st-or" value="OR" checked><label for="st-or">Oregon</label>
-      <input type="radio" name="state" id="st-wa" value="WA"><label for="st-wa">Washington</label>
-    </div>
-    <div class="row">
-      <div class="field"><label for="age">Age</label><input type="number" id="age" min="0" max="110" value="34"></div>
-      <div class="field"><label for="hh">People in household</label><input type="number" id="hh" min="1" max="12" value="1"><span class="hint">Who buys and cooks food together</span></div>
-    </div>
-    <label class="check"><input type="checkbox" id="disabled" checked><span>Has a disability that meets Social Security's definition (or gets SSI/SSDI)</span></label>
-    <label class="check"><input type="checkbox" id="blind"><span>Legally blind</span></label>
-    <label class="check"><input type="checkbox" id="married"><span>Married and living with spouse</span></label>
-    <label class="check"><input type="checkbox" id="medicare"><span>Has Medicare</span></label>
-    <div class="field"><label for="onset">Age when disability began</label><input type="number" id="onset" min="0" max="110" value="19"><span class="hint">Used for ABLE eligibility</span></div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Monthly income</legend>
-    <div class="field"><label for="earned">Gross wages / self-employment (before taxes)</label><div class="money"><input type="number" id="earned" min="0" step="1" value="900"></div></div>
-    <div class="field"><label for="ss">Social Security / SSDI check</label><div class="money"><input type="number" id="ss" min="0" step="1" value="0"></div><span class="hint">Use the amount before Medicare is taken out</span></div>
-    <div class="field"><label for="va">VA disability or pension</label><div class="money"><input type="number" id="va" min="0" step="1" value="0"></div><span class="hint">Counts for SSI and SNAP, not for adult Medicaid. The VA tab can fill this in.</span></div>
-    <div class="field"><label for="other">Other unearned income</label><div class="money"><input type="number" id="other" min="0" step="1" value="0"></div><span class="hint">Pension, unemployment, child support received, cash from family</span></div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Housing and costs</legend>
-    <div class="field"><label for="rent">Rent or mortgage per month</label><div class="money"><input type="number" id="rent" min="0" step="1" value="850"></div></div>
-    <div class="field"><label for="util">Utility bills you pay separately</label>
-      <select id="util">
-        <option value="heat" selected>Heating or cooling (any)</option>
-        <option value="two">2+ utilities, no heat/cooling</option>
-        <option value="one">1 utility (not phone), no heat</option>
-        <option value="phone">Phone only</option>
-        <option value="none">None (included in rent)</option>
-      </select></div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Savings</legend>
-    <div class="field"><label for="res">Countable savings and assets</label><div class="money"><input type="number" id="res" min="0" step="1" value="1200"></div><span class="hint">Bank accounts, cash, stocks. Not your home or one car.</span></div>
-  </fieldset>
-
-  <details class="optional"><summary><span>More details<small>Medical and care costs, work expenses, ABLE, SSDI estimate</small></span></summary>
-  <fieldset>
-    <div class="row">
-      <div class="field"><label for="med">Medical bills / mo</label><div class="money"><input type="number" id="med" min="0" step="1" value="60"></div></div>
-      <div class="field"><label for="care">Dependent care / mo</label><div class="money"><input type="number" id="care" min="0" step="1" value="0"></div></div>
-    </div>
-    <div class="field"><label for="irwe">Impairment-related work expenses</label><div class="money"><input type="number" id="irwe" min="0" step="1" value="0"></div><span class="hint">Disability costs you pay to be able to work (meds, rides, equipment)</span></div>
-    <div class="field"><label for="deps">Dependents under 18 (for housing rent)</label><input type="number" id="deps" min="0" max="10" value="0"></div>
-    <label class="check"><input type="checkbox" id="vtr"><span>Lives in someone else's home and they pay all shelter costs</span></label>
-    <div class="field"><label for="able">ABLE account balance</label><div class="money"><input type="number" id="able" min="0" step="1" value="0"></div></div>
-    <div class="field"><label for="aime">Average indexed monthly earnings (AIME)</label><div class="money"><input type="number" id="aime" min="0" step="1" value=""></div><span class="hint">From your Social Security statement. Leave blank to skip.</span></div>
-  </fieldset></details>
-
-  <div class="btns"><button type="button" class="primary" id="clear">Clear example</button><button type="button" class="copybtn" id="copy">Copy my results</button></div>
-  <span class="hint" id="copyhint">Your answers stay on this device. Nothing is sent anywhere.</span>
-</form>
-
-<section class="results" aria-live="polite">
-  <div class="summary" id="summary"></div>
-  <div class="toolbar"><button type="button" id="expandAll">Show all math</button></div>
-  <div id="cards" class="results"></div>
-  <!-- AD SLOT 2: in-feed rectangle between benefit cards (336×280 / 300×250). Sits outside the re-rendered cards so it never reloads while typing. -->
-  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
-  <div id="cards2" class="results"></div>
-  <details class="figs"><summary>Figures this calculator uses</summary><div class="tbl"><table id="figs"></table></div></details>
-</section>
-</div>
-</div>
-
-<div id="panel-va" role="tabpanel" aria-labelledby="tab-va" hidden>
-<div class="grid">
-<form class="panel" id="vf" autocomplete="off">
-  <div class="sample" id="vaSample">Example veteran loaded. Replace with your own details.</div>
-  <fieldset>
-    <legend>Your VA ratings</legend>
-    <span class="hint">Enter each rated condition separately. VA combines them with its own formula, not by adding.</span>
-    <div id="ratings" class="ratings"></div>
-    <div class="btns"><button type="button" id="addRating">Add a condition</button></div>
-  </fieldset>
-  <fieldset>
-    <legend>Dependents</legend>
-    <label class="check"><input type="checkbox" id="va-spouse" checked><span>Married</span></label>
-    <label class="check"><input type="checkbox" id="va-spaa"><span>Spouse needs aid and attendance</span></label>
-    <div class="row">
-      <div class="field"><label for="va-u18">Children under 18</label><input type="number" id="va-u18" min="0" max="12" value="1"></div>
-      <div class="field"><label for="va-school">Children 18–23 in school</label><input type="number" id="va-school" min="0" max="12" value="0"></div>
-    </div>
-    <div class="field"><label for="va-parents">Parents who depend on you</label>
-      <select id="va-parents"><option value="0" selected>None</option><option value="1">1 parent</option><option value="2">2 parents</option></select></div>
-    <span class="hint">Dependents raise compensation only at a 30% combined rating or higher.</span>
-  </fieldset>
-  <fieldset>
-    <legend>For Veterans Pension</legend>
-    <label class="check"><input type="checkbox" id="va-war" checked><span>Served at least 1 day during a wartime period (and 90+ days active duty)</span></label>
-    <label class="check"><input type="checkbox" id="va-dis" checked><span>Discharge other than dishonorable</span></label>
-    <div class="field"><label for="va-age">Age</label><input type="number" id="va-age" min="17" max="110" value="58"></div>
-    <label class="check"><input type="checkbox" id="va-pt"><span>Permanently and totally disabled, gets SSDI or SSI, or lives in a nursing home</span></label>
-    <div class="field"><label for="va-help">Daily help needed</label>
-      <select id="va-help"><option value="none" selected>None</option><option value="hb">Mostly stuck at home (Housebound)</option><option value="aa">Needs help bathing, dressing or eating (Aid and Attendance)</option></select></div>
-    <div class="field"><label for="va-inc">Household income per month</label><div class="money"><input type="number" id="va-inc" min="0" step="1" value="2400"></div><span class="hint">Wages, SSDI, retirement, spouse's income. Leave out SSI and VA disability pay.</span></div>
-    <div class="field"><label for="va-med">Out-of-pocket medical costs per month</label><div class="money"><input type="number" id="va-med" min="0" step="1" value="150"></div><span class="hint">Insurance premiums, Medicare Part B, in-home care, assisted living care costs</span></div>
-    <div class="field"><label for="va-nw">Assets</label><div class="money"><input type="number" id="va-nw" min="0" step="1" value="15000"></div><span class="hint">Savings, investments, property besides your home and car</span></div>
-  </fieldset>
-  <div class="btns"><button type="button" class="primary" id="vaClear">Clear example</button></div>
-</form>
-
-<section class="results" aria-live="polite">
-  <div class="summary" id="vaSummary"></div>
-  <div id="vaCards" class="results"></div>
-  <!-- AD SLOT 2b: in-feed rectangle in the VA panel. -->
-  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed-va">Ad · 336×280</div></aside>
-  <div id="vaCards2" class="results"></div>
-</section>
-</div>
-</div>
-
-
-<section class="prose faq" id="faq">
-  <h2>Common questions</h2><details id="how"><summary>How this calculator works</summary><div><ol>
-    <li>Pick Oregon or Washington and enter monthly income, rent and savings. The example person shows how it works; clear it to start fresh.</li>
-    <li>Each benefit runs on its own published formula: SSA rules for SSI and SSDI, USDA rules with state utility allowances for SNAP, OHA/ODHS or HCA standards for Medicaid, and HUD rules for rent.</li>
-    <li>Benefits affect each other. SSI counts as income for SNAP and housing, and getting SSI opens Medicaid and Extra Help, so the page calculates them in that order.</li>
-    <li>The VA tab works for veterans in any state. It combines your ratings the way VA does, looks up your monthly pay with dependents, and checks Veterans Pension against its income and asset limits.</li>
-    <li>Open "What it is and who qualifies" on any card for a plain explanation and the minimum requirements, and "Show the math" to check every step against the linked source.</li>
-  </ol></div></details>
-  <details><summary>How much SSI will I get if I work?</summary><p>SSI ignores the first $20 of any income, then $65 of earnings and half of the rest. With the 2026 rate of $994, each $2 you earn above $85 lowers SSI by about $1, so working always raises your total income.</p></details>
-  <details><summary>Can I work and keep SSDI?</summary><p>Yes. A month with gross earnings over $1,210 uses one of 9 trial work months, and SSDI keeps paying. After those 9 months, SSDI stops for months when earnings after work expenses are over $1,690 ($2,830 if blind), but restarts for months under it during the 36-month extended period.</p></details>
-  <details><summary>Will I lose Medicaid if I earn too much for SSI?</summary><p>Often not. Section 1619(b) keeps Medicaid for former SSI recipients earning under a state threshold ($47,856 in Oregon, $73,897 in Washington for 2026). Oregon's EPD and Washington's HWD programs also cover working people with disabilities at higher incomes for a monthly fee or premium.</p></details>
-  <details><summary>Does an ABLE account affect SSI or SNAP?</summary><p>The first $100,000 in an ABLE account doesn't count against SSI's $2,000 asset limit, and ABLE money doesn't count for Medicaid. Since January 2026, you qualify if your disability began before age 46.</p></details>
-  <details><summary>Why does my SNAP amount differ from my notice?</summary><p>Caseworkers use your exact utility type, verified bills, how income is timed in the month, and who counts as your household. Small differences in any of these change the result. Use the math view to see which number drives your estimate.</p></details>
-  <details><summary>How does the VA combine disability ratings?</summary><p>VA doesn't add ratings. It applies your largest rating first, then applies each next rating only to the part of you still counted as able, and rounds the total to the nearest 10%. A 50% and a 30% rating make 65%, which rounds to 70%. Conditions on both arms or both legs get a small extra "bilateral factor" this page doesn't add.</p></details>
-  <details><summary>Can I get VA disability and SSDI at the same time?</summary><p>Yes. VA disability compensation doesn't reduce SSDI, and SSDI doesn't reduce VA compensation. VA payments do count as income for SSI and SNAP, but not for adult Medicaid, because they aren't taxable.</p></details>
-  <details><summary>Can I get VA disability compensation and Veterans Pension together?</summary><p>No. If you qualify for both, VA pays whichever is higher. Compensation is usually higher once your rating is 30% or more.</p></details>
-  <details><summary>Do I have to pay someone to file a VA claim?</summary><p>No. Accredited veterans service officers file claims for free. In Oregon, start with ODVA or your county veterans service office; in Washington, WDVA. Be wary of companies that charge a share of your back pay.</p></details>
-  <details><summary>Is this an official eligibility decision?</summary><p>No. It is an estimate from published rules. Only the agency can decide, so apply even if the estimate says no.</p></details>
+<section class="why" aria-label="Why BenefitMath">
+  <div><h3>See how it's figured</h3><p>Open the math on any result to follow each step, from your income to the final amount.</p></div>
+  <div><h3>Built from official rules</h3><p>Formulas and dollar amounts come from SSA, VA, USDA, HUD, the IRS and Oregon and Washington agencies.</p></div>
+  <div><h3>Private by design</h3><p>Everything is calculated in your browser. No accounts, no sign-ups, nothing sent to us.</p></div>
 </section>
 
-
-<!-- AD SLOT 3: bottom leaderboard, after the content and before the footer. -->
-<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="bottom">Ad · 728×90</div></aside>
-
-<footer id="about">
+<footer>
   <div class="links site-links"><a href="about.html">About</a><a href="privacy.html">Privacy policy</a></div>
-  <p>An independent, free calculator. Not affiliated with the Social Security Administration, the Department of Veterans Affairs, ODHS, OHA, DSHS, HCA, USDA or HUD. Ads keep it free; we don't sell benefits help or ask for personal information. Results are estimates, not official decisions.</p>
-  <details><summary>Sources, privacy and fine print</summary><div>
-  <p>This is an estimate built from published federal and state rules, not an eligibility decision. Agencies look at details this page can't, like how income is timed, who you live with, and verified documents. Apply even if the estimate says no.</p>
-  <p>Rules last checked October 12, 2026. SNAP figures are federal fiscal year 2027 (Oct 2026 – Sep 2027). Washington's FY2027 utility allowances were not yet published, so its latest adopted amounts are used. VA compensation and pension rates are those effective December 1, 2025.</p>
-  <div class="links"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="#faq">FAQ</a><a href="https://benefits.oregon.gov/" target="_blank" rel="noopener">Apply in Oregon</a><a href="https://www.washingtonconnection.org/" target="_blank" rel="noopener">Apply in Washington</a><a href="https://www.va.gov/disability/how-to-file-claim/" target="_blank" rel="noopener">File a VA claim</a></div>
-  <p id="privacy"><b>Privacy:</b> <a href="privacy.html">Full privacy policy</a>. Everything you type is calculated in your browser and saved only on your device so it's there next time. Third-party ad partners may use cookies to show ads; see their policies for details.</p>
-  </div></details>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
 </footer>
 </div>
-
 <script>
 (function(){
-const R = {
-  FBR:994, FBR_COUPLE:1491, SSI_RES:2000, SSI_RES_COUPLE:3000, GEN_EX:20, EARN_EX:65, ABLE_SSI_EX:100000,
-  SGA:1690, SGA_BLIND:2830, TWP:1210, BEND1:1286, BEND2:7749,
-  T1619:{OR:47856, WA:73897},
-  SNAP_MAX:[306,562,808,1023,1217,1463,1616,1841], SNAP_MAX_ADD:225,
-  SNAP_STD:[217,217,217,229,268,308],
-  SNAP_NET:[1330,1804,2277,2750,3224,3697,4170,4644], SNAP_NET_ADD:474,
-  SNAP_BBCE:[2660,3607,4554,5500,6447,7394,8340,9287], SNAP_BBCE_ADD:947,
-  SNAP_SHELTER_CAP:769, SNAP_MIN:25, SNAP_ED_ASSET:4750, SNAP_MED_FLOOR:35,
-  UTIL:{OR:{heat:533,two:418,one:67,phone:84,none:0}, WA:{heat:515,two:406,one:0,phone:58,none:0}},
-  MAGI138:[1836,2489,3142,3795,4449,5102,5755,6408], MAGI138_ADD:654,
-  BRIDGE205:[2727,3697,4668,5638,6608,7579,8549,9519], BRIDGE_ADD:971,
-  EPD_STD:3325, EPD_RES:5000, EPD_FEES:[[998,0],[1330,50],[3325,100],[Infinity,150]],
-  WA_MNIL:994,
-  MSP_OR:{QMB:[1330,1804], SLMB:[1596,2164], QI:[1796,2435]},
-  MSP_WA:{QMB:[1463,1984], SLMB:[1596,2164], QI:[1835,2489]},
-  PARTB:202.90,
-  LIS_INC:[1995,2705], LIS_RES:[18090,36100],
-  ABLE_LIMIT:20000, ABLE_ONSET:46,
-  HUD_DEP:500, HUD_ED:550, HUD_MED_PCT:0.10
-};
-const SRC = {
-  cola:["SSA 2026 COLA fact sheet","https://www.ssa.gov/news/en/cola/factsheets/2026.html"],
-  ssiInc:["SSA: SSI income rules","https://www.ssa.gov/ssi/text-income-ussi.htm"],
-  ssiLiving:["SSA: SSI living arrangements","https://www.ssa.gov/ssi/text-living-ussi.htm"],
-  sga:["SSA: SGA amounts","https://www.ssa.gov/OACT/COLA/sga.html"],
-  twp:["SSA: Trial work period","https://www.ssa.gov/oact/COLA/twp.html"],
-  bend:["SSA: PIA bend points","https://www.ssa.gov/oact/cola/bendpoints.html"],
-  t1619:["SSA: 1619(b) thresholds","https://www.ssa.gov/disabilityresearch/wi/1619b.htm"],
-  snapCola:["USDA: SNAP FY2027 COLA memo","https://www.usda.gov/sites/default/files/guidance-documents/fna.snap-cola2027.pdf"],
-  orUtil:["OAR 461-160-0420 (utility allowances)","https://ch461rules.odhs.oregon.gov/rules/461-160-0420.pdf"],
-  waSnap:["WSR 26-02-071 (WA Basic Food)","https://lawfilesext.leg.wa.gov/Law/WSR/2026/02/26-02-071.htm"],
-  orStd:["ODHS 2026 income standards (PT-26-005)","https://www.oregon.gov/odhs/transmittals/oeptransmittals/pt26005.pdf"],
-  hwd:["WAC 182-511-1250 (HWD premium)","https://app.leg.wa.gov/wac/default.aspx?cite=182-511-1250"],
-  waMsp:["WAC 182-517-0100 (WA Medicare Savings)","https://www.hca.wa.gov/node/5501"],
-  fpl:["HHS 2026 poverty guidelines","https://aspe.hhs.gov/poverty-guidelines"],
-  lis:["SSA: Part D Extra Help","https://www.ssa.gov/medicare/part-d-extra-help"],
-  partb:["CMS 2026 Part B premium","https://www.cms.gov/newsroom/fact-sheets/2026-medicare-parts-b-premiums-deductibles"],
-  able:["ABLE National Resource Center","https://www.ablenrc.org/"],
-  hud:["HUD HOTMA 2026 inflation adjustments","https://www.huduser.gov/portal/sites/default/files/datasets/inflationary-adjustments/CY2026-Revised-Amounts-And-Passbook-Rate.pdf"]
-};
-
-const $ = id => document.getElementById(id);
-const num = id => { const v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
-const m2 = x => "$" + Number(x).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-const m0 = x => "$" + Math.round(x).toLocaleString("en-US");
-const byHH = (arr, add, n) => n <= arr.length ? arr[n-1] : arr[arr.length-1] + add*(n-arr.length);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-
-function read(){
-  return {
-    state: document.querySelector('input[name=state]:checked').value,
-    age: num("age"), hh: Math.max(1, Math.round(num("hh")) || 1),
-    disabled: $("disabled").checked, blind: $("blind").checked, married: $("married").checked, medicare: $("medicare").checked,
-    onset: $("onset").value === "" ? null : num("onset"),
-    earned: num("earned"), ss: num("ss"), va: num("va"), other: num("other"), irwe: num("irwe"),
-    rent: num("rent"), util: $("util").value, vtr: $("vtr").checked,
-    med: num("med"), care: num("care"), deps: Math.round(num("deps")),
-    res: num("res"), able: num("able"), aime: $("aime").value === "" ? null : num("aime")
-  };
-}
-
-/* SSI-method countable income: $20 general exclusion, then $65 + IRWE + one-half of remaining earnings */
-function ssiCountable(p){
-  const unearned = p.ss + p.va + p.other;
-  const genOnUnearned = Math.min(R.GEN_EX, unearned);
-  const cUnearned = unearned - genOnUnearned;
-  const genLeft = R.GEN_EX - genOnUnearned;
-  const afterGen = Math.max(0, p.earned - genLeft);
-  const after65 = Math.max(0, afterGen - R.EARN_EX);
-  const afterIrwe = Math.max(0, after65 - p.irwe);
-  const cEarned = afterIrwe / 2;
-  return {unearned, genOnUnearned, cUnearned, genLeft, afterGen, after65, afterIrwe, cEarned, total: cUnearned + cEarned};
-}
-
-function calcSSI(p){
-  const c = ssiCountable(p);
-  const std = p.vtr ? R.FBR * 2/3 : R.FBR;
-  const ableOver = Math.max(0, p.able - R.ABLE_SSI_EX);
-  const countRes = p.res + ableOver;
-  const resLimit = p.married ? R.SSI_RES_COUPLE : R.SSI_RES;
-  const raw = std - c.total;
-  const pay = Math.max(0, raw);
-  const eligCat = p.disabled || p.blind || p.age >= 65;
-  const steps = [
-    ["Unearned income (SSDI + VA + other)", m2(c.unearned)],
-    ["− $20 general exclusion", "−" + m2(c.genOnUnearned)],
-    ["= Countable unearned income", m2(c.cUnearned)],
-    ["Gross earnings", m2(p.earned)],
-    ["− unused part of $20 exclusion", "−" + m2(c.genLeft)],
-    ["− $65 earned income exclusion", "−" + m2(Math.min(R.EARN_EX, c.afterGen))],
-    ["− impairment-related work expenses", "−" + m2(Math.min(p.irwe, c.after65))],
-    ["÷ 2 (half of the rest is ignored)", m2(c.cEarned)],
-    ["Countable income (unearned + earned)", m2(c.total), "total"],
-    [p.vtr ? "2026 payment standard, reduced by one-third (" + m2(R.FBR) + " × ⅔)" : "2026 federal benefit rate", m2(std)],
-    ["− countable income", "−" + m2(c.total)],
-    ["= Estimated monthly SSI", m2(pay), "total"]
-  ];
-  const notes = [];
-  let status, summary;
-  if(!eligCat){ status="no"; summary="SSI requires age 65+, blindness, or a qualifying disability."; }
-  else if(countRes > resLimit){ status="no"; summary=`Countable assets of ${m0(countRes)} are over the ${m0(resLimit)} SSI limit. Moving savings into an ABLE account (first $100,000 excluded) can fix this.`; }
-  else if(pay <= 0){ status="warn"; summary="Your countable income is above the SSI rate, so no cash payment."; }
-  else { status="good"; summary = `About ${m2(pay)} a month.` + (p.earned>0?` Each extra $2 you earn lowers SSI by about $1, so working still raises your total income.`:""); }
-  const breakeven = 2*std + R.GEN_EX + R.EARN_EX + 2*p.irwe;
-  notes.push(`With no other income, SSI stops when wages reach about ${m0(breakeven)}/month (2 × the rate + $85).`);
-  if(p.married) notes.push("This page computes SSI for one person. Couples where both are eligible share a $1,491 rate, and a non-eligible spouse's income can be 'deemed' to you.");
-  if(p.vtr) notes.push("The one-third reduction applies when someone else provides all your shelter. Paying your share of rent avoids it.");
-  if(ableOver>0) notes.push(`ABLE balance over $100,000 (${m0(ableOver)}) counts as a resource for SSI.`);
-  notes.push("Food you receive no longer counts against SSI (since Sept 30, 2024).");
-  const stateNote = p.state==="OR"
-    ? "Oregon pays no general state supplement on top of SSI. A small OSIP add-on exists for some people in specific care settings."
-    : "Washington's state supplement is paid by DSHS only to certain groups, so it is not added here.";
-  notes.push(stateNote);
-  return {id:"ssi", title:"Supplemental Security Income (SSI)", scope:"Federal · SSA", status, summary,
-    amount: eligCat && countRes<=resLimit ? pay : 0, amtLabel:"per month", money:true,
-    steps, notes, sources:[SRC.ssiInc, SRC.cola, SRC.ssiLiving], countable:c, raw};
-}
-
-function calcSSDI(p){
-  const sga = p.blind ? R.SGA_BLIND : R.SGA;
-  const countable = Math.max(0, p.earned - p.irwe);
-  const steps = [
-    ["Gross monthly earnings", m2(p.earned)],
-    ["− impairment-related work expenses", "−" + m2(Math.min(p.irwe,p.earned))],
-    ["= Earnings SSA compares", m2(countable), "total"],
-    ["Trial work month threshold (2026)", m2(R.TWP)],
-    [`Substantial gainful activity limit${p.blind?" (blind)":""}`, m2(sga)]
-  ];
-  let pia = null;
-  if(p.aime !== null && p.aime > 0){
-    const a = p.aime;
-    const s1 = 0.9 * Math.min(a, R.BEND1);
-    const s2 = 0.32 * Math.max(0, Math.min(a, R.BEND2) - R.BEND1);
-    const s3 = 0.15 * Math.max(0, a - R.BEND2);
-    pia = Math.floor((s1+s2+s3)*10)/10;
-    steps.push(["AIME you entered", m2(a)]);
-    steps.push([`90% of first ${m0(R.BEND1)}`, m2(s1)]);
-    steps.push([`+ 32% of AIME from ${m0(R.BEND1)} to ${m0(R.BEND2)}`, m2(s2)]);
-    steps.push([`+ 15% of AIME over ${m0(R.BEND2)}`, m2(s3)]);
-    steps.push(["= Primary insurance amount (rounded down to the dime)", m2(pia), "total"]);
-  }
-  let status, summary;
-  if(p.earned === 0){ status="info"; summary="No earnings entered, so no work months are used."; }
-  else if(countable > sga){ status="warn"; summary=`Earnings are over the ${m0(sga)} SGA limit. During the 9-month trial work period you keep SSDI. After it, months over SGA can stop your check.`; }
-  else if(p.earned > R.TWP){ status="warn"; summary=`This month counts as one of your 9 trial work months (earnings over ${m0(R.TWP)}). SSDI continues.`; }
-  else { status="good"; summary=`Under ${m0(R.TWP)}, so the month does not use a trial work month. SSDI is not affected.`; }
-  const notes = [
-    "SSDI has no asset limit and no household income test.",
-    "Trial work months: 9 within any rolling 60 months. After that, a 36-month extended period lets you get SSDI for any month you're under SGA.",
-    "The trial work threshold uses gross earnings. SGA uses earnings after IRWE and subsidies.",
-    pia!==null ? "The PIA formula here uses 2026 bend points, which apply if you became disabled in 2026. Earlier onset years use that year's bend points plus COLAs." : "Add your AIME above to estimate your SSDI amount with the 2026 benefit formula."
-  ];
-  return {id:"ssdi", title:"SSDI: work limits and benefit estimate", scope:"Federal · SSA", status, summary,
-    amount: pia, amtLabel: pia!==null ? "est. benefit" : "", money: pia!==null,
-    steps, notes, sources:[SRC.sga, SRC.twp, SRC.bend]};
-}
-
-function calcSNAP(p, s, ssiAmt){
-  const n = p.hh;
-  const ed = p.disabled || p.blind || p.age >= 60;
-  const gross = p.earned + p.ss + p.va + p.other + ssiAmt;
-  const bbce = byHH(R.SNAP_BBCE, R.SNAP_BBCE_ADD, n);
-  const netLim = byHH(R.SNAP_NET, R.SNAP_NET_ADD, n);
-  const maxA = byHH(R.SNAP_MAX, R.SNAP_MAX_ADD, n);
-  const std = R.SNAP_STD[Math.min(n,6)-1];
-  const earnDed = 0.2 * p.earned;
-  const medDed = ed ? Math.max(0, p.med - R.SNAP_MED_FLOOR) : 0;
-  const adj = Math.max(0, gross - earnDed - std - medDed - p.care);
-  const ua = R.UTIL[s][p.util];
-  const shelter = p.rent + ua;
-  const half = adj / 2;
-  const excessRaw = Math.max(0, shelter - half);
-  const excess = ed ? excessRaw : Math.min(excessRaw, R.SNAP_SHELTER_CAP);
-  const net = Math.max(0, adj - excess);
-  const thirty = Math.ceil(0.3 * net);
-  let ben = Math.max(0, maxA - thirty);
-  let path, elig;
-  if(gross <= bbce){ elig = true; path = `Gross income ${m0(gross)} is at or under ${m0(bbce)} (200% of poverty), so ${s==="OR"?"Oregon":"Washington"}'s broad-based eligibility applies and there is no asset test.`; }
-  else if(ed && net <= netLim && p.res <= R.SNAP_ED_ASSET){ elig = true; path = `Gross income is over 200% of poverty, but households with an elderly or disabled member only need net income under ${m0(netLim)} and assets under ${m0(R.SNAP_ED_ASSET)}.`; }
-  else { elig = false; path = ed ? `Gross income is over ${m0(bbce)} and net income or assets are over the elderly/disabled limits (${m0(netLim)} net, ${m0(R.SNAP_ED_ASSET)} assets).` : `Gross income is over ${m0(bbce)} (200% of poverty).`; }
-  if(elig && n <= 2 && ben < R.SNAP_MIN && net <= netLim) ben = R.SNAP_MIN;
-  if(!elig) ben = 0;
-  const utilName = {heat:"heating/cooling allowance", two:"limited utility allowance", one:"single utility allowance", phone:"telephone allowance", none:"no utility allowance"}[p.util];
-  const steps = [
-    ["Gross income (wages + SSDI + VA + other + SSI)", m2(gross)],
-    ["− 20% of earnings", "−" + m2(earnDed)],
-    [`− standard deduction (${n} ${n===1?"person":"people"})`, "−" + m0(std)],
-    [ed ? "− medical costs over $35 (elderly/disabled member)" : "− medical deduction (only for elderly/disabled)", "−" + m0(medDed)],
-    ["− dependent care", "−" + m0(p.care)],
-    ["= Adjusted income", m2(adj), "total"],
-    ["Rent or mortgage", m0(p.rent)],
-    [`+ ${s} ${utilName}`, m0(ua)],
-    ["= Shelter costs", m0(shelter), "total"],
-    ["− half of adjusted income", "−" + m2(half)],
-    [ed ? "= Excess shelter deduction (no cap: elderly/disabled)" : `= Excess shelter deduction (cap ${m0(R.SNAP_SHELTER_CAP)})`, m2(excess), "total"],
-    ["Adjusted income − excess shelter = Net income", m2(net)],
-    ["30% of net income (rounded up)", m0(thirty)],
-    [`Maximum benefit for ${n}`, m0(maxA)],
-    ["= Estimated SNAP", m0(ben), "total"]
-  ];
-  const notes = [path];
-  if(n<=2) notes.push(`1–2 person households that qualify get at least ${m0(R.SNAP_MIN)}.`);
-  if(s==="WA") notes.push("Washington calls SNAP 'Basic Food.' Its FY2027 utility allowances weren't published yet; the latest adopted amounts ($515 / $406 / $58) are used, and WA gives no allowance for a single non-phone utility.");
-  else notes.push("Oregon utility allowances effective Oct 1, 2026: $533 heating/cooling, $418 limited, $67 single utility, $84 phone.");
-  notes.push("Under the 2025 federal law (H.R. 1), adults 18–64 without children under 14 face work rules unless exempt. A disability that limits work is an exemption.");
-  const status = !elig ? "no" : ben > 0 ? "good" : "warn";
-  const summary = !elig ? "Likely not eligible at this income." : ben>0 ? `About ${m0(ben)} a month in food benefits.` : "Eligible on paper, but the formula gives $0 at this income.";
-  return {id:"snap", title: s==="WA" ? "SNAP (Basic Food)" : "SNAP food benefits", scope:`Federal rules · ${s==="OR"?"ODHS":"DSHS"}`, status, summary,
-    amount: ben, amtLabel:"per month", money:true, steps, notes, sources:[SRC.snapCola, s==="OR"?SRC.orUtil:SRC.waSnap, SRC.orStd]};
-}
-
-function calcMedicaid(p, s, ssi){
-  const n = p.hh;
-  const items = []; const steps = []; const notes = [];
-  let status = "no", summary = "", amount = null, amtLabel = "";
-  const workingAge = p.age >= 19 && p.age <= 64 && !p.medicare;
-  const magiInc = p.earned + p.ss + p.other;
-  const lim138 = byHH(R.MAGI138, R.MAGI138_ADD, n);
-  const annualEarn = p.earned * 12;
-  const thr = R.T1619[s];
-  const ssiOK = ssi.status === "good";
-  steps.push(["Receives SSI cash (from the SSI card)", ssiOK ? "Yes" : "No"]);
-  if(ssiOK){ items.push("SSI recipients get Medicaid automatically"); status="good"; }
-  if(!ssiOK && (p.disabled||p.blind) && ssi.raw <= 0 && p.earned > 0 && ssi.countable.cUnearned < (p.vtr ? R.FBR*2/3 : R.FBR) && p.res + Math.max(0,p.able-R.ABLE_SSI_EX) <= (p.married?R.SSI_RES_COUPLE:R.SSI_RES)){
-    steps.push(["Annual gross earnings", m0(annualEarn)]);
-    steps.push([`${s} 1619(b) threshold (2026)`, m0(thr)]);
-    if(annualEarn < thr){ items.push("1619(b): keep Medicaid while working (if you got SSI for at least 1 month)"); if(status!=="good") status="good"; }
-  }
-  if(workingAge){
-    steps.push(["MAGI income (wages + Social Security + other; VA pay is excluded)", m0(magiInc)]);
-    steps.push([`Adult Medicaid limit, ~138% of poverty, ${n} ${n===1?"person":"people"}`, m0(lim138)]);
-    if(magiInc <= lim138){ items.push(s==="OR" ? "OHP Plus (adult Medicaid) by income" : "Apple Health for adults by income"); status="good"; }
-    else if(s==="OR"){
-      const lb = byHH(R.BRIDGE205, R.BRIDGE_ADD, n);
-      steps.push(["OHP Bridge upper limit (~205% of poverty)", m0(lb)]);
-      if(magiInc <= lb){ items.push("OHP Bridge (free coverage, 138–200% of poverty)"); status="good"; }
-    }
-  } else {
-    steps.push(["Adult (MAGI) Medicaid", p.medicare ? "Not available with Medicare" : "Ages 19–64 only"]);
-  }
-  /* Buy-in programs for workers with disabilities */
-  if((p.disabled||p.blind) && p.earned > 0){
-    if(s==="OR"){
-      const adjE = Math.max(0, (p.earned - R.GEN_EX - R.EARN_EX - p.irwe)/2);
-      const fee = R.EPD_FEES.find(f => ssi.countable.total < f[0])[1];
-      steps.push(["EPD: (earnings − $20 − $65 − IRWE) ÷ 2", m2(adjE)]);
-      steps.push(["EPD adjusted income limit (250% of poverty)", m0(R.EPD_STD)]);
-      steps.push(["EPD countable income for the fee", m2(ssi.countable.total)]);
-      steps.push(["EPD monthly participant fee", m0(fee)]);
-      const resOK = p.res <= R.EPD_RES;
-      if(!resOK) steps.push(["EPD asset limit", `${m0(R.EPD_RES)} (you're over)`]);
-      if(adjE <= R.EPD_STD && resOK){ items.push(`Employed Persons with Disabilities (EPD), fee ${m0(fee)}/mo`); if(status!=="good") status="good"; if(!ssiOK && !items.some(i=>i.startsWith("OHP"))){ amount=fee; amtLabel="EPD fee/mo"; } }
-      notes.push("EPD ignores unearned income (like SSDI) for eligibility and lets you have up to $5,000 in countable assets.");
-    } else {
-      const unearned = p.ss + p.va + p.other;
-      const a1 = 0.5*Math.max(0, unearned - R.WA_MNIL), a2 = 0.05*unearned, a3 = 0.025*Math.max(0, p.earned - 65);
-      const A = Math.floor(a1+a2+a3);
-      const B = Math.floor(0.075*(p.earned + unearned));
-      const prem = Math.min(A,B);
-      steps.push([`HWD option A: 50% of unearned over ${m0(R.WA_MNIL)}`, m2(a1)]);
-      steps.push(["  + 5% of all unearned income", m2(a2)]);
-      steps.push(["  + 2.5% of earnings over $65", m2(a3)]);
-      steps.push(["  = Option A (rounded down)", m0(A)]);
-      steps.push(["HWD option B: 7.5% of total income", m0(B)]);
-      steps.push(["HWD premium (the smaller one)", m0(prem), "total"]);
-      items.push(`Apple Health for Workers with Disabilities (HWD), premium ${m0(prem)}/mo`);
-      if(status!=="good") status="good";
-      if(!ssiOK && !items.some(i=>i.startsWith("Apple Health for adults"))){ amount=prem; amtLabel="HWD premium/mo"; }
-      notes.push("HWD has no income or asset limit. You need a disability and a job (including self-employment).");
-    }
-  }
-  if(items.length){ summary = "Likely options: " + items.join("; ") + "."; }
-  else { summary = "No Medicaid path found from these numbers. Medically needy (spend-down) coverage may still help with large medical bills."; status = p.medicare ? "warn" : "no"; }
-  notes.push("Starting in 2027, some adults in expansion Medicaid must report work hours. People with disabilities are generally exempt.");
-  const srcs = [SRC.orStd, SRC.t1619]; if(s==="WA") srcs.splice(0,1,SRC.hwd, SRC.t1619);
-  return {id:"medicaid", title: s==="OR" ? "Medicaid (Oregon Health Plan)" : "Medicaid (Apple Health)", scope: s==="OR"?"Oregon · OHA/ODHS":"Washington · HCA", status, summary, amount, amtLabel, money: amount!==null, steps, notes, sources: s==="OR" ? [SRC.orStd, SRC.t1619] : [SRC.hwd, SRC.t1619, SRC.fpl]};
-}
-
-function calcMSP(p, s, ssi){
-  if(!p.medicare) return {id:"msp", title:"Medicare Savings Program", scope:"Federal · state-run", status:"info", summary:"Only for people with Medicare. Turn on 'Has Medicare' to check.", amount:null, steps:[], notes:["SSDI recipients get Medicare after 24 months of benefits."], sources:[s==="OR"?SRC.orStd:SRC.waMsp]};
-  const k = p.married ? 1 : 0;
-  const T = s==="OR" ? R.MSP_OR : R.MSP_WA;
-  const c = ssi.countable.total;
-  const steps = [
-    ["Countable income (same exclusions as SSI)", m2(c)],
-    [`QMB limit (${s==="OR"?"100%":"110%"} of poverty)`, m0(T.QMB[k])],
-    ["SLMB limit (120%)", m0(T.SLMB[k])],
-    [`QI limit (${s==="OR"?"135%":"138%"})`, m0(T.QI[k])]
-  ];
-  let level = c <= T.QMB[k] ? "QMB" : c <= T.SLMB[k] ? "SLMB" : c <= T.QI[k] ? "QI" : null;
-  const what = {QMB:"pays your Part B premium plus Medicare deductibles and copays", SLMB:"pays your Part B premium", QI:"pays your Part B premium"};
-  if(level) steps.push(["Part B premium saved (2026)", m2(R.PARTB), "total"]);
-  const notes = [s==="WA" ? "Washington has no asset limit for these programs." : "Oregon checks income using these standards (effective March 1, 2026).", "Anyone in a Medicare Savings Program also qualifies for Extra Help automatically."];
-  return {id:"msp", title:"Medicare Savings Program", scope:`Federal · ${s==="OR"?"ODHS":"HCA"}`, status: level?"good":"no",
-    summary: level ? `${level} likely: ${what[level]}.` : "Income is over the QI limit.", amount: level?R.PARTB:0, amtLabel:"saved/mo", money:true, steps, notes, sources:[s==="OR"?SRC.orStd:SRC.waMsp, SRC.partb]};
-}
-
-function calcLIS(p, ssi, msp, mcd){
-  if(!p.medicare) return {id:"lis", title:"Extra Help (Part D)", scope:"Federal · SSA", status:"info", summary:"Only for people with Medicare.", amount:null, steps:[], notes:[], sources:[SRC.lis]};
-  const k = p.married?1:0;
-  const auto = ssi.status==="good" || msp.status==="good" || mcd.status==="good";
-  const c = ssi.countable.total, resC = p.res;
-  const steps = [["Automatic through SSI, Medicaid, or an MSP", auto?"Yes":"No"],["Countable income", m2(c)],["Income limit (150% of poverty)", m0(R.LIS_INC[k])],["Resources", m0(resC)],["Resource limit (2026)", m0(R.LIS_RES[k])]];
-  const ok = auto || (c <= R.LIS_INC[k] && resC <= R.LIS_RES[k]);
-  return {id:"lis", title:"Extra Help (Part D)", scope:"Federal · SSA", status: ok?"good":"no",
-    summary: ok ? "Likely eligible: $0 Part D deductible and premium (up to the benchmark), with 2026 copays capped at $5.10 generic / $12.65 brand." : "Over the income or resource limit.",
-    amount:null, steps, notes:["Since 2024 everyone who qualifies gets the full subsidy."], sources:[SRC.lis]};
-}
-
-function calcABLE(p){
-  const steps = [["Age disability began", p.onset===null ? "not entered" : String(p.onset)],["2026 onset rule", `before age ${R.ABLE_ONSET}`],["2026 contribution limit (all sources)", m0(R.ABLE_LIMIT)],["Excluded from SSI assets", m0(R.ABLE_SSI_EX)]];
-  const ok = p.onset !== null && p.onset < R.ABLE_ONSET && (p.disabled || p.blind);
-  return {id:"able", title:"ABLE savings account", scope:"Federal · Oregon ABLE / WA ABLE", status: ok?"good":(p.onset===null?"info":"no"),
-    summary: ok ? `You can likely open one and save up to ${m0(R.ABLE_LIMIT)} a year without hurting SSI or Medicaid.` : p.onset===null ? "Enter the age your disability began." : "ABLE requires a disability that began before age 46.",
-    amount:null, steps, notes:["The onset age rose from 26 to 46 on January 1, 2026.","Workers without an employer retirement plan can put in extra (ABLE to Work).","Oregon's plan is Oregon ABLE Savings. Washington's is WA ABLE."], sources:[SRC.able]};
-}
-
-function calcHUD(p, ssiAmt){
-  const annual = 12*(p.earned + p.ss + p.va + p.other + ssiAmt);
-  const ed = p.disabled || p.blind || p.age >= 62;
-  const depDed = R.HUD_DEP * p.deps;
-  const edDed = ed ? R.HUD_ED : 0;
-  const medAnnual = 12*p.med;
-  const medDed = ed ? Math.max(0, medAnnual - R.HUD_MED_PCT*annual) : 0;
-  const careDed = 12*p.care;
-  const adj = Math.max(0, annual - depDed - edDed - medDed - careDed);
-  const t30 = 0.3*adj/12, t10 = 0.1*annual/12;
-  const ttp = Math.max(t30, t10);
-  const steps = [
-    ["Annual income incl. SSI (monthly × 12)", m0(annual)],
-    [`− ${m0(R.HUD_DEP)} per dependent × ${p.deps}`, "−"+m0(depDed)],
-    [ed ? "− elderly/disabled family deduction" : "− elderly/disabled deduction (not applicable)", "−"+m0(edDed)],
-    [ed ? "− medical costs over 10% of income" : "− medical deduction (elderly/disabled only)", "−"+m0(medDed)],
-    ["− child care", "−"+m0(careDed)],
-    ["= Adjusted annual income", m0(adj), "total"],
-    ["30% of adjusted income ÷ 12", m2(t30)],
-    ["10% of gross income ÷ 12", m2(t10)],
-    ["Your share of rent + utilities (the larger)", m2(ttp), "total"]
-  ];
-  return {id:"hud", title:"Housing voucher or public housing rent", scope:"Federal · HUD / local housing authority", status:"info",
-    summary:`If you have a Section 8 voucher or public housing, you'd pay about ${m0(ttp)} a month toward rent and utilities.`,
-    amount: ttp, amtLabel:"your share/mo", money:true, steps,
-    notes:["Uses HOTMA rules that public housing and vouchers follow in 2026. Project-based Section 8 buildings use $480 / $400 / 3% until January 2027.","Housing authorities may set a minimum rent up to $50. Waitlists are long, so apply early."], sources:[SRC.hud]};
-}
-
-function stateExtras(s, p){
-  if(s==="OR") return {id:"state", title:"Also check in Oregon", scope:"Oregon · ODHS", status:"info", summary:"Programs this page doesn't calculate:", amount:null, steps:[], notes:[
-    "Developmental disability services (ODDS) through your county DD program or brokerage: in-home support, employment services, no income test for many services.",
-    "OHP Plus also covers dental and non-emergency medical rides.",
-    "Oregon Lifeline phone/internet discount if you get SNAP or Medicaid.",
-    "Apply for most programs at benefits.oregon.gov or call 1-800-699-9075."], sources:[["Oregon ONE benefits portal","https://benefits.oregon.gov/"]]};
-  return {id:"state", title:"Also check in Washington", scope:"Washington · DSHS/HCA", status:"info", summary:"Programs this page doesn't calculate:", amount:null, steps:[], notes:[
-    "ABD cash assistance: monthly cash for adults with a disability while an SSI application is pending (paid back from retro SSI).",
-    "Housing and Essential Needs (HEN) referral for rent help if you're on ABD or can't work for 90+ days.",
-    "DDA services for developmental disabilities, through DSHS.",
-    "Apply at washingtonconnection.org or call 877-501-2233."], sources:[["Washington Connection","https://www.washingtonconnection.org/"]]};
-}
-
-function card(c){
-  const chipTxt = {good:"Likely", warn:"Partial / check", no:"Unlikely", info:"Info"}[c.status];
-  const cents = ["ssdi","ssi","msp","hud","va-comp","va-pension"].includes(c.id);
-  const amt = c.amtText ? `<div class="amt">${esc(c.amtText)}<small>${esc(c.amtLabel||"")}</small></div>`
-    : c.money && c.amount!==null && c.amount!==undefined ? `<div class="amt">${cents?m2(c.amount):m0(c.amount)}<small>${esc(c.amtLabel)}</small></div>` : `<div></div>`;
-  const ab = ABOUT[c.id];
-  const about = ab ? `<details class="about" data-id="about-${c.id}"><summary>What it is and who qualifies</summary><div class="aboutin"><p>${esc(ab.what)}</p><h4>Minimum requirements</h4><ul>${ab.req.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div></details>` : "";
-  const rows = c.steps.map(r=>`<tr${r[2]?' class="total"':''}><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("");
-  const notes = c.notes.length ? `<ul class="notes">${c.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>` : "";
-  const src = `<div class="src">Sources: ${c.sources.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a>`).join("")}</div>`;
-  const math = c.steps.length ? `<details class="math" data-id="${c.id}"><summary>Show the math</summary><div class="mathin"><div class="tbl"><table>${rows}</table></div>${notes}${src}</div></details>` : `<div class="body">${notes}${src}</div>`;
-  return `<article class="card st-${c.status}" id="card-${c.id}"><div class="head"><div><div class="scope">${esc(c.scope)}</div><h3>${esc(c.title)}</h3></div>${amt}</div><div class="body"><span class="chip ${c.status}">${chipTxt}</span><p>${esc(c.summary)}</p>${c.extra||""}</div>${about}${math}</article>`;
-}
-
-
-const ABOUT = {
-  ssi:{what:"Monthly cash from Social Security for people with very little income and savings who are 65 or older, blind, or disabled. In most states it also comes with Medicaid.",
-    req:["Age 65+, legally blind, or disabled by Social Security's definition: you can't do substantial work and the condition is expected to last 12+ months or end in death","Countable savings and assets of $2,000 or less ($3,000 for a couple); your home and one car don't count","Countable income below the $994 monthly rate after the exclusions in the math","U.S. citizen or qualifying noncitizen, living in the U.S., and you must apply for other benefits you may qualify for"]},
-  ssdi:{what:"Monthly payments from Social Security for workers who can no longer work because of a disability. The amount comes from your past earnings, and Medicare starts after 24 months of payments.",
-    req:["Enough work credits: usually 40, with 20 earned in the last 10 years (fewer if you're young)","A condition that keeps you from earning over $1,690 a month ($2,830 if blind) for 12+ months, or is expected to end in death","Under full retirement age","A 5-month waiting period before the first payment; there is no asset or household income limit"]},
-  snap:{what:"Monthly money for groceries on an EBT card, run by ODHS in Oregon and DSHS (Basic Food) in Washington.",
-    req:["Gross household income at or under 200% of poverty, with no asset test, in Oregon and Washington","If over that: a household with someone elderly or disabled can still qualify with net income under 100% of poverty and assets under $4,750","Live in the state and give a Social Security number for each person applying; citizens and many lawful noncitizens qualify","Adults 18–64 without children under 14 must meet work rules unless exempt; a disability that limits work is an exemption"]},
-  medicaid:{what:"Free or low-cost health coverage: the Oregon Health Plan (OHP) or Washington Apple Health. Covers doctors, hospital, prescriptions, mental health and, in Oregon, dental and rides to appointments.",
-    req:["Live in Oregon or Washington","Qualify through one path: getting SSI; adults 19–64 with income up to about 138% of poverty; Oregon's OHP Bridge up to about 200%","Working people with a disability can buy in at higher income: Oregon EPD (income after deductions up to 250% of poverty, assets up to $5,000) or Washington HWD (no income or asset limit, monthly premium)","Former SSI recipients who earn too much for SSI can keep Medicaid under 1619(b)"]},
-  msp:{what:"The state pays your Medicare Part B premium ($202.90 a month in 2026). The QMB level also covers Medicare deductibles and copays.",
-    req:["Have Medicare Part A (or be eligible for it)","Countable income under the QMB, SLMB or QI limit shown in the math","QI is first-come, first-served each year and can't be combined with Medicaid"]},
-  lis:{what:"Extra Help (the Low-Income Subsidy) lowers Medicare Part D drug costs: no deductible, no premium for a benchmark plan, and small fixed copays.",
-    req:["Have Medicare and live in the U.S.","Income up to 150% of poverty ($1,995 a month for one person in 2026)","Resources up to $18,090 ($36,100 for a couple)","Automatic if you get Medicaid, SSI or a Medicare Savings Program"]},
-  able:{what:"A tax-advantaged savings account for people with disabilities. Money in it doesn't count against SSI (first $100,000) or Medicaid, and can pay for housing, transportation, education, health and other disability-related costs.",
-    req:["Disability or blindness that began before age 46 (raised from 26 on January 1, 2026)","Either get SSI or SSDI because of that disability, or have a signed disability certification","One ABLE account per person; total contributions up to $20,000 a year","Oregon residents can use Oregon ABLE Savings; Washington residents can use WA ABLE"]},
-  hud:{what:"Housing Choice Vouchers (Section 8) and public housing cap your share of rent and utilities at about 30% of adjusted income. The housing authority pays the rest to the landlord.",
-    req:["Household income generally at or below 50% of area median income; most vouchers go to households at 30% or below","At least one household member is a U.S. citizen or has eligible immigration status","Pass the housing authority's screening, and assets under the federal limit","Get through the local waitlist, which is often closed or years long"]},
-  "va-rating":{what:"VA rates each service-connected condition from 0% to 100%, then combines them into one rating with its own formula. The combined rating sets your monthly compensation and VA health care priority.",
-    req:["A current diagnosed condition","An event, injury or illness during service","A medical link (nexus) between the two"]},
-  "va-comp":{what:"Tax-free monthly pay for conditions caused or worsened by military service. There's no income or asset limit, and you can work full time and still get it.",
-    req:["A combined service-connected rating of at least 10%","Discharge other than dishonorable","Extra pay for a spouse, children and dependent parents starts at a 30% combined rating"]},
-  "va-pension":{what:"A needs-based monthly payment for low-income wartime veterans who are older or permanently disabled. Higher rates apply if you need help from another person (Aid and Attendance) or are mostly stuck at home (Housebound).",
-    req:["At least 90 days of active duty with at least 1 day during a wartime period (24 months or your full call-up if you entered after September 7, 1980)","Discharge other than dishonorable","Age 65+, or permanently and totally disabled, or getting SSDI or SSI, or living in a nursing home","Yearly countable income below the pension limit, and net worth (assets + yearly income) under $163,699; VA looks back 3 years at asset transfers"]},
-  "va-health":{what:"VA medical care at VA facilities and approved community providers. Your priority group decides copays; groups 1–3 pay little or nothing for care related to service.",
-    req:["Served 24 continuous months, or the full period you were called to active duty (exceptions for service-connected discharges and some others)","Discharge other than dishonorable","Enrollment through VA; a service-connected rating, VA pension or low income raises your priority"]}
-};
-
-let lastSummary = null;
-function render(){
-  const p = read(); const s = p.state;
-  const open = new Set([...document.querySelectorAll("#panel-dis details[data-id][open]")].map(d=>d.dataset.id));
-  const ssi = calcSSI(p), ssdi = calcSSDI(p), snap = calcSNAP(p,s,ssi.amount||0), mcd = calcMedicaid(p,s,ssi), msp = calcMSP(p,s,ssi), lis = calcLIS(p,ssi,msp,mcd), able = calcABLE(p), hud = calcHUD(p, ssi.amount||0);
-  const list = [ssi, snap, mcd, ssdi, msp, lis, able, hud, stateExtras(s,p)];
-  $("cards").innerHTML = list.slice(0,3).map(card).join("");
-  $("cards2").innerHTML = list.slice(3).map(card).join("");
-  lastSummary = {p, list};
-  document.querySelectorAll("#panel-dis details[data-id]").forEach(d=>{ if(open.has(d.dataset.id)) d.open = true; });
-  const income = p.earned + p.ss + p.va + p.other;
-  const cash = ssi.amount || 0, food = snap.amount || 0;
-  const cov = [mcd, msp, lis].filter(c=>c.status==="good").map(c=>c.title);
-  $("summary").innerHTML = `<h2>${s==="OR"?"Oregon":"Washington"} estimate</h2>
-    <div class="totals">
-      <div class="tot"><b>${m0(income)}</b><span>Your income</span></div>
-      <div class="tot"><b>${m0(cash)}</b><span>SSI cash</span></div>
-      <div class="tot"><b>${m0(food)}</b><span>SNAP food</span></div>
-      <div class="tot"><b>${m0(income+cash+food)}</b><span>Monthly total</span></div>
-    </div>
-    <div class="covlist">${cov.length ? cov.map(t=>`<span class="chip good">${esc(t)}</span>`).join("") : `<span class="chip no">No health coverage path found</span>`}</div>`;
-}
-
-function figs(){
-  const rows = [
-    ["SSI federal benefit rate (individual / couple)","$994 / $1,491","The most SSI pays each month before any income is subtracted. The couple amount applies when both spouses qualify."],
-    ["SSI resource limit","$2,000 / $3,000","Countable savings and property must stay at or under this on the 1st of each month. Your home, one car and up to $100,000 in an ABLE account don't count."],
-    ["SGA (non-blind / blind)","$1,690 / $2,830","Substantial gainful activity: after your trial work period, SSDI usually stops for any month you earn more than this. The limit is higher if you are blind."],
-    ["Trial work month","$1,210","Any month you earn more than this uses one of your 9 trial work months. SSDI keeps paying in full during them, so you can test working."],
-    ["PIA bend points","$1,286 / $7,749","Breakpoints in the SSDI payment formula. SSA pays 90% of your average monthly earnings up to the first, 32% up to the second, and 15% above that."],
-    ["1619(b) threshold (OR / WA)","$47,856 / $73,897","If work earnings stop your SSI check, you can usually keep Medicaid while your yearly earnings stay under your state's amount."],
-    ["SNAP max, 1 person (FY2027)","$306","The most a one-person household can get. Your benefit is this amount minus 30% of your net income."],
-    ["SNAP standard deduction, 1–3 people","$217","Taken off every household's income before SNAP is figured, no receipts needed."],
-    ["SNAP shelter cap","$769","The most SNAP will deduct for high housing costs. Households with an elderly or disabled member have no cap."],
-    ["SNAP minimum benefit","$25","Eligible households of 1 or 2 people get at least this much each month."],
-    ["OR utility allowances (heat / limited / single / phone)","$533 / $418 / $67 / $84","Flat amounts Oregon SNAP counts for utility costs instead of your actual bills. Paying for heat or cooling gets the highest one."],
-    ["WA utility allowances (heat / limited / phone)","$515 / $406 / $58","Flat amounts Washington SNAP counts for utility costs instead of your actual bills. Paying for heat or cooling gets the highest one."],
-    ["Poverty guideline, 1 person (2026)","$15,960 / yr","A yardstick many programs use. Limits are often a percentage of it, like Medicaid at 138%."],
-    ["OR EPD adjusted income limit","$3,325 / mo","Oregon's Employed Persons with Disabilities program lets you keep Medicaid while working if your adjusted income is under this. You may owe a small monthly cost share."],
-    ["Medicare Part B premium","$202.90","The standard monthly cost of Medicare Part B, usually taken from your Social Security check. A Medicare Savings Program can pay it for you."],
-    ["Extra Help limits (individual)","$1,995 / mo, $18,090 assets","If your income and assets are under these, Extra Help lowers what you pay for Medicare prescription drugs."],
-    ["ABLE annual contribution / onset age","$20,000 / before 46","The most that can go into an ABLE account each year. To open one, your disability must have started before age 46."],
-    ["HUD deductions (dependent / elderly-disabled)","$500 / $550","Taken off yearly income before HUD sets rent at about 30% of what's left: one per dependent, plus one if the head or spouse is elderly or disabled."]
-  ];
-  $("figs").innerHTML = rows.map((r,i)=>`<tr class="fig-row"><td><button type="button" class="fig-btn" aria-expanded="false" aria-controls="fx${i}">${esc(r[0])}</button></td><td>${esc(r[1])}</td></tr><tr class="fig-x" id="fx${i}" hidden><td colspan="2">${esc(r[2])}</td></tr>`).join("");
-  $("figs").addEventListener("click", e=>{
-    const b = e.target.closest(".fig-btn"); if(!b) return;
-    const x = $(b.getAttribute("aria-controls")), open = b.getAttribute("aria-expanded")==="true";
-    $("figs").querySelectorAll(".fig-btn[aria-expanded=true]").forEach(o=>{ o.setAttribute("aria-expanded","false"); $(o.getAttribute("aria-controls")).hidden=true; });
-    if(!open){ b.setAttribute("aria-expanded","true"); x.hidden=false; }
-  });
-}
-
-const IDS = ["age","hh","onset","earned","ss","va","other","irwe","rent","util","med","care","deps","res","able","aime"];
-const CHK = ["disabled","blind","married","medicare","vtr"];
-function save(){ try{ const o={state:document.querySelector('input[name=state]:checked').value}; IDS.forEach(i=>o[i]=$(i).value); CHK.forEach(i=>o[i]=$(i).checked); localStorage.setItem("bm-dis",JSON.stringify(o)); }catch(e){} }
-function restore(){ try{ const o=JSON.parse(localStorage.getItem("bm-dis")||"null"); if(!o) return; IDS.forEach(i=>{ if(o[i]!==undefined) $(i).value=o[i]; }); CHK.forEach(i=>$(i).checked=!!o[i]); const r=document.querySelector(`input[name=state][value="${o.state}"]`); if(r) r.checked=true; $("sampleNote").hidden=true; }catch(e){} }
-$("f").addEventListener("input", ()=>{ $("sampleNote").hidden = true; render(); save(); });
-$("copy").addEventListener("click", ()=>{
-  if(!lastSummary) return;
-  const {p, list} = lastSummary;
-  const lines = [`BenefitMath — ${p.state==="OR"?"Oregon":"Washington"} estimate (2026 rules)`, ""];
-  list.forEach(c=>{ if(c.id==="state") return; const a = c.money && c.amount!=null ? ` — ${m2(c.amount)} ${c.amtLabel}` : ""; lines.push(`${c.title}${a}: ${c.summary}`); });
-  lines.push("", "Estimate only, not an eligibility decision.");
-  const txt = lines.join("\n"); const b=$("copy");
-  const done = ()=>{ b.dataset.done=""; b.textContent="Copied"; setTimeout(()=>{ delete b.dataset.done; b.textContent="Copy my results"; },1800); };
-  try{ navigator.clipboard.writeText(txt).then(done, ()=>{ $("copyhint").textContent="Copy didn't work here. Select the card text to copy it instead."; }); }catch(e){ $("copyhint").textContent="Copy didn't work here. Select the card text to copy it instead."; }
-});
-$("f").addEventListener("submit", e=>e.preventDefault());
-$("clear").addEventListener("click", ()=>{
-  ["age","earned","ss","va","other","irwe","rent","med","care","deps","res","able","aime","onset"].forEach(id=>$(id).value="");
-  $("hh").value = 1; ["disabled","blind","married","medicare","vtr"].forEach(id=>$(id).checked=false);
-  $("util").value="none"; $("sampleNote").hidden = true; render(); save();
-});
-$("expandAll").addEventListener("click", ()=>{
-  const ds = [...document.querySelectorAll("#panel-dis details.math")]; const anyClosed = ds.some(d=>!d.open);
-  ds.forEach(d=>d.open = anyClosed); $("expandAll").textContent = anyClosed ? "Hide all math" : "Show all math";
-});
-
-/* ===================== VA benefits ===================== */
-const VA = {
-  R10:180.42, R20:356.66,
-  /* rows: alone, spouse, spouse+1 parent, spouse+2 parents, 1 parent, 2 parents, then the same six with 1 child */
-  T:{30:[552.47,617.47,669.47,721.47,604.47,656.47,596.47,666.47,718.47,770.47,648.47,700.47],
-     40:[795.84,882.84,952.84,1022.84,865.84,935.84,853.84,947.84,1017.84,1087.84,923.84,993.84],
-     50:[1132.90,1241.90,1329.90,1417.90,1220.90,1308.90,1205.90,1322.90,1410.90,1498.90,1293.90,1381.90],
-     60:[1435.02,1566.02,1671.02,1776.02,1540.02,1645.02,1523.02,1663.02,1768.02,1873.02,1628.02,1733.02],
-     70:[1808.45,1961.45,2084.45,2207.45,1931.45,2054.45,1910.45,2074.45,2197.45,2320.45,2033.45,2156.45],
-     80:[2102.15,2277.15,2417.15,2557.15,2242.15,2382.15,2219.15,2406.15,2546.15,2686.15,2359.15,2499.15],
-     90:[2362.30,2559.30,2717.30,2875.30,2520.30,2678.30,2494.30,2704.30,2862.30,3020.30,2652.30,2810.30],
-     100:[3938.58,4158.17,4334.41,4510.65,4114.82,4291.06,4085.43,4318.99,4495.23,4671.47,4261.67,4437.91]},
-  /* added amounts: each additional child under 18, each child 18–23 in school, spouse needing A&A */
-  ADD:{30:[32,105,61],40:[43,140,81],50:[54,176,101],60:[65,211,121],70:[76,246,141],80:[87,281,161],90:[98,317,181],100:[109.11,352.45,201.41]},
-  MAPR:{none:[17441,22839],hb:[21313,26710],aa:[29093,34488]}, MAPR_ADD:2984, NW:163699
-};
-const VSRC = {
-  rates:["VA: 2026 disability compensation rates","https://www.va.gov/disability/compensation-rates/veteran-rates/"],
-  combined:["VA: How combined ratings work","https://www.va.gov/disability/about-disability-ratings/"],
-  cfr:["38 CFR 4.25 combined ratings table","https://www.ecfr.gov/current/title-38/chapter-I/part-4/subpart-A/section-4.25"],
-  pension:["VA: Veterans Pension rates","https://www.va.gov/pension/veterans-pension-rates/"],
-  pelig:["VA: Pension eligibility","https://www.va.gov/pension/eligibility/"],
-  health:["VA: Health care eligibility","https://www.va.gov/health-care/eligibility/"],
-  pg:["VA: Priority groups","https://www.va.gov/health-care/eligibility/priority-groups/"]
-};
-let vRatings = [50,30,10];
-function drawRatings(){
-  const opts = r => Array.from({length:11},(_,i)=>i*10).map(x=>`<option value="${x}"${x===r?" selected":""}>${x}%</option>`).join("");
-  $("ratings").innerHTML = vRatings.map((r,i)=>`<div class="rrow"><label for="va-r${i}">Condition ${i+1}</label><select id="va-r${i}" data-i="${i}">${opts(r)}</select><button type="button" class="rm" data-rm="${i}" aria-label="Remove condition ${i+1}">×</button></div>`).join("")
-    || `<span class="hint">No conditions yet. Add one to start.</span>`;
-}
-function readVA(){
-  return { ratings: vRatings.slice(), spouse:$("va-spouse").checked, spAA:$("va-spaa").checked, u18:Math.round(num("va-u18")), school:Math.round(num("va-school")),
-    parents:+$("va-parents").value, war:$("va-war").checked, dis:$("va-dis").checked, age:num("va-age"), pt:$("va-pt").checked, help:$("va-help").value,
-    inc:num("va-inc"), med:num("va-med"), nw:num("va-nw") };
-}
-function combine(list){
-  const rs = list.filter(r=>r>0).sort((a,b)=>b-a);
-  let remain = 100; const steps = [];
-  rs.forEach((r,i)=>{ const take = remain*r/100; steps.push([i===0?`Start with the largest: ${r}% of 100`:`${r}% of the remaining ${remain.toFixed(1)}`, "+"+take.toFixed(1)]); remain -= take; });
-  const raw = 100 - remain, whole = Math.round(raw), rounded = Math.min(100, Math.floor((whole+5)/10)*10);
-  steps.push(["Combined value (rounded to a whole number)", whole+"%", "total"]);
-  steps.push(["Rounded to the nearest 10% (5 rounds up)", rounded+"%", "total"]);
-  return {rs, raw, whole, rating: rs.length?rounded:0, steps};
-}
-function vaRatingCard(cb){
-  const st = cb.rs.length ? (cb.rating>=10?"good":"warn") : "info";
-  const sum = !cb.rs.length ? "Add your rated conditions to see your combined rating." :
-    cb.rs.length===1 ? `One condition, so your combined rating is ${cb.rating}%.` :
-    `Your ${cb.rs.map(r=>r+"%").join(" + ")} ratings combine to ${cb.whole}%, which VA rounds to ${cb.rating}%. Adding them would give ${Math.min(100,cb.rs.reduce((a,b)=>a+b,0))}%, which is why VA math surprises people.`;
-  return {id:"va-rating", title:"Combined disability rating", scope:"Federal · VA · 38 CFR 4.25", status:st, summary:sum, amtText: cb.rs.length?cb.rating+"%":"", amtLabel:"combined", amount:null,
-    steps: cb.rs.length?cb.steps:[], notes:["Conditions on both arms or both legs get an extra 'bilateral factor' (10% of their combined value) before the other ratings. This page doesn't add it, so your real rating can be one step higher.","A 0% rating doesn't pay but still counts as service-connected for VA health care."], sources:[VSRC.combined, VSRC.cfr]};
-}
-function calcVAComp(v, r){
-  const kids = v.u18 + v.school;
-  if(r < 10) return {id:"va-comp", title:"VA disability compensation", scope:"Federal · VA", status:"no", summary:"Compensation starts at a 10% combined rating.", amount:0, amtLabel:"per month", money:true, steps:[], notes:[], sources:[VSRC.rates]};
-  const steps = []; const notes = []; let amt;
-  if(r <= 20){
-    amt = r===10?VA.R10:VA.R20;
-    steps.push([`${r}% rate (dependents don't change it)`, m2(amt), "total"]);
-    if(v.spouse || kids || v.parents) notes.push("At 10% or 20%, VA pays the same amount with or without dependents.");
-  } else {
-    const par = v.parents, idxNoKid = v.spouse ? 1 + par : (par ? 3 + par : 0);
-    const idx = idxNoKid + (kids ? 6 : 0);
-    const rowName = [kids?"1 child":"", v.spouse?"spouse":"", par?`${par} parent${par>1?"s":""}`:""].filter(Boolean).join(", ") || "veteran alone";
-    const base = VA.T[r][idx]; amt = base;
-    steps.push([`${r}% rate, ${rowName}`, m2(base)]);
-    const A = VA.ADD[r];
-    if(kids){
-      if(v.u18 > 0){
-        if(v.u18 > 1){ steps.push([`+ ${v.u18-1} more child${v.u18>2?"ren":""} under 18 × ${m2(A[0])}`, "+"+m2((v.u18-1)*A[0])]); amt += (v.u18-1)*A[0]; }
-        if(v.school){ steps.push([`+ ${v.school} child${v.school>1?"ren":""} in school × ${m2(A[1])}`, "+"+m2(v.school*A[1])]); amt += v.school*A[1]; }
-      } else {
-        const first = A[1]-A[0]; steps.push(["+ first child is 18–23 in school (school rate − child rate)", "+"+m2(first)]); amt += first;
-        if(v.school>1){ steps.push([`+ ${v.school-1} more in school × ${m2(A[1])}`, "+"+m2((v.school-1)*A[1])]); amt += (v.school-1)*A[1]; }
-        notes.push("When your only child is 18–23 and in school, VA's exact figure can differ by a few dollars. VA's own calculator on va.gov is the final word.");
-      }
-    }
-    if(v.spouse && v.spAA){ steps.push([`+ spouse needs aid and attendance`, "+"+m2(A[2])]); amt += A[2]; }
-    amt = Math.round(amt*100)/100;
-    steps.push(["= Monthly compensation", m2(amt), "total"]);
-  }
-  notes.push("Tax-free. It doesn't reduce SSDI, but it counts as income for SSI and SNAP.");
-  notes.push("Rates change each December 1 with the Social Security cost-of-living adjustment.");
-  if(r===100) notes.push("At 100% you may also qualify for Special Monthly Compensation (SMC) for losses like a limb or needing daily help. This page doesn't calculate SMC.");
-  return {id:"va-comp", title:"VA disability compensation", scope:"Federal · VA", status:"good", summary:`About ${m2(amt)} a month, tax-free.`, amount:amt, amtLabel:"per month", money:true, steps, notes, sources:[VSRC.rates]};
-}
-function calcPension(v){
-  const deps = (v.spouse?1:0) + v.u18 + v.school;
-  const k = deps ? 1 : 0;
-  const mapr = VA.MAPR[v.help][k] + Math.max(0, deps-1)*VA.MAPR_ADD;
-  const baseMapr = VA.MAPR.none[k] + Math.max(0, deps-1)*VA.MAPR_ADD;
-  const incY = 12*v.inc, medY = 12*v.med, floor = Math.round(0.05*VA.MAPR.none[k]);
-  const medDed = Math.max(0, medY - floor);
-  const countable = Math.max(0, incY - medDed);
-  const netWorth = v.nw + countable;
-  const yearly = Math.max(0, mapr - countable);
-  const monthly = Math.floor(yearly/12);
-  const levelName = {none:"basic", hb:"Housebound", aa:"Aid and Attendance"}[v.help];
-  const steps = [
-    [`Pension limit (MAPR), ${levelName}, ${deps} dependent${deps===1?"":"s"}`, m0(mapr)],
-    ["Household income × 12", m0(incY)],
-    ["Medical costs × 12", m0(medY)],
-    [`− medical deduction floor (5% of ${m0(VA.MAPR.none[k])})`, "−"+m0(Math.min(medY,floor))],
-    ["= Medical deduction", "−"+m0(medDed)],
-    ["Countable yearly income", m0(countable), "total"],
-    ["Pension limit − countable income", m0(yearly)],
-    ["÷ 12 = Monthly pension (rounded down)", m0(monthly), "total"],
-    ["Net worth: assets + countable income", m0(netWorth)],
-    ["Net worth limit (through Nov 30, 2026)", m0(VA.NW)]
-  ];
-  const service = v.war && v.dis;
-  const qualify = v.age >= 65 || v.pt;
-  let status, summary, amount = 0;
-  if(!service){ status="no"; summary = !v.war ? "Pension requires wartime service. VA disability compensation has no such rule." : "Pension requires a discharge other than dishonorable."; }
-  else if(!qualify){ status="no"; summary = "Pension requires age 65+, or being permanently and totally disabled, getting SSDI or SSI, or living in a nursing home."; }
-  else if(netWorth > VA.NW){ status="no"; summary = `Net worth of ${m0(netWorth)} is over the ${m0(VA.NW)} limit.`; }
-  else if(monthly <= 0){ status="warn"; summary = `Countable income is over the ${m0(mapr)} yearly limit. Large medical or care costs can bring it under.`; }
-  else { status="good"; amount = monthly; summary = `About ${m0(monthly)} a month${v.help!=="none"?` at the ${levelName} rate`:""}.`; }
-  const notes = ["SSI isn't counted as income for pension, but VA pension does count as income for SSI.","Care costs for assisted living or in-home help often count as medical expenses, which is how many people qualify for Aid and Attendance.","Giving away assets in the 3 years before applying can cause a penalty period of up to 5 years."];
-  return {id:"va-pension", title:"Veterans Pension", scope:"Federal · VA", status, summary, amount, amtLabel:"per month", money:true, steps, notes, sources:[VSRC.pension, VSRC.pelig]};
-}
-function vaHealthCard(r, pen){
-  let pg, why;
-  if(r>=50){ pg="1"; why="a 50% or higher rating"; }
-  else if(r>=30){ pg="2"; why="a 30% or 40% rating"; }
-  else if(r>=10){ pg="3"; why="a 10% or 20% rating"; }
-  else if(pen.status==="good"){ pg = "4 or 5"; why = "Veterans Pension (group 4 with Aid and Attendance or Housebound, otherwise 5)"; }
-  else { pg = null; }
-  return {id:"va-health", title:"VA health care", scope:"Federal · VA", status: pg?"good":"info",
-    summary: pg ? `Likely Priority Group ${pg} because of ${why}.${pg==="1"?" No copays for any care or prescriptions.":""}` : "Without a rating or pension, VA places you by income and other factors (groups 5–8).",
-    amount:null, steps:[], notes:["Groups 1–3 get care for service-connected conditions free. Group 1 pays no copays at all.","You can have VA health care and Medicare or Medicaid at the same time."], sources:[VSRC.health, VSRC.pg]};
-}
-function vaInterplayCard(paid){
-  return {id:"va-mix", title:"How VA pay affects your other benefits", scope:"SSA · SNAP · Medicaid", status:"info",
-    summary:"VA compensation and pension change some other benefits but not others.", amount:null, steps:[],
-    notes:["SSDI: not affected. You can get full SSDI and full VA compensation.","SSI: VA pay counts as unearned income, so SSI goes down dollar for dollar after the first $20.","SNAP: VA pay counts as income.","Adult Medicaid (OHP / Apple Health): VA pay isn't taxable, so it isn't counted.","Housing vouchers: VA pay usually counts as income."],
-    extra: paid>0 ? `<button type="button" class="usebtn primary" id="useVA">Add ${m0(paid)}/mo to the disability calculator</button>` : "",
-    sources:[["SSA: SSI income rules","https://www.ssa.gov/ssi/text-income-ussi.htm"]]};
-}
-function vaHelpCard(){
-  return {id:"va-help", title:"Free help filing a VA claim", scope:"Oregon · Washington · nationwide", status:"info", summary:"Accredited veterans service officers file claims and appeals for free.", amount:null, steps:[],
-    notes:["Oregon: Oregon Department of Veterans' Affairs (ODVA) and county veterans service offices.","Washington: Washington Department of Veterans Affairs (WDVA) and its partner service officers.","Avoid anyone who charges to file a first claim or asks for a share of your future payments."],
-    sources:[["ODVA","https://www.oregon.gov/odva/"],["WDVA","https://www.dva.wa.gov/"],["VA: find an accredited representative","https://www.va.gov/get-help-from-accredited-representative/"]]};
-}
-let vaPaid = 0;
-function renderVA(){
-  const v = readVA();
-  const open = new Set([...document.querySelectorAll("#panel-va details[data-id][open]")].map(d=>d.dataset.id));
-  const cb = combine(v.ratings), comp = calcVAComp(v, cb.rating), pen = calcPension(v);
-  const compAmt = comp.amount||0, penAmt = pen.amount||0;
-  vaPaid = Math.max(compAmt, penAmt);
-  if(compAmt>0 && penAmt>0) (compAmt>=penAmt?pen:comp).notes.unshift(`You can't get both. VA would pay ${compAmt>=penAmt?"compensation":"pension"}, the higher one.`);
-  const list = [vaRatingCard(cb), comp, pen, vaHealthCard(cb.rating, pen), vaInterplayCard(vaPaid), vaHelpCard()];
-  $("vaCards").innerHTML = list.slice(0,2).map(card).join("");
-  $("vaCards2").innerHTML = list.slice(2).map(card).join("");
-  document.querySelectorAll("#panel-va details[data-id]").forEach(d=>{ if(open.has(d.dataset.id)) d.open = true; });
-  $("vaSummary").innerHTML = `<h2>VA estimate</h2>
-    <div class="totals">
-      <div class="tot"><b>${cb.rs.length?cb.rating+"%":"—"}</b><span>Combined rating</span></div>
-      <div class="tot"><b>${m0(compAmt)}</b><span>Compensation</span></div>
-      <div class="tot"><b>${m0(penAmt)}</b><span>Pension</span></div>
-      <div class="tot"><b>${m0(vaPaid)}</b><span>VA pays / month</span></div>
-    </div>`;
-  const u = $("useVA"); if(u) u.addEventListener("click", ()=>{ $("va").value = Math.round(vaPaid); $("sampleNote").hidden = true; showTab("dis"); render(); save(); $("va").focus(); });
-}
-const VA_IDS = ["va-u18","va-school","va-parents","va-age","va-help","va-inc","va-med","va-nw"];
-const VA_CHK = ["va-spouse","va-spaa","va-war","va-dis","va-pt"];
-function saveVA(){ try{ const o={ratings:vRatings}; VA_IDS.forEach(i=>o[i]=$(i).value); VA_CHK.forEach(i=>o[i]=$(i).checked); localStorage.setItem("bm-va",JSON.stringify(o)); }catch(e){} }
-function restoreVA(){ try{ const o=JSON.parse(localStorage.getItem("bm-va")||"null"); if(!o) return; if(Array.isArray(o.ratings)) vRatings=o.ratings.map(Number); VA_IDS.forEach(i=>{ if(o[i]!==undefined) $(i).value=o[i]; }); VA_CHK.forEach(i=>$(i).checked=!!o[i]); $("vaSample").hidden=true; }catch(e){} }
-function showTab(t){
-  const va = t==="va";
-  $("panel-dis").hidden = va; $("panel-va").hidden = !va;
-  $("tab-dis").setAttribute("aria-selected", String(!va)); $("tab-va").setAttribute("aria-selected", String(va));
-  try{ history.replaceState(null, "", va ? "#va" : "#disability"); }catch(e){}
-}
-$("tab-dis").addEventListener("click", ()=>showTab("dis"));
-$("tab-va").addEventListener("click", ()=>showTab("va"));
-document.querySelectorAll("nav a[data-tab]").forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); showTab(a.dataset.tab); $("calculator").scrollIntoView({behavior:"smooth", block:"start"}); }));
-$("vf").addEventListener("submit", e=>e.preventDefault());
-$("vf").addEventListener("input", e=>{ if(e.target.dataset.i!==undefined) vRatings[+e.target.dataset.i] = +e.target.value; $("vaSample").hidden = true; renderVA(); saveVA(); });
-$("vf").addEventListener("click", e=>{
-  const rm = e.target.closest("[data-rm]"); if(rm){ vRatings.splice(+rm.dataset.rm,1); drawRatings(); $("vaSample").hidden=true; renderVA(); saveVA(); }
-});
-$("addRating").addEventListener("click", ()=>{ vRatings.push(10); drawRatings(); $("vaSample").hidden=true; renderVA(); saveVA(); });
-$("vaClear").addEventListener("click", ()=>{
-  vRatings = []; drawRatings(); ["va-u18","va-school","va-age","va-inc","va-med","va-nw"].forEach(id=>$(id).value="");
-  ["va-spouse","va-spaa","va-war","va-pt"].forEach(id=>$(id).checked=false); $("va-dis").checked = true;
-  $("va-parents").value="0"; $("va-help").value="none"; $("vaSample").hidden=true; renderVA(); saveVA();
-});
-
-restore(); figs(); render();
-restoreVA(); drawRatings(); renderVA();
-if(location.hash === "#va") showTab("va");
-window.__calc = {calcSSI, calcSNAP, calcSSDI, calcMedicaid, R};
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+  window.addEventListener('resize',function(){if(window.innerWidth>800)set(false);});
 })();
 </script>
-
-</body></html>
 </body></html>

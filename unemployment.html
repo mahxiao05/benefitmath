@@ -220,19 +220,58 @@ details.optional>fieldset{margin-top:14px}
 .toolbar{justify-content:flex-end}
 details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
 details.figs[open]>summary{margin-bottom:10px}
-</style></head><body>
+</style><style>
+/* ===== shared site chrome (menu, phone results bar) ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site nav a small,.nav-home{display:none}
+.navbtn{display:none}
+.site nav{-webkit-mask-image:none!important;mask-image:none!important}
+@media (max-width:800px){
+  .site{flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;position:relative}
+  .site nav{display:none!important}
+  .navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px}
+  .navbtn svg{transition:transform .15s ease}
+  .navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+  .navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .site.open nav{display:flex!important;flex-direction:column;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;margin:0!important;width:auto!important;
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;gap:2px;overflow:visible;-webkit-mask-image:none;mask-image:none;
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.35)}
+  .site.open nav a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 12px;border-radius:9px;font-size:15px;font-weight:600;color:var(--ink);white-space:normal}
+  .site.open nav a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);text-align:right}
+  .site.open nav a.nav-home{display:flex;border-bottom:1px solid var(--line);border-radius:9px 9px 0 0;margin-bottom:2px}
+  .site.open nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+  .site.open nav a:hover{background:var(--sunk)}
+}
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+</head><body>
 <!-- AD NETWORK: paste your AdSense (or other network) loader script into <head>, then fill each .ad-slot below. -->
 <div class="wrap">
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
-  <nav aria-label="Calculators"><a href="./">Benefits</a><a href="overtime.html">Overtime</a><a href="tips.html">Tips</a><a href="senior-deduction.html">Seniors 65+</a><a href="eitc.html">EITC</a><a href="child-tax-credit.html">Child credit</a><a href="unemployment.html" aria-current="page">Unemployment</a></nav>
+  <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <nav id="sitenav" aria-label="Calculators"><a href="./" class="nav-home">All calculators<small>Home</small></a><a href="benefits.html">Benefits<small>SSI, SNAP, Medicaid, VA</small></a><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="unemployment.html" aria-current="page">Unemployment<small>Oregon and Washington</small></a></nav>
 </div>
 <header class="top" id="top">
   <h1>Oregon &amp; Washington Unemployment Calculator</h1>
   <p class="lede">Estimate your weekly benefit, how much a claim can pay in total, and what a week of part-time work does to it.</p>
   <p class="scopebox job">This tool estimates <b>state unemployment pay</b> after losing work. It isn't a tax or disability benefits tool; those have their own pages.</p>
 </header>
-<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="top">Ad · 728×90</div></aside>
 <section class="grid" id="calculator">
 <form class="panel" id="f" novalidate>
 <fieldset><legend>Your state</legend>
@@ -256,10 +295,12 @@ details.figs[open]>summary{margin-bottom:10px}
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
 </div>
 </section>
+<!-- AD SLOT: leaderboard below the calculator, above the questions (728×90 desktop, 320×100 phone). -->
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid">Ad · 728×90</div></aside>
 <section class="prose faq" id="faq"><h2>Common questions</h2><details id="how"><summary>How unemployment is figured</summary><div><p><b>Oregon</b> pays 1.25% of your total wages in the base year each week, between $211 and $902 for claims filed on or after June 28, 2026. You qualify with at least $1,000 in base-year wages and total wages at least 1.5 times your highest quarter, or with 500 hours of work.</p><p><b>Washington</b> pays 3.85% of the average of your two highest base-year quarters, between $383 and $1,208 for claims opened on or after July 5, 2026. You need 680 hours of work in the base year.</p><p>In both states, the total for a claim is the lesser of 26 weekly payments or one-third of your base-year wages.</p></div></details><details><summary>What is the base year?</summary><p>Usually the first four of the last five completed calendar quarters before you file. If you don't qualify with it, both states may let you use an alternate base year with more recent wages.</p></details><details><summary>Can I work part time and still collect?</summary><p>Yes, with a smaller payment. Oregon ignores the greater of 10 times the state minimum wage or one-third of your weekly benefit, then subtracts the rest. Washington subtracts 75% of your weekly pay over $5.</p></details><details><summary>Is unemployment taxed?</summary><p>Yes, by the IRS. Oregon taxes it too. Washington has no state income tax.</p></details><details><summary>Does unemployment affect SSI, SNAP or SSDI?</summary><p>It counts as income for SSI and SNAP. It doesn't reduce SSDI.</p></details></section>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="bottom">Ad · 728×90</div></aside>
 <footer id="about">
-  <div class="links site-links"><a href="about.html">About</a><a href="privacy.html">Privacy policy</a></div>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a></div>
   <p>An independent, free calculator. Not affiliated with the IRS, the Oregon Employment Department, Washington ESD or any other agency. Ads keep it free; we don't ask for personal information. Results are estimates, not official decisions.</p>
   <details><summary>Sources, privacy and fine print</summary><div>
   <p>Rules checked Oct 12, 2026.</p>
@@ -345,10 +386,60 @@ function run(){
   if(earn>0&&elig) out+=card({t:"A week with part-time work",scope:"Benefit after earnings",amt:m0(pay),al:"this week",st:pay>0?"warn":"no",chip:pay>0?"Partial benefit":"Earnings too high for a payment this week",rows:prow,open:true});
   out+=card({t:"Taxes and other benefits",st:"info",
     p:[`Unemployment is taxable on your federal return. ${st==="or"?"Oregon taxes it too.":"Washington has no state income tax."} You can ask for 10% federal withholding when you file your claim.`,
-      "It counts as unearned income for SSI (about $1 less SSI for each $1 after the first $20) and as income for SNAP. It doesn't reduce SSDI. See the <a href=\"./\">benefits calculator</a>."]});
+      "It counts as unearned income for SSI (about $1 less SSI for each $1 after the first $20) and as income for SNAP. It doesn't reduce SSDI. See the <a href=\"benefits.html\">benefits calculator</a>."]});
   $("cards").innerHTML=out;
 }
 wire("bm-ui",run);
+})();
+</script>
+<script>
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+  window.addEventListener('resize',function(){if(window.innerWidth>800)set(false);});
+})();
+</script>
+<div class="mbar" id="mbar" role="region" aria-label="Your estimate">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">See details</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": 0}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
 })();
 </script>
 </body></html>
