@@ -38,3 +38,4 @@
 .glist span{color:var(--muted);font-size:14.5px}
 .glist em{font:600 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
 .ghub h2{font-family:var(--f-display);font-size:20px;margin:26px 0 10px}
+.gt table{width:100%}.gt td a{overflow-wrap:anywhere}@media (max-width:560px){.gt table{table-layout:fixed}.gt td:first-child{width:26%}}
