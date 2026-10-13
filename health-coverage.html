@@ -20,11 +20,11 @@ body{margin:0} img{max-width:100%} [hidden]{display:none!important}
   --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --r:10px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+:root[data-theme="dark"]{
   --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
   --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
   --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
-  color-scheme:dark }}
+  color-scheme:dark }
 :root[data-theme="dark"]{
   --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
   --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
@@ -242,12 +242,12 @@ details.figs[open]>summary{margin-bottom:10px}
 .themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .themebtn .i-sun{display:none}
 :root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .themebtn .i-sun{display:block}:root:not([data-theme="light"]) .themebtn .i-moon{display:none}}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
 /* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
 :root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
   --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
-  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
 :root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
   --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
 .seg input:checked+label{background:var(--ink);color:var(--surface)}
@@ -360,7 +360,17 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
 <meta name="google-adsense-account" content="ca-pub-7867146450299069">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
-<style>/* Ad placeholders stay hidden until AdSense is approved. Auto ads place ads on their own; to use these spots instead, put ad unit code inside each .ad-box and delete this rule. */.ad-slot{display:none!important}</style>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<style>
+#sources .srcdrop{border:1px solid var(--line);border-radius:var(--r,10px);background:var(--surface)}
+#sources .srcdrop>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 16px var(--f-display,inherit);color:var(--ink)}
+#sources .srcdrop>summary::-webkit-details-marker{display:none}
+#sources .srcdrop>summary small{font:500 12.5px var(--f-body,inherit);color:var(--muted);display:block;margin-top:2px}
+#sources .srcdrop>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+#sources .srcdrop[open]>summary::after{transform:rotate(-135deg)}
+#sources .srcdrop>.srcin{padding:0 16px 12px}
+#sources{padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+</style>
 </head><body>
 <div class="wrap">
 <div class="site">
@@ -417,7 +427,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <details><summary>What about people 65 and older?</summary><p>Most people 65 and older get Medicare instead. See the Medicare Savings Programs in the <a href="benefits.html">benefits calculator</a> for help with Medicare costs.</p></details>
 </section>
 
-<section class="prose" id="sources"><h2>Sources</h2><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/prior-hhs-poverty-guidelines-federal-register-references" target="_blank" rel="noopener">HHS poverty guidelines (2026 and prior years)</a><span class="s-o">U.S. Department of Health and Human Services</span><span class="s-n">48 states and DC. 2026: $15,960 for one person plus $5,680 per additional person. 2025: $15,650 plus $5,500. Marketplace credits for 2026 coverage use the 2025 figures.</span></li><li><a href="https://www.irs.gov/pub/irs-drop/rp-25-25.pdf" target="_blank" rel="noopener">Rev. Proc. 2025-25: 2026 applicable percentage table</a><span class="s-o">Internal Revenue Service</span><span class="s-n">Share of income expected toward the benchmark silver plan in 2026: 2.10% under 133% of poverty, rising to 9.96% from 300% to 400%. Required contribution for job-based coverage affordability: 9.96%.</span></li><li><a href="https://www.kff.org/faqs/faqs-health-insurance-marketplace-and-the-aca/what-kind-of-recent-changes-to-the-marketplace-premium-subsidies-have-happened-that-i-should-know-about/" target="_blank" rel="noopener">Recent changes to marketplace premium subsidies</a><span class="s-o">KFF</span><span class="s-n">The enhanced premium tax credits expired at the end of 2025 and had not been renewed. For 2026, some immigrants lose eligibility, and most people must repay the full amount of any excess advance credit.</span></li><li><a href="https://healthcare.oregon.gov/Documents/Materials/5063-FPL%20Chart/11-2025/5063v_FPL%20Chart_112025_FINAL.pdf" target="_blank" rel="noopener">OHP and Marketplace income chart (HIM 5063)</a><span class="s-o">Oregon Health Authority</span><span class="s-n">OHP 0–138% of poverty (gross monthly income); pregnant people up to 190%; children under 19 up to 305%; OHP Bridge 133–200% (annual income); premium tax credits 100–400%; cost-sharing reductions 100–250%.</span></li><li><a href="https://www.oregon.gov/oha/HSD/OHP/pages/Bridge.aspx" target="_blank" rel="noopener">OHP Bridge</a><span class="s-o">Oregon Health Authority</span><span class="s-n">For adults under 65 with income from 133% to 200% of poverty, no access to affordable insurance, and an eligible citizenship or immigration status. No member costs, like OHP Plus. Limits shown apply through February 2027.</span></li><li><a href="https://www.hca.wa.gov/assets/free-or-low-cost/income-standards.pdf" target="_blank" rel="noopener">Apple Health income and resource standards (effective Oct 1, 2026)</a><span class="s-o">Washington Health Care Authority</span><span class="s-n">Adults 19–64 up to 138% of poverty; children and pregnancy up to 215%; CHIP up to 265% ($20 premium) and 317% ($30 premium). Limits include a 5% income disregard.</span></li><li><a href="https://www.wahbexchange.org/content/dam/wahbe-assets/budget-finance/HBE-Cascade-Care-Savings-2026.pdf" target="_blank" rel="noopener">Cascade Care Savings: 2026 budget request</a><span class="s-o">Washington Health Benefit Exchange</span><span class="s-n">State premium help for people up to 250% of poverty who are not eligible for Apple Health or Medicare. You must take all federal credits first and enroll in a silver or gold Cascade Care plan.</span></li></ul></section>
+<section class="prose" id="sources"><details class="srcdrop"><summary><span>Sources<small>7 sources · checked October 12, 2026</small></span></summary><div class="srcin"><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines/prior-hhs-poverty-guidelines-federal-register-references" target="_blank" rel="noopener">HHS poverty guidelines (2026 and prior years)</a><span class="s-o">U.S. Department of Health and Human Services</span><span class="s-n">48 states and DC. 2026: $15,960 for one person plus $5,680 per additional person. 2025: $15,650 plus $5,500. Marketplace credits for 2026 coverage use the 2025 figures.</span></li><li><a href="https://www.irs.gov/pub/irs-drop/rp-25-25.pdf" target="_blank" rel="noopener">Rev. Proc. 2025-25: 2026 applicable percentage table</a><span class="s-o">Internal Revenue Service</span><span class="s-n">Share of income expected toward the benchmark silver plan in 2026: 2.10% under 133% of poverty, rising to 9.96% from 300% to 400%. Required contribution for job-based coverage affordability: 9.96%.</span></li><li><a href="https://www.kff.org/faqs/faqs-health-insurance-marketplace-and-the-aca/what-kind-of-recent-changes-to-the-marketplace-premium-subsidies-have-happened-that-i-should-know-about/" target="_blank" rel="noopener">Recent changes to marketplace premium subsidies</a><span class="s-o">KFF</span><span class="s-n">The enhanced premium tax credits expired at the end of 2025 and had not been renewed. For 2026, some immigrants lose eligibility, and most people must repay the full amount of any excess advance credit.</span></li><li><a href="https://healthcare.oregon.gov/Documents/Materials/5063-FPL%20Chart/11-2025/5063v_FPL%20Chart_112025_FINAL.pdf" target="_blank" rel="noopener">OHP and Marketplace income chart (HIM 5063)</a><span class="s-o">Oregon Health Authority</span><span class="s-n">OHP 0–138% of poverty (gross monthly income); pregnant people up to 190%; children under 19 up to 305%; OHP Bridge 133–200% (annual income); premium tax credits 100–400%; cost-sharing reductions 100–250%.</span></li><li><a href="https://www.oregon.gov/oha/HSD/OHP/pages/Bridge.aspx" target="_blank" rel="noopener">OHP Bridge</a><span class="s-o">Oregon Health Authority</span><span class="s-n">For adults under 65 with income from 133% to 200% of poverty, no access to affordable insurance, and an eligible citizenship or immigration status. No member costs, like OHP Plus. Limits shown apply through February 2027.</span></li><li><a href="https://www.hca.wa.gov/assets/free-or-low-cost/income-standards.pdf" target="_blank" rel="noopener">Apple Health income and resource standards (effective Oct 1, 2026)</a><span class="s-o">Washington Health Care Authority</span><span class="s-n">Adults 19–64 up to 138% of poverty; children and pregnancy up to 215%; CHIP up to 265% ($20 premium) and 317% ($30 premium). Limits include a 5% income disregard.</span></li><li><a href="https://www.wahbexchange.org/content/dam/wahbe-assets/budget-finance/HBE-Cascade-Care-Savings-2026.pdf" target="_blank" rel="noopener">Cascade Care Savings: 2026 budget request</a><span class="s-o">Washington Health Benefit Exchange</span><span class="s-n">State premium help for people up to 250% of poverty who are not eligible for Apple Health or Medicare. You must take all federal credits first and enroll in a silver or gold Cascade Care plan.</span></li></ul></div></details></section>
 <footer>
   <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
   <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
@@ -535,7 +545,7 @@ wire("bm-health",run);
     close();from=a;a.setAttribute('aria-expanded','true');
     pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
     pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
-      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open official source ↗</a>';
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open source ↗</a>';
     document.body.appendChild(pop);
     var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
     var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
@@ -549,7 +559,7 @@ wire("bm-health",run);
 <script>
 (function(){
   var tb=document.querySelector('.themebtn'),R=document.documentElement;
-  function eff(){var a=R.getAttribute('data-theme');return a||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
   function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
   if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
 })();
@@ -600,5 +610,12 @@ wire("bm-health",run);
   });
   update();
 })();
+</script>
+<script>(function(){function o(){if(location.hash==="#sources"){var d=document.querySelector("#sources details");if(d)d.open=true;}}o();window.addEventListener("hashchange",o);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#sources"]');if(a){var d=document.querySelector("#sources details");if(d)d.open=true;}});})();</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
 </script>
 </body></html>

@@ -17,11 +17,11 @@ body{margin:0} img{max-width:100%} [hidden]{display:none!important}
   --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --r:10px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+:root[data-theme="dark"]{
   --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
   --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
   --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
-  color-scheme:dark }}
+  color-scheme:dark }
 :root[data-theme="dark"]{
   --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
   --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
@@ -228,12 +228,12 @@ details.figs[open]>summary{margin-bottom:10px}
 .themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .themebtn .i-sun{display:none}
 :root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .themebtn .i-sun{display:block}:root:not([data-theme="light"]) .themebtn .i-moon{display:none}}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
 /* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
 :root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
   --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
-  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
 :root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
   --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
 .seg input:checked+label{background:var(--ink);color:var(--surface)}
@@ -346,7 +346,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
 <meta name="google-adsense-account" content="ca-pub-7867146450299069">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
-<style>/* Ad placeholders stay hidden until AdSense is approved. Auto ads place ads on their own; to use these spots instead, put ad unit code inside each .ad-box and delete this rule. */.ad-slot{display:none!important}</style>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
 </head><body>
 <!-- AD NETWORK: paste your AdSense (or other network) loader script into <head>, then fill each .ad-slot below. -->
 <div class="wrap">
@@ -487,7 +487,7 @@ wire("bm-ui",run);
 <script>
 (function(){
   var tb=document.querySelector('.themebtn'),R=document.documentElement;
-  function eff(){var a=R.getAttribute('data-theme');return a||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
   function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
   if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
 })();
@@ -538,5 +538,11 @@ wire("bm-ui",run);
   });
   update();
 })();
+</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
 </script>
 </body></html>
