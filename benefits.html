@@ -1,10 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Disability &amp; VA Benefits Calculator (2026) | BenefitMath</title>
-<meta name="description" content="Free 2026 calculator for SSI, SSDI, SNAP, Medicaid, Medicare Savings, ABLE, HUD rent and VA disability, combined ratings and Veterans Pension. Shows every formula and source.">
-<meta property="og:title" content="BenefitMath: Disability &amp; VA Benefits Calculator (2026)">
-<meta property="og:description" content="Estimate SSI, SNAP, Medicaid, VA disability and VA pension, with the math shown.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Disability Benefits Calculator 2026: SSI, SSDI, VA | BenefitMath</title>
+<meta name="description" content="Estimate SSI, SSDI, SNAP, Medicaid and housing help in Oregon and Washington, or VA disability pay in any state. Free and private, with the math shown.">
 <!-- Once you have your own domain, uncomment and fill in:
 <link rel="canonical" href="https://YOUR-DOMAIN.com/benefits.html">
 -->
@@ -231,177 +227,14 @@ details.figs[open]>summary{margin-bottom:10px}
 .more-count{font:600 11.5px var(--f-body);font-style:normal;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:2px}
 </style>
 <script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
-<style>
-:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
-.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
-.themebtn:hover{border-color:var(--accent);color:var(--accent)}
-.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.themebtn .i-sun{display:none}
-:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
-:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
-/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
-:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
-  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
-:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
-  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
-:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
-  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
-.seg input:checked+label{background:var(--ink);color:var(--surface)}
-.seg{border-color:var(--rule)}
-.check input{accent-color:var(--ink)}
-.tabs button{border-color:var(--rule)}
-.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
-.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
-.summary{border-top:3px solid var(--ink)}
-.summary::before{content:"✓ Rules checked Oct 13, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
-.tot b{color:var(--ink)}
-details.math{background:var(--sunk)}
-.mathin td{border-bottom:1px dashed var(--rule)}
-.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
-input[type=number],select{border-color:var(--rule)}
-/* federal / state badges */
-.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
-.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
-.sb-fed{color:var(--info);background:var(--info-soft)}
-.sb-state{color:var(--accent);background:var(--accent-soft)}
-.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
-.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
-.sb-d{font-size:12.5px;color:var(--muted)}
-.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
-.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
-/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
-body{margin:0}
-[hidden]{display:none!important}
-.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
-.site-r{display:flex;align-items:center;gap:6px;min-width:0}
-.site .navlinks a.qk{color:var(--ink);font-weight:600}
-.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
-.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
-@media (max-width:1180px){.site .navlinks a.xt{display:none}}
-.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
-.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
-.navbtn svg{transition:transform .15s ease}
-.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
-.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
-.mega{display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:min(820px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 56px -18px rgba(0,0,0,.45)}
-.mega::before{content:"";position:absolute;top:-7px;right:52px;width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
-.site.open .mega{display:block;animation:megaIn .14s ease-out}
-@keyframes megaIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:10px}
-.mcol{display:flex;flex-direction:column;gap:6px;padding:6px;border-left:1px solid var(--line)}
-.mcol:first-child{border-left:0}
-.ngroup{display:flex;flex-direction:column}
-.ngroup+.ngroup{margin-top:10px}
-.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 10px 4px}
-.ngroup a{display:block;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
-.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:2px}
-.ngroup a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
-.ngroup a:hover{background:var(--sunk)}
-.ngroup a:focus-visible,.mega-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.mega-foot{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);background:var(--sunk);border-radius:0 0 16px 16px}
-.mstart{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);font-size:13.5px;line-height:1.35}
-.mstart span{color:var(--accent);font-weight:600}
-.mstart:hover span{text-decoration:underline}
-.mlinks{display:flex;flex-wrap:wrap;gap:2px 4px}
-.mlinks a{padding:6px 9px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none}
-.mlinks a:hover{background:var(--surface);color:var(--ink)}
-.mlinks a[aria-current="page"]{color:var(--accent)}
-@media (prefers-reduced-motion:reduce){.site.open .mega{animation:none}}
-@media (max-width:800px){
-  .site .navlinks{display:none!important}
-  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
-  .mega::before{right:44px}
-  .mcols{grid-template-columns:minmax(0,1fr);padding:6px}
-  .mcol{border-left:0;padding:0 6px}
-  .mcol+.mcol{border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
-}
-/* citation chips + popover */
-a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
-a.cite::before{content:"§";font-weight:600}
-a.cite:hover{text-decoration:underline}
-a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
-.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.citepop .cp-t{font-weight:600;font-size:14.5px}
-.citepop .cp-n{color:var(--muted);margin:0}
-.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
-.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
-.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
-@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
-.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
-.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
-.srclist a{color:var(--accent);font-weight:600}
-.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
-.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
-/* phone results bar */
-.mbar{display:none}
-@media (max-width:880px){
-  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
-    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
-    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
-  .mbar.show{transform:none;opacity:1;pointer-events:auto}
-  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
-  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
-  .mbar.bump .mb-v{animation:mbump .35s ease}
-  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
-  body.has-mbar .wrap{padding-bottom:96px}
-}
-@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
-@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
-</style>
+<link rel="stylesheet" href="assets/theme.css">
 <link rel="canonical" href="https://benefitmath.com/benefits.html">
-<meta property="og:url" content="https://benefitmath.com/benefits.html">
-<meta property="og:site_name" content="BenefitMath">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
 <meta name="google-adsense-account" content="ca-pub-7867146450299069">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
-<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
-<style id="bm-nav">
-.mega{width:min(1010px,calc(100vw - 32px))}
-@media (min-width:1061px){.mcols{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.mtitle{font:600 15px var(--f-display);color:var(--ink);margin:4px 10px 6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.ngroup a .jn::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin:0 0 2px 7px;vertical-align:middle;background:var(--ink)}
-.ngroup a.j-fed .jn::after{background:var(--info)}.ngroup a.j-state .jn::after{background:var(--accent)}
-.ngroup a.j-both .jn::after{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
-.mleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:12px 16px 0;font-size:12.5px;color:var(--muted)}
-.hleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:30px 0 -14px;font-size:13px;color:var(--muted)}
-.gt2{font:600 20px var(--f-display);margin:0;color:var(--ink)}
-@media (max-width:800px){.ngroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.ngroup a small{display:none}.ngroup a{padding:9px 10px;font-size:14px}.mtitle{margin:8px 10px 4px;padding-bottom:6px}.mleg{padding:10px 12px 0}}
-@media (max-width:1060px) and (min-width:801px){.mcols{grid-template-columns:repeat(2,minmax(0,1fr))}.mcol:nth-child(odd){border-left:0}.mcol:nth-child(n+3){border-top:1px solid var(--line);padding-top:8px;margin-top:6px}}
-</style>
-<style id="bm-feat">
-.fk{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
-.fk span{font:600 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
-.fk span.new{background:var(--accent);color:var(--accent-ink)}
-.fjump{display:flex;gap:8px;overflow-x:auto;padding:14px 0 2px;scrollbar-width:none}
-.fjump::-webkit-scrollbar{display:none}
-.fjump a{flex:none;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap}
-.fjump a:hover{border-color:var(--accent);color:var(--accent)}
-.fsec{scroll-margin-top:16px;border-top:3px solid var(--accent)!important}
-.fsec .tbl td:not(:first-child){font-family:var(--f-mono)}
-.fsec .tbl th,.fsec .tbl td{text-align:left!important;padding-right:14px;padding-left:0!important}
-.fout a{color:var(--accent);font-weight:600}
-.fsec .tbl td.w{white-space:normal;font-family:var(--f-body);text-align:left;color:var(--muted);font-size:13.5px}
-.fcta{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-.fcta a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:12px;padding:11px 16px;background:var(--accent);color:var(--accent-ink)!important}
-.fcta a.alt{background:var(--surface);color:var(--ink)!important;border:1px solid var(--line)}
-.fcta a::after{content:"→"}
-.fsrc{font-size:12.5px;color:var(--muted);margin:2px 0 0}.fsrc a{color:var(--muted)}
-.fpick{display:flex;flex-direction:column;gap:12px;max-width:640px}
-.fpick .seg{grid-template-columns:repeat(auto-fit,minmax(0,1fr));display:grid}
-.fout{background:var(--accent-soft);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
-.fout b{font:600 24px var(--f-display);color:var(--ink)}
-.fout span{font-size:14.5px;color:var(--ink)}
-.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-@media (min-width:900px){.perks{grid-template-columns:repeat(4,minmax(0,1fr))}.perks.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.perk{background:var(--sunk);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
-.perk b{font:600 16px var(--f-display);color:var(--ink)}
-.perk span{font-size:14px;color:var(--muted)}
-.perk a,.perkmore a{color:var(--accent);font-weight:600}
-.perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BenefitMath", "item": "https://benefitmath.com/"}, {"@type": "ListItem", "position": 2, "name": "Disability & VA Benefits Calculator", "item": "https://benefitmath.com/benefits.html"}]}, {"@type": "WebApplication", "name": "Disability & VA Benefits Calculator", "url": "https://benefitmath.com/benefits.html", "description": "Free 2026 calculator for SSI, SSDI, SNAP, Medicaid, Medicare Savings, ABLE, HUD rent and VA disability, combined ratings and Veterans Pension. Shows every formula and source.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://benefitmath.com/#org"}, "dateModified": "2026-10-12"}, {"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How this calculator works", "acceptedAnswer": {"@type": "Answer", "text": "Pick Oregon or Washington and enter monthly income, rent and savings. The example person shows how it works; clear it to start fresh. Each benefit runs on its own published formula: SSA rules for SSI and SSDI, USDA rules with state utility allowances for SNAP, OHA/ODHS or HCA standards for Medicaid, and HUD rules for rent. Benefits affect each other. SSI counts as income for SNAP and housing, and getting SSI opens Medicaid and Extra Help, so the page calculates them in that order. The VA tab works for veterans in any state. It combines your ratings the way VA does, looks up your monthly pay with dependents, and checks Veterans Pension against its income and asset limits. Open \"What it is and who qualifies\" on any card for a plain explanation and the minimum requirements, and \"Show the math\" to check every step against the linked source."}}, {"@type": "Question", "name": "How much SSI will I get if I work?", "acceptedAnswer": {"@type": "Answer", "text": "SSI ignores the first $20 of any income, then $65 of earnings and half of the rest. With the 2026 rate of $994, each $2 you earn above $85 lowers SSI by about $1, so working always raises your total income."}}, {"@type": "Question", "name": "Can I work and keep SSDI?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A month with gross earnings over $1,210 uses one of 9 trial work months, and SSDI keeps paying. After those 9 months, SSDI stops for months when earnings after work expenses are over $1,690 ($2,830 if blind), but restarts for months under it during the 36-month extended period. Use the SSI and SSDI work calculator to test your own pay."}}, {"@type": "Question", "name": "Will I lose Medicaid if I earn too much for SSI?", "acceptedAnswer": {"@type": "Answer", "text": "Often not. Section 1619(b) keeps Medicaid for former SSI recipients earning under a state threshold ($47,856 in Oregon, $73,897 in Washington for 2026). Oregon's EPD and Washington's HWD programs also cover working people with disabilities at higher incomes for a monthly fee or premium."}}, {"@type": "Question", "name": "Does an ABLE account affect SSI or SNAP?", "acceptedAnswer": {"@type": "Answer", "text": "The first $100,000 in an ABLE account doesn't count against SSI's $2,000 asset limit, and ABLE money doesn't count for Medicaid. Since January 2026, you qualify if your disability began before age 46."}}, {"@type": "Question", "name": "Why does my SNAP amount differ from my notice?", "acceptedAnswer": {"@type": "Answer", "text": "Caseworkers use your exact utility type, verified bills, how income is timed in the month, and who counts as your household. Small differences in any of these change the result. Use the math view to see which number drives your estimate."}}, {"@type": "Question", "name": "How does the VA combine disability ratings?", "acceptedAnswer": {"@type": "Answer", "text": "VA doesn't add ratings. It applies your largest rating first, then applies each next rating only to the part of you still counted as able, and rounds the total to the nearest 10%. A 50% and a 30% rating make 65%, which rounds to 70%. Conditions on both arms or both legs get a small extra \"bilateral factor\" this page doesn't add."}}, {"@type": "Question", "name": "Can I get VA disability and SSDI at the same time?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. VA disability compensation doesn't reduce SSDI, and SSDI doesn't reduce VA compensation. VA payments do count as income for SSI and SNAP, but not for adult Medicaid, because they aren't taxable."}}, {"@type": "Question", "name": "Can I get VA disability compensation and Veterans Pension together?", "acceptedAnswer": {"@type": "Answer", "text": "No. If you qualify for both, VA pays whichever is higher. Compensation is usually higher once your rating is 30% or more."}}, {"@type": "Question", "name": "Do I have to pay someone to file a VA claim?", "acceptedAnswer": {"@type": "Answer", "text": "No. Accredited veterans service officers file claims for free. In Oregon, start with ODVA or your county veterans service office; in Washington, WDVA. Be wary of companies that charge a share of your back pay."}}, {"@type": "Question", "name": "Is this an official eligibility decision?", "acceptedAnswer": {"@type": "Answer", "text": "No. It is an estimate from published rules. Only the agency can decide, so apply even if the estimate says no."}}]}]}</script>
+<meta property="og:title" content="Disability Benefits Calculator 2026: SSI, SSDI, VA | BenefitMath"><meta property="og:description" content="Estimate SSI, SSDI, SNAP, Medicaid and housing help in Oregon and Washington, or VA disability pay in any state. Free and private, with the math shown."><meta property="og:type" content="website"><meta property="og:url" content="https://benefitmath.com/benefits.html"><meta property="og:site_name" content="BenefitMath"><meta property="og:image" content="https://benefitmath.com/assets/og/benefits.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/site.css">
 </head><body>
 <div class="wrap">
 <div class="site">
@@ -1299,22 +1132,7 @@ window.__calc = {calcSSI, calcSNAP, calcSSDI, calcMedicaid, R};
 })();
 </script>
 
-<script>
-(function(){
-  var tb=document.querySelector('.themebtn'),R=document.documentElement;
-  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
-  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
-  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
-})();
-(function(){
-  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
-  if(!btn)return;
-  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
-  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
-  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
-})();
-</script>
+<script src="assets/site.js"></script>
 <script>
 (function(){
   var d=document.getElementById('more'),c=document.getElementById('moreCount');if(!d||!c)return;
@@ -1363,12 +1181,7 @@ window.addEventListener('hashchange',function(){var t=location.hash==='#va'?'tab
   update();
 })();
 </script>
-<script>
-/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
-   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
-window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
-(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
-</script>
+<script src="assets/ads.js"></script>
 <script id="bm-feat-js">
 (function(){
   var o=document.getElementById("dpout");if(!o)return;
