@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Oregon Kicker Calculator (2025 Returns): 9.863% Credit | BenefitMath</title>
+<meta name="description" content="Estimate your Oregon kicker: 9.863% of your 2024 Oregon tax, credited on your 2025 return. See the math, who qualifies, and whether another kicker is coming.">
+<meta property="og:title" content="Oregon Kicker Calculator (2025 Returns): 9.863% Credit | BenefitMath">
+<meta property="og:description" content="Estimate your Oregon kicker: 9.863% of your 2024 Oregon tax, credited on your 2025 return. See the math, who qualifies, and whether another kicker is coming.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:min(820px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 56px -18px rgba(0,0,0,.45)}
+.mega::before{content:"";position:absolute;top:-7px;right:52px;width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.site.open .mega{display:block;animation:megaIn .14s ease-out}
+@keyframes megaIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:10px}
+.mcol{display:flex;flex-direction:column;gap:6px;padding:6px;border-left:1px solid var(--line)}
+.mcol:first-child{border-left:0}
+.ngroup{display:flex;flex-direction:column}
+.ngroup+.ngroup{margin-top:10px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 10px 4px}
+.ngroup a{display:block;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:2px}
+.ngroup a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover{background:var(--sunk)}
+.ngroup a:focus-visible,.mega-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.mega-foot{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);background:var(--sunk);border-radius:0 0 16px 16px}
+.mstart{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);font-size:13.5px;line-height:1.35}
+.mstart span{color:var(--accent);font-weight:600}
+.mstart:hover span{text-decoration:underline}
+.mlinks{display:flex;flex-wrap:wrap;gap:2px 4px}
+.mlinks a{padding:6px 9px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none}
+.mlinks a:hover{background:var(--surface);color:var(--ink)}
+.mlinks a[aria-current="page"]{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.site.open .mega{animation:none}}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .mega::before{right:44px}
+  .mcols{grid-template-columns:minmax(0,1fr);padding:6px}
+  .mcol{border-left:0;padding:0 6px}
+  .mcol+.mcol{border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+<link rel="canonical" href="https://benefitmath.com/kicker.html">
+<meta property="og:url" content="https://benefitmath.com/kicker.html">
+<meta property="og:site_name" content="BenefitMath">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
+<meta name="google-adsense-account" content="ca-pub-7867146450299069">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<style>
+#sources .srcdrop{border:1px solid var(--line);border-radius:var(--r,10px);background:var(--surface)}
+#sources .srcdrop>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 16px var(--f-display,inherit);color:var(--ink)}
+#sources .srcdrop>summary::-webkit-details-marker{display:none}
+#sources .srcdrop>summary small{font:500 12.5px var(--f-body,inherit);color:var(--muted);display:block;margin-top:2px}
+#sources .srcdrop>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+#sources .srcdrop[open]>summary::after{transform:rotate(-135deg)}
+#sources .srcdrop>.srcin{padding:0 16px 12px}
+#sources{padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+</style>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Taxes and credits</h4><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a><a href="kicker.html" aria-current="page">Oregon kicker<small>Surplus credit on your return</small></a><a href="or-vs-wa.html">Oregon vs. Washington<small>Live in one, work in the other</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></div></div>
+</div>
+<header class="top" id="top"><p class="pscope"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></p>
+  <h1>Oregon Kicker Calculator</h1>
+  <p class="lede">See how much Oregon's surplus "kicker" credit adds to your 2025 state tax return, and whether another kicker is coming.</p>
+  <p class="scopebox">Uses the 9.863% rate certified for 2025 Oregon returns, filed in 2026. Tap any <b>§</b> label to see the rule.</p>
+</header>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your 2024 Oregon return</legend>
+<div class="seg" role="radiogroup" aria-label="Which return you filed"><input type="radio" name="rt" id="rt-r" value="r" checked><label for="rt-r">Full-year resident</label><input type="radio" name="rt" id="rt-n" value="n"><label for="rt-n">Part-year or nonresident</label></div>
+<div class="field"><label for="liab" id="liab-l">Tax from line 24 of your 2024 Form OR-40</label><div class="money"><input type="number" id="liab" inputmode="decimal" min="0" step="any" value="3000"></div><span class="hint" id="liab-h">Your Oregon tax before any credits, withholding or payments.</span></div>
+<div class="field"><label for="oth">Credit for tax paid to another state, if you claimed one</label><div class="money"><input type="number" id="oth" inputmode="decimal" min="0" step="any" value="0"></div></div>
+</fieldset>
+<fieldset><legend>Claiming it</legend>
+<label class="check"><input type="checkbox" id="f24" checked><span>I filed a 2024 Oregon return</span></label>
+<label class="check"><input type="checkbox" id="f25" checked><span>I filed, or will file, a 2025 Oregon return</span></label>
+<label class="check"><input type="checkbox" id="don"><span>I want to donate my kicker to the Oregon State School Fund</span></label>
+</fieldset>
+<fieldset><legend>What if</legend>
+<div class="field"><label for="rate">Kicker rate, %</label><input type="number" id="rate" inputmode="decimal" min="0" max="100" step="any" value="9.863"><span class="hint">9.863% is the certified rate for 2025 returns. Change it only to test a different kicker.</span></div>
+</fieldset>
+<p class="sample">Example numbers are filled in. Replace them with yours.</p>
+<div class="btns"><button type="button" id="reset">Reset to example</button><button type="button" id="clearall">Clear all</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
+  <div id="cards2" class="results"></div>
+</div>
+</section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid"></div></aside>
+<section class="prose faq" id="faq"><h2>Common questions</h2>
+<details id="how"><summary>How is the kicker figured?</summary><div><ol>
+<li>Start with your 2024 Oregon tax before credits. On a full-year resident return, that's line 24 of your 2024 Form OR-40.</li>
+<li>If you claimed a credit for income tax paid to another state, subtract it.</li>
+<li>Multiply by 9.863%. That's your kicker, credited on your 2025 Oregon return.</li></ol></div></details>
+<details><summary>Who gets the kicker?</summary><p>Anyone who had Oregon tax on a 2024 return and files a 2025 Oregon return, including part-year residents, nonresidents and people who have since moved away. You have to file a 2025 return to claim it, even if you don't otherwise need to file one.</p></details>
+<details><summary>How do I get the money?</summary><p>It's not a separate check. The kicker is a credit on your 2025 return: it adds to your refund or lowers what you owe. You get a paper check only if you didn't give direct deposit details on the return.</p></details>
+<details><summary>I haven't filed yet. Can I still get it?</summary><p>Yes. File your 2024 Oregon return if you haven't, then your 2025 return. Full-year residents can file free with <a href="https://www.oregon.gov/dor/programs/individuals/Pages/direct_file_OR.aspx" target="_blank" rel="noopener">Direct File Oregon</a>, and <a href="https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers" target="_blank" rel="noopener">IRS VITA sites</a> prepare returns free for people with moderate income.</p></details>
+<details><summary>Is the kicker taxable?</summary><p>Oregon doesn't tax it. It can count as income on your federal return only if you itemized and deducted state taxes in the past and itemize again on your 2025 federal return. Oregon sends a Form 1099-G showing the full kicker.</p></details>
+<details><summary>Can the state keep my kicker?</summary><p>Oregon can apply all or part of your refund, including the kicker, to debts you owe the state, such as back taxes, child support, court fines or school loans.</p></details>
+<details><summary>Can I donate it?</summary><p>Yes. Check the box on your return to give your entire kicker to the Oregon State School Fund for K-12 schools. You can change your mind by amending before the filing deadline, but not after.</p></details>
+<details><summary>Will there be a kicker in 2028?</summary><p>Not at the moment. Oregon's August 2026 forecast doesn't project a kicker for the 2025-27 budget period: income tax revenue is expected to fall about $526 million short of the level that would trigger one. If a kicker does happen, it would be a credit on 2027 returns filed in 2028, based on your 2026 tax. Forecasts change every quarter, so this page will be updated.</p></details>
+<details><summary>How do I get my exact amount?</summary><p>Use the state's <a href="https://revenueonline.dor.oregon.gov/tap/_/?Link=WMK" target="_blank" rel="noopener">What's My Kicker?</a> tool on Revenue Online. You'll need your SSN or ITIN and your filing status for 2024 and 2025.</p></details>
+</section>
+
+<section class="prose" id="sources"><details class="srcdrop"><summary><span>Sources<small>5 sources · checked October 12, 2026</small></span></summary><div class="srcin"><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://www.oregon.gov/dor/programs/individuals/Pages/Kicker.aspx" target="_blank" rel="noopener">Kicker: surplus credit</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">The kicker on your 2025 return is 9.863% of your 2024 tax liability: Oregon tax before credits, except the credit for tax paid to another state. You must file a 2024 and a 2025 Oregon return. Oregon doesn't tax the kicker; it can be applied to debts you owe the state, or donated to the State School Fund.</span></li><li><a href="https://apps.oregon.gov/oregon-newsroom/OR/DOR/Posts/Post/Revenue-surplus-confirmed-Taxpayers-to-receive-kicker-credit-on-2025-Oregon-tax-returns-next-year" target="_blank" rel="noopener">Revenue surplus confirmed: kicker credit on 2025 Oregon returns (Nov. 7, 2025)</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">A $1.41 billion surplus for 2023-25. Multiply your 2024 tax liability before credits, found on line 24 of your 2024 Form OR-40, by 9.863%. If you claimed a credit for tax paid to another state, subtract it first. It's a credit on your 2025 return, not a separate check.</span></li><li><a href="https://www.oregon.gov/das/oea/Documents/OEA-Forecast-slides-0926.pdf" target="_blank" rel="noopener">Oregon economic and revenue forecast (Aug. 26, 2026)</a><span class="s-o">Oregon Office of Economic Analysis</span><span class="s-n">No 2025-27 kicker at this time. Personal income tax revenue is forecast at $32,450 million, $526 million below the $32,976 million kicker threshold (2% above the close-of-session forecast).</span></li><li><a href="https://revenueonline.dor.oregon.gov/tap/_/?Link=WMK" target="_blank" rel="noopener">What's My Kicker? (Revenue Online)</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">The state's lookup tool gives your exact kicker. You'll need your SSN or ITIN and your filing status for 2024 and 2025.</span></li><li><a href="https://www.oregon.gov/dor/programs/individuals/Pages/direct_file_OR.aspx" target="_blank" rel="noopener">Direct File Oregon</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">A free way for full-year residents to file their Oregon return directly with the state.</span></li></ul></div></details></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+  <p style="font-size:12px;opacity:.7;margin-top:6px">© 2026 X Ventures LLC</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"kick": {"o": "Oregon Department of Revenue", "t": "Kicker: surplus credit", "u": "https://www.oregon.gov/dor/programs/individuals/Pages/Kicker.aspx", "n": "The kicker on your 2025 return is 9.863% of your 2024 tax liability: Oregon tax before credits, except the credit for tax paid to another state. You must file a 2024 and a 2025 Oregon return. Oregon doesn't tax the kicker; it can be applied to debts you owe the state, or donated to the State School Fund.", "d": "Oct 12, 2026"}, "pr": {"o": "Oregon Department of Revenue", "t": "Revenue surplus confirmed: kicker credit on 2025 Oregon returns (Nov. 7, 2025)", "u": "https://apps.oregon.gov/oregon-newsroom/OR/DOR/Posts/Post/Revenue-surplus-confirmed-Taxpayers-to-receive-kicker-credit-on-2025-Oregon-tax-returns-next-year", "n": "A $1.41 billion surplus for 2023-25. Multiply your 2024 tax liability before credits, found on line 24 of your 2024 Form OR-40, by 9.863%. If you claimed a credit for tax paid to another state, subtract it first. It's a credit on your 2025 return, not a separate check.", "d": "Oct 12, 2026"}, "oea": {"o": "Oregon Office of Economic Analysis", "t": "Oregon economic and revenue forecast (Aug. 26, 2026)", "u": "https://www.oregon.gov/das/oea/Documents/OEA-Forecast-slides-0926.pdf", "n": "No 2025-27 kicker at this time. Personal income tax revenue is forecast at $32,450 million, $526 million below the $32,976 million kicker threshold (2% above the close-of-session forecast).", "d": "Oct 12, 2026"}, "wmk": {"o": "Oregon Department of Revenue", "t": "What's My Kicker? (Revenue Online)", "u": "https://revenueonline.dor.oregon.gov/tap/_/?Link=WMK", "n": "The state's lookup tool gives your exact kicker. You'll need your SSN or ITIN and your filing status for 2024 and 2025.", "d": "Oct 12, 2026"}, "dfo": {"o": "Oregon Department of Revenue", "t": "Direct File Oregon", "u": "https://www.oregon.gov/dor/programs/individuals/Pages/direct_file_OR.aspx", "n": "A free way for full-year residents to file their Oregon return directly with the state.", "d": "Oct 12, 2026"}};</script>
+<script src="assets/charts.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const note=f.querySelector(".sample");const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}HTMLFormElement.prototype.reset.call(f);if(note)note.hidden=false;setTimeout(()=>{f.dispatchEvent(new Event("change"));try{localStorage.removeItem(key);}catch(e){}},0);});const c=$("clearall");if(c)c.addEventListener("click",()=>{els.forEach(e=>{if(e.type==="checkbox")e.checked=false;else if(e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="hidden")e.value="";});if(note)note.hidden=true;go();const first=els.find(e=>e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="checkbox"&&e.offsetParent);if(first)first.focus();});
+  run();
+}
+
+const C=(k,l)=>`<a class="cite" data-cite="${k}" href="${(window.BM_SOURCES[k]||{}).u||"#sources"}" target="_blank" rel="noopener" aria-expanded="false">${l}</a>`;
+const CERT=9.863;
+function kicker(liab,oth,ratePct){const base=Math.max(0,liab-oth);return {base,kick:Math.round(base*ratePct)/100};}
+window.BM_KICKER=kicker;
+function run(){
+  const res=$("rt-r").checked;
+  $("liab-l").textContent=res?"Tax from line 24 of your 2024 Form OR-40":"Oregon tax before credits on your 2024 OR-40-P or OR-40-N";
+  $("liab-h").textContent=res?"Your Oregon tax before any credits, withholding or payments.":"Use the Oregon tax figure on your return before any credits, withholding or payments.";
+  const liab=num("liab"),oth=num("oth"),rIn=$("rate").value.trim()===""?CERT:num("rate");
+  const f24=$("f24").checked,f25=$("f25").checked,don=$("don").checked;
+  const {base,kick}=kicker(liab,oth,rIn);
+  const whatif=Math.abs(rIn-CERT)>1e-9;
+  const ok=f24&&f25&&base>0;
+  const why=[];
+  if(!f24)why.push("You need a 2024 Oregon return on file. If you haven't filed it, you still can, and the kicker is figured once it's processed.");
+  if(!f25)why.push("The kicker is claimed on your 2025 Oregon return, so you have to file one, even if you don't otherwise need to.");
+  if(f24&&base<=0)why.push(liab>0?"Your credit for tax paid to another state is as large as your Oregon tax, so there's nothing left to multiply.":"Enter your 2024 Oregon tax. With no Oregon tax for 2024, there's no kicker.");
+  const label=!ok?"Kicker":don?"Donated to K-12 schools":"Added to your 2025 refund";
+  $("sum").innerHTML=`<h2>${whatif?"Your kicker at "+rIn+"%":"Your 2025 kicker"}</h2>`+tot([[ok?m2(kick):"$0.00",label]])+
+    `<p>${ok?(don?"Your whole kicker goes to the Oregon State School Fund instead of your refund.":`That's ${rIn}% of the ${m0(base)} Oregon tax on your 2024 return.`):why[0]}</p>`;
+  const rows=[[`2024 Oregon tax before credits ${C("pr","DOR")}`,m2(liab)]];
+  if(oth>0)rows.push([`− Credit for tax paid to another state ${C("pr","DOR")}`,"−"+m2(Math.min(oth,liab))]);
+  rows.push(["= Tax the kicker is based on",m2(base)],[`× Kicker rate ${C(whatif?"oea":"kick",whatif?"what-if":"DOR")}`,`${rIn}%`],["= Your kicker",m2(kick),"total"]);
+  let out=card({t:"Kicker credit on your 2025 return",scope:"Oregon · 2025 return, filed in 2026",amt:ok?m2(kick):"$0",al:ok?(don?"donated":"credit"):"not eligible yet",
+    st:ok?"good":"warn",chip:ok?(whatif?"What-if rate, not the certified one":"Refundable credit"):"Missing a step",
+    p:ok?[`It adds to your refund or lowers what you owe. For your exact figure, use the state's ${C("wmk","What's My Kicker?")} tool.`]:why,
+    rows,open:true,notes:["Tax returns round to whole dollars, so the credit on your return can differ by up to a dollar.",
+      "Oregon can apply the kicker to debts you owe the state, such as back taxes, child support or court fines.",
+      "Oregon doesn't tax the kicker. It's federally taxable only if you deducted state taxes in an earlier year and itemize on your 2025 federal return."]});
+  $("cards").innerHTML=out;
+  $("cards2").innerHTML=card({t:"Is another kicker coming?",scope:"2025-27 budget period · credit on 2027 returns",amt:"None yet",al:"projected",st:"info",chip:"As of the Aug. 26, 2026 forecast",
+    p:[`Oregon's economists don't project a kicker for 2025-27. Personal income tax revenue is forecast at $32.45 billion, about $526 million short of the $32.98 billion it would take to trigger one ${C("oea","OEA")}.`,
+       "If one does happen, it would be a credit on 2027 Oregon returns filed in 2028, based on your 2026 tax. This page is updated when a new forecast comes out."]});
+}
+wire("bm-kick",run);
+})();
+</script>
+<script>
+(function(){
+  var S=window.BM_SOURCES||{},pop=null,from=null;
+  function close(){if(pop){pop.remove();pop=null;if(from){from.setAttribute('aria-expanded','false');}}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cite');
+    if(pop&&!e.target.closest('.citepop')&&a!==from)close();
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var s=S[a.getAttribute('data-cite')];if(!s)return;
+    e.preventDefault();
+    if(pop&&from===a){close();return;}
+    close();from=a;a.setAttribute('aria-expanded','true');
+    pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
+    pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open source ↗</a>';
+    document.body.appendChild(pop);
+    var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
+    var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
+    pop.style.left=x+'px';pop.style.top=y+'px';
+    pop.querySelector('.cp-x').addEventListener('click',function(){var f=from;close();if(f)f.focus();});
+    pop.querySelector('.cp-go').focus({preventScroll:true});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop){var f=from;close();if(f)f.focus();}});
+})();
+</script>
+<script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+<div class="mbar" id="mbar" role="region" aria-label="Your estimate">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">See details</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": -1}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
+})();
+</script>
+<script>(function(){function o(){if(location.hash==="#sources"){var d=document.querySelector("#sources details");if(d)d.open=true;}}o();window.addEventListener("hashchange",o);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#sources"]');if(a){var d=document.querySelector("#sources details");if(d)d.open=true;}});})();</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
+</script>
+</body></html>

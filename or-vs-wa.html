@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Oregon vs. Washington Take-Home Pay Calculator (2026) | BenefitMath</title>
+<meta name="description" content="Live in Washington and work in Oregon, or the reverse? Compare 2026 take-home pay in all four combinations, with Oregon income tax, transit tax, paid leave, WA Cares and sales tax shown.">
+<meta property="og:title" content="Oregon vs. Washington Take-Home Pay Calculator (2026) | BenefitMath">
+<meta property="og:description" content="Live in Washington and work in Oregon, or the reverse? Compare 2026 take-home pay in all four combinations, with Oregon income tax, transit tax, paid leave, WA Cares and sales tax shown.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:min(820px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 56px -18px rgba(0,0,0,.45)}
+.mega::before{content:"";position:absolute;top:-7px;right:52px;width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.site.open .mega{display:block;animation:megaIn .14s ease-out}
+@keyframes megaIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:10px}
+.mcol{display:flex;flex-direction:column;gap:6px;padding:6px;border-left:1px solid var(--line)}
+.mcol:first-child{border-left:0}
+.ngroup{display:flex;flex-direction:column}
+.ngroup+.ngroup{margin-top:10px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 10px 4px}
+.ngroup a{display:block;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:2px}
+.ngroup a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover{background:var(--sunk)}
+.ngroup a:focus-visible,.mega-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.mega-foot{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);background:var(--sunk);border-radius:0 0 16px 16px}
+.mstart{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);font-size:13.5px;line-height:1.35}
+.mstart span{color:var(--accent);font-weight:600}
+.mstart:hover span{text-decoration:underline}
+.mlinks{display:flex;flex-wrap:wrap;gap:2px 4px}
+.mlinks a{padding:6px 9px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none}
+.mlinks a:hover{background:var(--surface);color:var(--ink)}
+.mlinks a[aria-current="page"]{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.site.open .mega{animation:none}}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .mega::before{right:44px}
+  .mcols{grid-template-columns:minmax(0,1fr);padding:6px}
+  .mcol{border-left:0;padding:0 6px}
+  .mcol+.mcol{border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+<link rel="canonical" href="https://benefitmath.com/or-vs-wa.html">
+<meta property="og:url" content="https://benefitmath.com/or-vs-wa.html">
+<meta property="og:site_name" content="BenefitMath">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
+<meta name="google-adsense-account" content="ca-pub-7867146450299069">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<style>
+#sources .srcdrop{border:1px solid var(--line);border-radius:var(--r,10px);background:var(--surface)}
+#sources .srcdrop>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 16px var(--f-display,inherit);color:var(--ink)}
+#sources .srcdrop>summary::-webkit-details-marker{display:none}
+#sources .srcdrop>summary small{font:500 12.5px var(--f-body,inherit);color:var(--muted);display:block;margin-top:2px}
+#sources .srcdrop>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+#sources .srcdrop[open]>summary::after{transform:rotate(-135deg)}
+#sources .srcdrop>.srcin{padding:0 16px 12px}
+#sources{padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+</style>
+<style>.cmp table{min-width:560px}.cmp td{padding:6px 8px}.cmp td:not(:first-child){text-align:right;font-family:var(--f-mono);white-space:nowrap;font-variant-numeric:tabular-nums}.cmp th{font:600 12px var(--f-body);padding:8px;text-align:right;vertical-align:bottom;line-height:1.3}.cmp th:first-child{text-align:left}.cmp tr.best td:not(:first-child){color:var(--accent)}.cmp th.win{color:var(--accent)}</style>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Taxes and credits</h4><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a><a href="kicker.html">Oregon kicker<small>Surplus credit on your return</small></a><a href="or-vs-wa.html" aria-current="page">Oregon vs. Washington<small>Live in one, work in the other</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></div></div>
+</div>
+<header class="top" id="top"><p class="pscope"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></p>
+  <h1>Oregon vs. Washington Take-Home Pay</h1>
+  <p class="lede">Live in Vancouver and work in Portland, or the other way around? Compare your 2026 take-home pay for all four ways to split home and work between the two states.</p>
+  <p class="scopebox">Yearly estimates for one job with the standard deduction. Federal income tax, Social Security and Medicare are the same in every column, so the differences all come from state and local taxes. Tap any <b>§</b> label to see the rule.</p>
+</header>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your pay</legend>
+<div class="field"><label for="sal">Yearly pay before taxes</label><div class="money"><input type="number" id="sal" inputmode="decimal" min="0" step="any" value="85000"></div></div>
+<div class="field"><label for="fs">Filing status</label><select id="fs"><option value="single">Single</option><option value="mfj">Married filing jointly (one income)</option></select></div>
+<div class="row">
+<div class="field"><label for="k401">Retirement (401k/403b), % of pay</label><input type="number" id="k401" inputmode="decimal" min="0" max="100" step="any" value="5"></div>
+<div class="field"><label for="hlth">Health/dental premiums per year</label><div class="money"><input type="number" id="hlth" inputmode="decimal" min="0" step="any" value="1500"></div></div>
+</div>
+</fieldset>
+<fieldset><legend>The Oregon side</legend>
+<div class="field"><label for="loc">Where in Oregon you'd live or work</label><select id="loc"><option value="none">Outside the Portland area</option><option value="metro">Portland Metro area, outside Multnomah County</option><option value="mult">Multnomah County (most of Portland)</option></select><span class="hint">Portland-area income taxes only apply above about $125,000 of taxable income ($200,000 for joint filers).</span></div>
+</fieldset>
+<fieldset><legend>The Washington side</legend>
+<label class="check"><input type="checkbox" id="exempt"><span>Living in Oregon and working in Washington, I'd get a WA Cares exemption</span></label>
+<div class="row">
+<div class="field"><label for="spend">Yearly spending taxed in Washington</label><div class="money"><input type="number" id="spend" inputmode="decimal" min="0" step="any" value="12000"></div><span class="hint">Things with sales tax, not groceries or rent.</span></div>
+<div class="field"><label for="srate">Washington sales tax rate, %</label><input type="number" id="srate" inputmode="decimal" min="0" max="20" step="any" value="8.9"><span class="hint">8.9% in Vancouver; 8.0% in unincorporated Clark County.</span></div>
+</div>
+</fieldset>
+<p class="sample">Example numbers are filled in. Replace them with yours.</p>
+<div class="btns"><button type="button" id="reset">Reset to example</button><button type="button" id="clearall">Clear all</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
+  <div id="cards2" class="results"></div>
+</div>
+</section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid"></div></aside>
+<section class="prose faq" id="faq"><h2>Common questions</h2>
+<details id="how"><summary>I live in Washington and work in Oregon. Do I pay Oregon income tax?</summary><p>Yes. Oregon taxes nonresidents on wages they earn working in Oregon, and your employer withholds it. You file an Oregon nonresident return (Form OR-40-N). If all your pay is for work done in Oregon, your Oregon tax comes out about the same as a resident's. You also pay Oregon's 0.1% transit tax and Paid Leave Oregon premiums, but not Washington's paid leave or WA Cares premiums.</p></details>
+<details><summary>I live in Oregon and work in Washington. Which taxes do I pay?</summary><p>Oregon taxes residents on all their income, wherever it's earned, so you owe Oregon income tax even though your job is in Washington. A Washington employer may not withhold it, so you may need to make estimated payments. Because you work in Washington, you pay Washington's paid leave premium and WA Cares (unless you get the exemption for people who live outside Washington), plus Oregon's transit tax, which applies to residents wherever they work.</p></details>
+<details><summary>Why does the Washington-only column usually come out ahead?</summary><p>Washington doesn't tax wages. Its premiums for paid leave and WA Cares add up to about 1.4% of pay, far less than Oregon's income tax. But Washington has a sales tax, which is why this page lets you add your spending. Property taxes, car costs and other expenses also differ and aren't included here.</p></details>
+<details><summary>What are the Portland-area income taxes?</summary><p>Metro's supportive housing tax is 1% of taxable income over $128,000 single or $205,000 joint for 2026. Multnomah County's Preschool for All tax is 1.5% over $125,000 single or $200,000 joint, plus another 1.5% over $250,000 or $400,000. They apply to people who live there and to people who work there, and only to income above those amounts.</p></details>
+<details><summary>Which paid leave program covers me?</summary><p>It follows where you work, not where you live. Work in Oregon and you're in Paid Leave Oregon; work in Washington and you're in Washington Paid Family and Medical Leave. Use the <a href="paid-leave.html">paid leave calculator</a> to see what each would pay.</p></details>
+<details><summary>What does this page leave out?</summary><p>Tax credits (like the EITC or child tax credit, which don't depend on the state), itemized deductions, other income, property tax, and local business taxes. Federal tax is figured with the standard deduction and is the same in every column.</p></details>
+</section>
+
+<section class="prose" id="sources"><details class="srcdrop"><summary><span>Sources<small>15 sources · checked October 12, 2026</small></span></summary><div class="srcin"><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf" target="_blank" rel="noopener">Oregon withholding tax formulas, effective January 1, 2026 (150-206-436)</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">Oregon's 2026 amounts: a $2,910 standard deduction ($5,820 married), rates of 4.75%, 6.75%, 8.75% and 9.9% with brackets at $4,550, $11,400 and $125,000 ($9,100, $22,800 and $250,000 married), a $263 credit per exemption, and a federal tax subtraction of up to $8,750, phased out above $125,000 ($250,000 married).</span></li><li><a href="https://oregon.public.law/statutes/ors_316.085" target="_blank" rel="noopener">ORS 316.085: Personal exemption credit</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">No exemption credit if federal adjusted gross income is over $100,000, or over $200,000 for joint filers.</span></li><li><a href="https://oregon.public.law/statutes/ors_316.037" target="_blank" rel="noopener">ORS 316.037: Tax on residents</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Oregon taxes the entire taxable income of every resident, wherever it's earned.</span></li><li><a href="https://oregon.public.law/statutes/ors_316.127" target="_blank" rel="noopener">ORS 316.127: Income of nonresidents from Oregon sources</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Nonresidents are taxed on income derived from or connected with sources in Oregon, including an occupation carried on in Oregon.</span></li><li><a href="https://www.oregon.gov/dor/forms/FormsPubs/withholding-transit-tax-non-resident_206-692.pdf" target="_blank" rel="noopener">Withholding and transit tax: out-of-state and nonresident employers (150-206-692)</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">Employers withhold Oregon tax from nonresidents for wages earned working in Oregon. Nonresidents with Oregon income file Form OR-40-N.</span></li><li><a href="https://www.oregon.gov/dor/programs/businesses/Pages/Statewide-Transit-Tax.aspx" target="_blank" rel="noopener">Statewide transit tax (ORS 320.550)</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">0.1% of wages of Oregon residents wherever the work is done, and of nonresidents for work done in Oregon.</span></li><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.150: Paid leave contributions</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Total rate up to 1% of wages, up to the Social Security wage base; employees pay 60% (0.6% of wages).</span></li><li><a href="https://esd.wa.gov/node/1109" target="_blank" rel="noopener">Paid leave premium rate increases to 1.13% in 2026</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">Employees pay 71.43% of the 1.13% premium (about 0.81% of wages), up to the Social Security wage cap.</span></li><li><a href="https://paidleave.wa.gov/estimate-your-paid-leave-payments/" target="_blank" rel="noopener">Premiums: Paid Leave and WA Cares</a><span class="s-o">Washington Paid Leave</span><span class="s-n">WA Cares premiums are 0.58% of gross wages with no cap, paid by the employee.</span></li><li><a href="https://wacaresfund.wa.gov/sites/default/files/2025-10/Exemption%20Application%202025.10.pdf" target="_blank" rel="noopener">WA Cares exemption application</a><span class="s-o">WA Cares Fund</span><span class="s-n">One of the exemption categories is living outside Washington state. You must tell the state and your employer within 90 days if you move to Washington.</span></li><li><a href="https://www.portland.gov/revenue/personal-tax" target="_blank" rel="noopener">Metro and Multnomah County personal income taxes</a><span class="s-o">City of Portland Revenue Division</span><span class="s-n">Metro: 1% of taxable income over $128,000 single or $205,000 joint for 2026. Multnomah County Preschool for All: 1.5% over $125,000 single or $200,000 joint, plus 1.5% more over $250,000 or $400,000. Both apply to residents and to nonresidents who work there.</span></li><li><a href="https://dor.wa.gov/sites/default/files/2026-01/Q226_Clark_County_HRS_LLEP.pdf" target="_blank" rel="noopener">Clark County local sales tax rates, effective April 1, 2026</a><span class="s-o">Washington Department of Revenue</span><span class="s-n">Combined sales tax rate of 8.9% in the City of Vancouver and 8.0% in unincorporated Clark County.</span></li><li><a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener">Tax inflation adjustments for tax year 2026 (Rev. Proc. 2025-32)</a><span class="s-o">Internal Revenue Service</span><span class="s-n">2026 standard deduction: $16,100 single, $32,200 married filing jointly, $24,150 head of household. Tax brackets from 10% to 37%.</span></li><li><a href="https://www.ssa.gov/oact/cola/cbb.html" target="_blank" rel="noopener">Contribution and benefit base</a><span class="s-o">Social Security Administration</span><span class="s-n">Social Security tax is 6.2% of earnings up to $184,500 in 2026. Medicare tax is 1.45% with no limit.</span></li><li><a href="https://www.irs.gov/taxtopics/tc560" target="_blank" rel="noopener">Topic 560: Additional Medicare Tax</a><span class="s-o">Internal Revenue Service</span><span class="s-n">Employers withhold an extra 0.9% Medicare tax on wages over $200,000 in a year.</span></li></ul></div></details></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+  <p style="font-size:12px;opacity:.7;margin-top:6px">© 2026 X Ventures LLC</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"irs-26": {"o": "Internal Revenue Service", "t": "Tax inflation adjustments for tax year 2026 (Rev. Proc. 2025-32)", "u": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill", "n": "2026 standard deduction: $16,100 single, $32,200 married filing jointly, $24,150 head of household. Tax brackets from 10% to 37%.", "d": "Oct 12, 2026"}, "ssa": {"o": "Social Security Administration", "t": "Contribution and benefit base", "u": "https://www.ssa.gov/oact/cola/cbb.html", "n": "Social Security tax is 6.2% of earnings up to $184,500 in 2026. Medicare tax is 1.45% with no limit.", "d": "Oct 12, 2026"}, "irs-amt": {"o": "Internal Revenue Service", "t": "Topic 560: Additional Medicare Tax", "u": "https://www.irs.gov/taxtopics/tc560", "n": "Employers withhold an extra 0.9% Medicare tax on wages over $200,000 in a year.", "d": "Oct 12, 2026"}, "or-26": {"o": "Oregon Department of Revenue", "t": "Oregon withholding tax formulas, effective January 1, 2026 (150-206-436)", "u": "https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf", "n": "Oregon's 2026 amounts: a $2,910 standard deduction ($5,820 married), rates of 4.75%, 6.75%, 8.75% and 9.9% with brackets at $4,550, $11,400 and $125,000 ($9,100, $22,800 and $250,000 married), a $263 credit per exemption, and a federal tax subtraction of up to $8,750, phased out above $125,000 ($250,000 married).", "d": "Oct 12, 2026"}, "ors-ex": {"o": "Oregon Revised Statutes", "t": "ORS 316.085: Personal exemption credit", "u": "https://oregon.public.law/statutes/ors_316.085", "n": "No exemption credit if federal adjusted gross income is over $100,000, or over $200,000 for joint filers.", "d": "Oct 12, 2026"}, "ors-res": {"o": "Oregon Revised Statutes", "t": "ORS 316.037: Tax on residents", "u": "https://oregon.public.law/statutes/ors_316.037", "n": "Oregon taxes the entire taxable income of every resident, wherever it's earned.", "d": "Oct 12, 2026"}, "ors-nr": {"o": "Oregon Revised Statutes", "t": "ORS 316.127: Income of nonresidents from Oregon sources", "u": "https://oregon.public.law/statutes/ors_316.127", "n": "Nonresidents are taxed on income derived from or connected with sources in Oregon, including an occupation carried on in Oregon.", "d": "Oct 12, 2026"}, "or-nrw": {"o": "Oregon Department of Revenue", "t": "Withholding and transit tax: out-of-state and nonresident employers (150-206-692)", "u": "https://www.oregon.gov/dor/forms/FormsPubs/withholding-transit-tax-non-resident_206-692.pdf", "n": "Employers withhold Oregon tax from nonresidents for wages earned working in Oregon. Nonresidents with Oregon income file Form OR-40-N.", "d": "Oct 12, 2026"}, "or-transit": {"o": "Oregon Department of Revenue", "t": "Statewide transit tax (ORS 320.550)", "u": "https://www.oregon.gov/dor/programs/businesses/Pages/Statewide-Transit-Tax.aspx", "n": "0.1% of wages of Oregon residents wherever the work is done, and of nonresidents for work done in Oregon.", "d": "Oct 12, 2026"}, "or-pfml": {"o": "Oregon Revised Statutes", "t": "ORS 657B.150: Paid leave contributions", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Total rate up to 1% of wages, up to the Social Security wage base; employees pay 60% (0.6% of wages).", "d": "Oct 12, 2026"}, "wa-prem": {"o": "Washington Employment Security Department", "t": "Paid leave premium rate increases to 1.13% in 2026", "u": "https://esd.wa.gov/node/1109", "n": "Employees pay 71.43% of the 1.13% premium (about 0.81% of wages), up to the Social Security wage cap.", "d": "Oct 12, 2026"}, "wa-cares": {"o": "Washington Paid Leave", "t": "Premiums: Paid Leave and WA Cares", "u": "https://paidleave.wa.gov/estimate-your-paid-leave-payments/", "n": "WA Cares premiums are 0.58% of gross wages with no cap, paid by the employee.", "d": "Oct 12, 2026"}, "wa-ex": {"o": "WA Cares Fund", "t": "WA Cares exemption application", "u": "https://wacaresfund.wa.gov/sites/default/files/2025-10/Exemption%20Application%202025.10.pdf", "n": "One of the exemption categories is living outside Washington state. You must tell the state and your employer within 90 days if you move to Washington.", "d": "Oct 12, 2026"}, "local": {"o": "City of Portland Revenue Division", "t": "Metro and Multnomah County personal income taxes", "u": "https://www.portland.gov/revenue/personal-tax", "n": "Metro: 1% of taxable income over $128,000 single or $205,000 joint for 2026. Multnomah County Preschool for All: 1.5% over $125,000 single or $200,000 joint, plus 1.5% more over $250,000 or $400,000. Both apply to residents and to nonresidents who work there.", "d": "Oct 12, 2026"}, "wa-sales": {"o": "Washington Department of Revenue", "t": "Clark County local sales tax rates, effective April 1, 2026", "u": "https://dor.wa.gov/sites/default/files/2026-01/Q226_Clark_County_HRS_LLEP.pdf", "n": "Combined sales tax rate of 8.9% in the City of Vancouver and 8.0% in unincorporated Clark County.", "d": "Oct 12, 2026"}};</script>
+<script src="assets/charts.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const note=f.querySelector(".sample");const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}HTMLFormElement.prototype.reset.call(f);if(note)note.hidden=false;setTimeout(()=>{f.dispatchEvent(new Event("change"));try{localStorage.removeItem(key);}catch(e){}},0);});const c=$("clearall");if(c)c.addEventListener("click",()=>{els.forEach(e=>{if(e.type==="checkbox")e.checked=false;else if(e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="hidden")e.value="";});if(note)note.hidden=true;go();const first=els.find(e=>e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="checkbox"&&e.offsetParent);if(first)first.focus();});
+  run();
+}
+
+const C=(k,l)=>`<a class="cite" data-cite="${k}" href="${(window.BM_SOURCES[k]||{}).u||"#sources"}" target="_blank" rel="noopener" aria-expanded="false">${l}</a>`;
+const STD={single:16100,mfj:32200};
+const BR={single:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[Infinity,.37]],
+  mfj:[[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[Infinity,.37]]};
+function brTax(ti,br){let t=0,p=0;for(const [top,r] of br){if(ti>p)t+=(Math.min(ti,top)-p)*r;p=top;}return t;}
+const SSB=184500;
+const OR_BR={single:[[4550,.0475],[11400,.0675],[125000,.0875],[Infinity,.099]],mfj:[[9100,.0475],[22800,.0675],[250000,.0875],[Infinity,.099]]};
+const OR_STD={single:2910,mfj:5820}, OR_EX=263, EX_LIM={single:100000,mfj:200000};
+function orCap(agi,mar){
+  const s=mar?[[250000,8750],[260000,7000],[270000,5250],[280000,3500],[290000,1750]]:[[125000,8750],[130000,7000],[135000,5250],[140000,3500],[145000,1750]];
+  for(const [lim,c] of s)if(agi<lim)return c; return 0;
+}
+function orTax(agi,fed,fs){
+  const mar=fs==="mfj",cap=orCap(agi,mar),sub=Math.min(fed,cap),ti=Math.max(0,agi-sub-OR_STD[fs]);
+  const gross=brTax(ti,OR_BR[fs]),n=mar?2:1,ex=agi>EX_LIM[fs]?0:OR_EX*n;
+  return {cap,sub,ti,gross,ex,n,tax:Math.max(0,gross-ex)};
+}
+function localTax(ti,fs,loc){
+  const mar=fs==="mfj";let metro=0,pfa=0;
+  if(loc==="metro"||loc==="mult")metro=Math.max(0,ti-(mar?205000:128000))*0.01;
+  if(loc==="mult")pfa=Math.max(0,ti-(mar?200000:125000))*0.015+Math.max(0,ti-(mar?400000:250000))*0.015;
+  return {metro,pfa,tot:metro+pfa};
+}
+/* One scenario: live = "OR"|"WA", work = "OR"|"WA" */
+function scenario(i,live,work){
+  const G=i.sal,K=G*i.k,H=Math.min(i.hlth,G-K),agi=Math.max(0,G-K-H),ficaW=Math.max(0,G-H);
+  const fed=brTax(Math.max(0,agi-STD[i.fs]),BR[i.fs]);
+  const ss=Math.min(ficaW,SSB)*0.062,med=ficaW*0.0145+Math.max(0,ficaW-(i.fs==="mfj"?250000:200000))*0.009;
+  const orOwes=live==="OR"||work==="OR";
+  const o=orOwes?orTax(agi,fed,i.fs):null;
+  const transit=orOwes?G*0.001:0;
+  const plo=work==="OR"?Math.min(G,SSB)*0.006:0;
+  const wapfml=work==="WA"?Math.min(G,SSB)*0.0113*0.7143:0;
+  const cares=work==="WA"&&!(live==="OR"&&i.exempt)?G*0.0058:0;
+  const lt=orOwes&&i.loc!=="none"?localTax(o.ti,i.fs,i.loc):{metro:0,pfa:0,tot:0};
+  const state=(o?o.tax:0)+transit+plo+wapfml+cares+lt.tot;
+  const net=G-K-H-fed-ss-med-state;
+  const sales=live==="WA"?i.spend*i.srate:0;
+  return {live,work,G,K,H,agi,fed,ss,med,o,orTax:o?o.tax:0,transit,plo,wapfml,cares,lt,state,net,sales,left:net-sales};
+}
+window.BM_ORWA=scenario;
+const NAMES={OROR:"Live in Oregon, work in Oregon",WAOR:"Live in Washington, work in Oregon",ORWA:"Live in Oregon, work in Washington",WAWA:"Live in Washington, work in Washington"};
+const GER={OROR:"Living and working in Oregon",WAOR:"Living in Washington and working in Oregon",ORWA:"Living in Oregon and working in Washington",WAWA:"Living and working in Washington"};
+const SHORT={OROR:"Live OR · work OR",WAOR:"Live WA · work OR",ORWA:"Live OR · work WA",WAWA:"Live WA · work WA"};
+function run(){
+  const i={sal:num("sal"),fs:$("fs").value,k:Math.min(100,num("k401"))/100,hlth:num("hlth"),loc:$("loc").value,exempt:$("exempt").checked,spend:num("spend"),srate:Math.min(20,num("srate"))/100};
+  const S=[["OR","OR"],["WA","OR"],["OR","WA"],["WA","WA"]].map(([l,w])=>({id:l+w,...scenario(i,l,w)}));
+  if(i.sal<=0){$("sum").innerHTML=`<h2>Take-home pay by where you live and work</h2><p>Enter your yearly pay to compare.</p>`;$("cards").innerHTML="";$("cards2").innerHTML="";return;}
+  const useSales=i.spend>0&&i.srate>0, key=useSales?"left":"net";
+  const best=S.reduce((b,s)=>s[key]>b[key]?s:b,S[0]), worst=S.reduce((b,s)=>s[key]<b[key]?s:b,S[0]);
+  const by=id=>S.find(s=>s.id===id);
+  $("sum").innerHTML=`<h2>Your 2026 take-home pay${useSales?", after Washington sales tax":""}</h2>`+tot(S.map(s=>[m0(s[key]),SHORT[s.id]]))+
+    `<p><b>${GER[best.id]}</b> leaves you the most: ${m0(best[key]-worst[key])} a year more than ${GER[worst.id].charAt(0).toLowerCase()+GER[worst.id].slice(1)}. `+
+    `Living in Washington and working in Oregon, you'd still pay ${m0(by("WAOR").orTax)} in Oregon income tax${useSales?`, plus about ${m0(by("WAOR").sales)} in Washington sales tax`:""}.</p>`;
+  const cols=S.map(s=>`<th class="${s.id===best.id?"win":""}">${SHORT[s.id].replace(" · ","<br>")}</th>`).join("");
+  const row=(label,f,cls)=>`<tr${cls?` class="${cls}"`:""}><td>${label}</td>${S.map(s=>`<td>${f(s)}</td>`).join("")}</tr>`;
+  const neg=v=>v>0.5?"−"+m0(v):"—";
+  let t=`<div class="tbl cmp"><table><tr><th></th>${cols}</tr>`+
+    row("Pay before taxes",s=>m0(s.G))+
+    row("Retirement and health (before tax)",s=>neg(s.K+s.H))+
+    row(`Federal income tax ${C("irs-26","IRS")}`,s=>neg(s.fed))+
+    row(`Social Security and Medicare ${C("ssa","SSA")}`,s=>neg(s.ss+s.med))+
+    row(`Oregon income tax ${C("or-26","DOR")}`,s=>neg(s.orTax))+
+    row(`Oregon transit tax, 0.1% ${C("or-transit","DOR")}`,s=>neg(s.transit))+
+    row(`Paid Leave Oregon, 0.6% ${C("or-pfml","ORS 657B")}`,s=>neg(s.plo))+
+    row(`WA paid leave, 0.81% ${C("wa-prem","ESD")}`,s=>neg(s.wapfml))+
+    row(`WA Cares, 0.58% ${C("wa-cares","WA")}`,s=>neg(s.cares));
+  if(i.loc!=="none")t+=row(`Portland-area income taxes ${C("local","Portland")}`,s=>neg(s.lt.tot));
+  t+=row("Take-home pay",s=>m0(s.net),useSales?"":"total");
+  if(useSales)t+=row(`WA sales tax on ${m0(i.spend)} of spending ${C("wa-sales","WA DOR")}`,s=>neg(s.sales))+row("Left after sales tax",s=>m0(s.left),"total");
+  t+="</table></div>";
+  $("cards").innerHTML=`<article class="card st-info"><div class="head"><div><h3>Side by side, for the year</h3><div class="scope">2026 · ${i.fs==="mfj"?"married filing jointly":"single"} · one job</div></div></div>`+
+    `<div class="body"><p>Federal taxes are identical in every column. Oregon income tax applies whenever you live <i>or</i> work in Oregon.</p>${t}</div></article>`;
+  const o=by("OROR").o, mar=i.fs==="mfj";
+  const oRows=[["Pay minus retirement and health (federal AGI)",m0(by("OROR").agi)],
+    [`− Federal tax subtraction (your federal tax, up to ${m0(o.cap)})`,"−"+m0(o.sub)],
+    [`− Oregon standard deduction`,"−"+m0(OR_STD[i.fs])],["= Oregon taxable income",m0(o.ti)],
+    [`Tax at 4.75% to 9.9% ${C("or-26","DOR")}`,m0(o.gross)],
+    [`− Exemption credit, ${o.n} × $263 ${C("ors-ex","ORS 316.085")}`,o.ex?"−"+m0(o.ex):"none over "+m0(EX_LIM[i.fs])],
+    ["= Oregon income tax",m0(o.tax),"total"]];
+  let out2=card({t:"Oregon income tax, step by step",scope:"Same whether you live in Oregon or only work there",amt:m0(o.tax),al:"per year",st:"info",
+    chip:"Oregon taxes residents on all income, and nonresidents on Oregon wages",rows:oRows,
+    p:[`Residents owe tax on everything they earn ${C("ors-res","ORS 316.037")}. People who live in Washington owe it on wages for work done in Oregon ${C("ors-nr","ORS 316.127")}, and file Form OR-40-N ${C("or-nrw","DOR")}. When all your pay is for work in Oregon, the two come out the same.`],
+    notes:["Uses Oregon's 2026 amounts as published in its 2026 withholding formulas. The final 2026 tax forms can differ by a few dollars.","Dependents add another $263 credit each in the Oregon columns."]});
+  if(i.loc!=="none"){const lt=by("OROR").lt;
+    out2+=card({t:"Portland-area income taxes",scope:i.loc==="mult"?"Metro and Multnomah County":"Metro",amt:m0(lt.tot),al:"per year",st:"info",
+      rows:[["Oregon taxable income",m0(o.ti)],[`Metro, 1% over ${m0(mar?205000:128000)} ${C("local","Portland")}`,m0(lt.metro)]].concat(i.loc==="mult"?[[`Preschool for All, 1.5% over ${m0(mar?200000:125000)} and 1.5% more over ${m0(mar?400000:250000)}`,m0(lt.pfa)]]:[]).concat([["Total",m0(lt.tot),"total"]]),
+      notes:["These apply to people who live in the area, and to people who live elsewhere but work there. If you work from a home office outside the area, that pay generally isn't covered."]});}
+  out2+=card({t:"Washington premiums",scope:"When your job is in Washington",amt:m0(by("WAWA").wapfml+by("WAWA").cares),al:"per year",st:"info",
+    rows:[[`Paid leave: 0.81% of pay up to ${m0(SSB)} ${C("wa-prem","ESD")}`,m0(by("WAWA").wapfml)],[`WA Cares: 0.58% of all pay ${C("wa-cares","WA")}`,m0(by("WAWA").cares)],["Total",m0(by("WAWA").wapfml+by("WAWA").cares),"total"]],
+    p:[`If you live in Oregon, you can apply for a WA Cares exemption ${C("wa-ex","WA Cares")}. Check the box in the form to see the difference.`]});
+  $("cards2").innerHTML=out2;
+}
+wire("bm-orwa",run);
+})();
+</script>
+<script>
+(function(){
+  var S=window.BM_SOURCES||{},pop=null,from=null;
+  function close(){if(pop){pop.remove();pop=null;if(from){from.setAttribute('aria-expanded','false');}}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cite');
+    if(pop&&!e.target.closest('.citepop')&&a!==from)close();
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var s=S[a.getAttribute('data-cite')];if(!s)return;
+    e.preventDefault();
+    if(pop&&from===a){close();return;}
+    close();from=a;a.setAttribute('aria-expanded','true');
+    pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
+    pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open source ↗</a>';
+    document.body.appendChild(pop);
+    var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
+    var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
+    pop.style.left=x+'px';pop.style.top=y+'px';
+    pop.querySelector('.cp-x').addEventListener('click',function(){var f=from;close();if(f)f.focus();});
+    pop.querySelector('.cp-go').focus({preventScroll:true});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop){var f=from;close();if(f)f.focus();}});
+})();
+</script>
+<script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+<div class="mbar" id="mbar" role="region" aria-label="Your estimate">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">See details</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": -1}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
+})();
+</script>
+<script>(function(){function o(){if(location.hash==="#sources"){var d=document.querySelector("#sources details");if(d)d.open=true;}}o();window.addEventListener("hashchange",o);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#sources"]');if(a){var d=document.querySelector("#sources details");if(d)d.open=true;}});})();</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
+</script>
+</body></html>
