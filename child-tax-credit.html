@@ -380,6 +380,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
 </div>
@@ -399,6 +400,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   </div></details>
 </footer>
 </div>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -459,6 +461,26 @@ function run(){
     notes:["Tax before credits uses the standard deduction only and leaves out other credits like the EITC or child care credit.","The $500 credit for other dependents is not refundable.","Families with 3 or more children may get a larger refundable amount using a Social Security tax method this page doesn't include."]});
   out+=card({t:"Will this refund affect my benefits?",st:"good",chip:"Not counted for 12 months",
     p:["The refundable part doesn't count as income for SNAP, SSI, Medicaid or housing aid, and isn't counted as savings for 12 months. You may also qualify for the <a href=\"eitc.html\">EITC</a>, which is separate."]});
+  /* Chart: the credit at every earned income, using the same formula as above */
+  if(window.BMChart){
+    if(k+od===0||!$("ssn").checked){BMChart.curve($("chart"),null);}
+    else{
+      const oth=agi-earned, at=e=>{const a=e+oth,rd=50*Math.ceil(Math.max(0,a-thr)/1000),tt=Math.max(0,pool-rd),tx=fedTax(Math.max(0,a-std),fs),u=Math.min(tt,tx),
+        ref=Math.round(Math.min(Math.min(tt-u,1700*k),Math.max(0,e-2500)*0.15));return [u,ref];};
+      const pEnd=thr+Math.ceil(pool/50)*1000-oth;
+      let xmax=Math.max(100000,earned*1.25); if(xmax>thr*0.75)xmax=Math.max(xmax,pEnd*1.04);
+      xmax=Math.ceil(xmax/10000)*10000;
+      const xs=[];for(let i=0;i<=200;i++)xs.push(Math.round(xmax*i/200));
+      if(earned>0&&earned<xmax)xs.push(Math.round(earned)); xs.sort((a,b)=>a-b);
+      const v=xs.map(at), used2=v.map(z=>z[0]), ref2=v.map(z=>z[1]);
+      BMChart.curve($("chart"),{title:"How the credit changes with income",scope:`${FSN[fs]} · ${k} child${k===1?"":"ren"}${od?` + ${od} other`:""} · 2026`,
+        xs,series:[{name:"Paid as refund",color:"var(--c2)",ys:ref2},{name:"Cuts your tax",color:"var(--c1)",ys:used2}],
+        you:{x:earned,y:all,label:"You"},
+        alt:`Child tax credit by earned income. At low income it comes back as a refund, growing 15 cents per dollar over $2,500; as income tax rises it switches to cutting your tax; it reaches ${m0(pool)} and phases out above ${m0(thr)}.`,
+        readout:i=>`Earning <b>${m0(xs[i])}</b>: <b>${m0(used2[i]+ref2[i])}</b> total (${m0(used2[i])} cuts your tax, ${m0(ref2[i])} as refund)`,
+        note:"At low pay the credit comes back mostly as a refund; once you owe income tax, it cuts your tax instead. "+(oth>0?"Your other income is held the same at every point. ":"")+"Uses the standard deduction and leaves out other credits."});
+    }
+  }
   $("cards").innerHTML=out;
 }
 wire("bm-ctc",run);

@@ -386,6 +386,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
 </div>
@@ -405,6 +406,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   </div></details>
 </footer>
 </div>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -490,6 +492,15 @@ function run(){
       rows,notes:["SNAP: 20% of earnings is ignored, then the benefit falls by 30¢ for each $1 of remaining income, so about 24¢ per $1 earned.","SSI: after the first $85 a month, each $2 earned lowers SSI by $1. Your full picture is on the <a href=\"benefits.html\">benefits calculator</a>."]});
   } else {
     out+=card({t:"Get SNAP or SSI?",st:"info",p:["Check the boxes on the left to see how overtime changes those benefits. The tax deduction doesn't reduce what SNAP or SSI count."]});
+  }
+  /* Chart: where the overtime money goes, for the year */
+  if(window.BMChart){
+    const tBase=fedTax(Math.max(0,wages-std),fs), fedOT=Math.max(0,t1-tBase), fedOTno=Math.max(0,t0-tBase), kept=Math.max(0,otPay-fica-fedOT);
+    BMChart.bar($("chart"),otPay>0?{title:"Where your overtime pay goes",scope:`${m0(otPay)} overtime pay · 2026`,
+      parts:[{name:"You keep",value:kept,color:"var(--c1)",main:true},
+        {name:"Federal income tax on it",value:fedOT,color:"var(--c2)"},
+        {name:"Social Security and Medicare (7.65%)",value:fica,color:"var(--c3)"}],
+      note:(saved>0?`Without the new deduction, federal income tax on your overtime would be ${m0(fedOTno)} instead of ${m0(fedOT)}. `:"")+"State income tax isn't included here (Washington has no income tax)."}:null);
   }
   $("cards").innerHTML=out;
 }

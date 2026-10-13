@@ -410,6 +410,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
   <div id="cards2" class="results"></div>
@@ -433,6 +434,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </footer>
 </div>
 <script>window.BM_SOURCES={"irs-26": {"o": "Internal Revenue Service", "t": "Tax inflation adjustments for tax year 2026 (Rev. Proc. 2025-32)", "u": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill", "n": "2026 standard deduction: $16,100 single, $32,200 married filing jointly, $24,150 head of household. Tax brackets from 10% to 37%.", "d": "Oct 12, 2026"}, "ssa": {"o": "Social Security Administration", "t": "Contribution and benefit base", "u": "https://www.ssa.gov/oact/cola/cbb.html", "n": "Social Security tax is 6.2% of earnings up to $184,500 in 2026. Medicare tax is 1.45% with no limit.", "d": "Oct 12, 2026"}, "irs-amt": {"o": "Internal Revenue Service", "t": "Topic 560: Additional Medicare Tax", "u": "https://www.irs.gov/taxtopics/tc560", "n": "Employers withhold an extra 0.9% Medicare tax on wages over $200,000 in a year.", "d": "Oct 12, 2026"}, "or-wh": {"o": "Oregon Department of Revenue", "t": "Oregon withholding tax formulas, effective January 1, 2026 (150-206-436)", "u": "https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf", "n": "Wages minus federal tax withheld (up to $8,750, phased out at higher wages) minus a $2,910 ($5,820 married) standard deduction, taxed at 4.75% to 9.9%, minus $263 per allowance.", "d": "Oct 12, 2026"}, "or-transit": {"o": "Oregon Department of Revenue", "t": "Statewide transit tax (ORS 320.550)", "u": "https://www.oregon.gov/dor/programs/businesses/Pages/Statewide-Transit-Tax.aspx", "n": "0.1% of wages of Oregon residents wherever they work, and of nonresidents for work in Oregon. Withheld by the employer.", "d": "Oct 12, 2026"}, "or-pfml": {"o": "Oregon Revised Statutes", "t": "ORS 657B.150: Paid leave contributions", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Total rate up to 1% of wages, up to the Social Security wage base; employees pay 60% (0.6% of wages).", "d": "Oct 12, 2026"}, "wa-prem": {"o": "Washington Employment Security Department", "t": "Paid leave premium rate increases to 1.13% in 2026", "u": "https://esd.wa.gov/node/1109", "n": "Employees pay 71.43% of the 1.13% premium (about 0.81% of wages), up to the Social Security wage cap.", "d": "Oct 12, 2026"}, "wa-cares": {"o": "Washington Paid Leave", "t": "Premiums: Paid Leave and WA Cares", "u": "https://paidleave.wa.gov/estimate-your-paid-leave-payments/", "n": "WA Cares premiums are 0.58% of gross wages with no cap, paid by the employee. Paid leave premiums apply up to $184,500 in 2026.", "d": "Oct 12, 2026"}};</script>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -526,6 +528,17 @@ function run(){
   else out2+=card({t:"Washington premiums, year view",scope:"Paid leave and WA Cares",amt:m0(stTot),al:"per year",st:"info",
     rows:[["WA paid leave premium for the year",m0(Math.min(G,SSB)*0.0113*0.7143)],["WA Cares premium for the year",m0($("exempt").checked?0:G*0.0058)],["Total",m0(stTot),"total"]],
     notes:['See what these buy you in the <a href="paid-leave.html">paid leave</a> and <a href="wa-cares.html">WA Cares</a> calculators.']});
+  /* Chart: where each paycheck goes (same numbers as the breakdown below) */
+  if(window.BMChart){
+    BMChart.bar($("chart"),G>0?{title:"Where your paycheck goes",scope:`${st==="OR"?"Oregon":"Washington"} · ${m2(g)} gross per paycheck`,fmt:m2,
+      parts:[{name:"Take-home pay",value:Math.max(0,net)/P,color:"var(--c1)",main:true},
+        {name:"Federal income tax",value:fed/P,color:"var(--c2)"},
+        {name:"Social Security and Medicare",value:(ss+med)/P,color:"var(--c3)"},
+        {name:st==="OR"?"Oregon tax, transit tax and paid leave":"WA paid leave and WA Cares",value:stTot/P,color:"var(--c5)"},
+        {name:"Retirement (still your money)",value:K/P,color:"var(--c4)"},
+        {name:"Health and dental premiums",value:H/P,color:"var(--c6)"}],
+      note:"Percentages are shares of your gross pay. Retirement contributions go into your own account."}:null);
+  }
   $("cards2").innerHTML=out2;
 }
 wire("bm-pay",run);

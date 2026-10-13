@@ -382,6 +382,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
 </div>
@@ -401,6 +402,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   </div></details>
 </footer>
 </div>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -466,6 +468,23 @@ function run(){
     p:["Federal tax refunds, including the EITC, don't count as income for SNAP, SSI, Medicaid or housing aid. They also don't count as savings for 12 months after you get them, so you have a year to spend them before they could affect an asset limit."]});
   out+=card({t:"Oregon and Washington have their own credits",st:"info",
     p:["Oregon has a state earned income credit on your Oregon return, and Washington's Working Families Tax Credit pays a separate amount to people who get the federal EITC. Check each state's site for the current amounts."]});
+  /* Chart: the credit at every earned income, using the same formula as above */
+  if(window.BMChart){
+    const oth=agi-earned, at=e=>{const a=e+oth,t=Math.min(E.mx[k],e*E.pin[k]),ov=Math.max(0,Math.max(a,e)-th);return Math.max(0,Math.round(t-ov*E.pout[k]));};
+    const pStart=Math.max(E.ei[k],th-oth), pEnd=Math.max(pStart,th-oth+E.mx[k]/E.pout[k]);
+    const xmax=Math.ceil(Math.max(pEnd*1.08,earned*1.1,20000)/1000)*1000, xs=[];
+    for(let i=0;i<=160;i++)xs.push(Math.round(xmax*i/160));
+    [E.ei[k],pStart,pEnd,earned].forEach(v=>{if(v>0&&v<xmax)xs.push(Math.round(v));});
+    xs.sort((a,b)=>a-b);
+    const ys=xs.map(at), ok=!why;
+    BMChart.curve($("chart"),{title:"How the credit changes with income",scope:`${FSN[fs]} · ${k===3?"3+":k} child${k===1?"":"ren"} · 2026`,
+      xs,series:[{name:"EITC",color:"var(--c1)",ys}],
+      bands:[{x0:0,x1:E.ei[k],label:"Phase-in"},{x0:E.ei[k],x1:pStart,label:"Plateau"},{x0:pStart,x1:pEnd,label:"Phase-out"}],
+      you:ok?{x:earned,y:at(earned),label:"You"}:null,
+      alt:`EITC by earned income: rises to ${m0(E.mx[k])} by ${m0(E.ei[k])}, stays there until ${m0(pStart)}, then falls to zero at ${m0(pEnd)}.`,
+      readout:i=>`Earning <b>${m0(xs[i])}</b>${oth>0?` (plus ${m0(oth)} other income)`:""}: EITC <b>${m0(ys[i])}</b>`,
+      note:ok?"Move along the chart to see the credit at other incomes. "+(oth>0?"Your other income is held the same at every point.":""):"<b>As entered you don't qualify</b>, so this shows the credit for an eligible household like yours."});
+  }
   $("cards").innerHTML=out;
 }
 wire("bm-eitc",run);

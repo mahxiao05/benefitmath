@@ -457,6 +457,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 <section class="results" aria-live="polite">
   <div class="summary" id="summary"></div>
+  <div id="chart"></div>
   <div class="toolbar"><button type="button" id="expandAll">Show all math</button></div>
   <div id="cards" class="results"></div>
   <!-- AD SLOT 2: in-feed rectangle between benefit cards (336×280 / 300×250). Sits outside the re-rendered cards so it never reloads while typing. -->
@@ -553,6 +554,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </footer>
 </div>
 
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const R = {
@@ -977,6 +979,25 @@ function render(){
       <div class="tot"><b>${m0(income+cash+food)}</b><span>Monthly total</span></div>
     </div>
     <div class="covlist">${cov.length ? cov.map(t=>`<span class="chip good">${esc(t)}</span>`).join("") : `<span class="chip no">No health coverage path found</span>`}</div>`;
+  /* Chart: what happens to SSI, SNAP and Medicaid as wages change, using the same formulas as the cards */
+  if(window.BMChart){
+    const unearned=p.ss+p.va+p.other;
+    let xmax=Math.max(2500, p.earned*1.5, (2*R.FBR+R.GEN_EX+R.EARN_EX+2*p.irwe)*1.2, (byHH(R.SNAP_BBCE,R.SNAP_BBCE_ADD,p.hh)-unearned)*1.1);
+    xmax=Math.ceil(xmax/250)*250;
+    const xs=[];for(let i=0;i<=150;i++)xs.push(Math.round(xmax*i/150));
+    if(p.earned>0&&p.earned<xmax&&!xs.includes(Math.round(p.earned)))xs.push(Math.round(p.earned)); xs.sort((a,b)=>a-b);
+    const pts=xs.map(x=>{const q=Object.assign({},p,{earned:x}),a=calcSSI(q),cash=a.amount||0,f=calcSNAP(q,s,cash).amount||0,m=calcMedicaid(q,s,a).status==="good";return {cash,f,m};});
+    const marks=[];for(let i=1;i<pts.length;i++){if(pts[i-1].m&&!pts[i].m)marks.push({x:xs[i],label:"Medicaid may end"});}
+    const yi=xs.indexOf(Math.round(p.earned));
+    BMChart.curve($("chart"),{title:"What happens if you earn more",scope:`${s==="OR"?"Oregon":"Washington"} · per month · household of ${p.hh}`,
+      xs,series:[{name:"Wages",color:"var(--c1)",ys:xs},{name:"Other income",color:"var(--c6)",ys:xs.map(()=>unearned),opacity:.45},
+        {name:"SSI",color:"var(--c2)",ys:pts.map(z=>z.cash)},{name:"SNAP",color:"var(--c3)",ys:pts.map(z=>z.f)}],
+      marks,you:{x:p.earned,y:p.earned+unearned+(yi>=0?pts[yi].cash+pts[yi].f:cash+food),label:"You"},
+      xFmt:v=>BMChart.short(v),
+      alt:`Monthly total of wages, other income, SSI and SNAP for wages from $0 to ${m0(xmax)}.`+(marks.length?` Medicaid may end at about ${m0(marks[0].x)} in wages.`:""),
+      readout:i=>{const z=pts[i],tot=xs[i]+unearned+z.cash+z.f;return `Wages <b>${m0(xs[i])}</b>/mo → SSI ${m0(z.cash)}, SNAP ${m0(z.f)}, total <b>${m0(tot)}</b>`+(z.m?" · Medicaid: yes":" · <b style=\"color:var(--no)\">Medicaid: no path found</b>");},
+      note:"The top of the colored area is your total each month. Each extra dollar of wages lowers SSI by about 50¢ and trims SNAP a little, so working more still leaves you ahead, until a cliff where a benefit ends all at once. Taxes and work costs aren't subtracted. Your other answers are held the same at every point."});
+  }
 }
 
 function figs(){
