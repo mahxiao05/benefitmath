@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paid Leave Calculator: Oregon & Washington (2026) | BenefitMath</title>
+<meta name="description" content="Estimate your weekly Paid Leave Oregon or Washington PFML benefit for 2026, the total for your leave, and your premiums, with every rule linked.">
+<meta property="og:title" content="Paid Leave Calculator: Oregon & Washington (2026) | BenefitMath">
+<meta property="og:description" content="Estimate your weekly Paid Leave Oregon or Washington PFML benefit for 2026, the total for your leave, and your premiums, with every rule linked.">
+<meta property="og:type" content="website">
+<!-- AD NETWORK: paste your AdSense (or other) loader script here, then fill each .ad-slot in the page. -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+
+<style>
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;width:min(780px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 22px 48px -16px rgba(0,0,0,.4)}
+.site.open .mega{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 10px 4px}
+.ngroup a,.mega-foot a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:1px}
+.ngroup a[aria-current="page"],.mega-foot a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover,.mega-foot a:hover{background:var(--sunk)}
+.mega-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2px 6px;border-top:1px solid var(--line);padding-top:8px}
+.mega-foot a{font-size:13.5px;color:var(--muted);font-weight:500}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .site.open .mega{grid-template-columns:minmax(0,1fr);gap:6px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="ngroup"><h4>Disability & VA</h4><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a></div><div class="ngroup"><h4>Health & care</h4><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a></div><div class="ngroup"><h4>Work & leave</h4><a href="paid-leave.html" aria-current="page">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a></div><div class="ngroup"><h4>Family</h4><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a></div><div class="ngroup"><h4>Retirement</h4><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="mega-foot"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a></div></div>
+</div>
+<header class="top" id="top">
+  <h1>Paid Leave Calculator: Oregon &amp; Washington</h1>
+  <p class="lede">See your weekly benefit from Paid Leave Oregon or Washington Paid Family and Medical Leave, what a full leave pays, and what you put in.</p>
+  <p class="scopebox">Built from the benefit formulas in state law and the amounts each state published for 2026. Tap any <b>§</b> label to see the exact rule.</p>
+</header>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your state and claim</legend>
+<div class="seg" role="radiogroup" aria-label="State"><input type="radio" name="st" id="st-or" value="OR" checked><label for="st-or">Oregon</label><input type="radio" name="st" id="st-wa" value="WA"><label for="st-wa">Washington</label></div>
+<div class="field"><label for="per">When your claim starts</label><select id="per"></select></div>
+<div class="field"><label for="type">Reason for leave</label><select id="type">
+<option value="med">Your own health condition</option>
+<option value="bond">Bonding with a new child</option>
+<option value="care">Caring for a family member</option>
+<option value="preg">Pregnancy or childbirth</option>
+<option value="other" id="o-other">Safe leave (domestic violence, harassment, stalking)</option>
+</select></div>
+<div class="field"><label for="wk">Weeks of leave</label><input type="number" id="wk" inputmode="numeric" min="1" max="18" step="1" value="6"><span class="hint" id="wkhint"></span></div>
+</fieldset>
+<fieldset><legend>Your pay</legend>
+<div class="seg" role="radiogroup" aria-label="How to enter pay"><input type="radio" name="mode" id="m-yr" value="yr" checked><label for="m-yr">Yearly total</label><input type="radio" name="mode" id="m-q" value="q"><label for="m-q">By quarter</label></div>
+<div class="field" id="w-yr"><label for="yr">Gross pay over the last year</label><div class="money"><input type="number" id="yr" inputmode="decimal" min="0" step="any" value="52000"></div><span class="hint">Before taxes. The states use a specific 12-month window; switch to "By quarter" for an exact figure.</span></div>
+<div id="w-q" hidden><span class="hint" id="qhint"></span><div class="qrow">
+<div class="field"><label for="q1">Quarter 1</label><div class="money"><input type="number" id="q1" inputmode="decimal" min="0" step="any" value="13000"></div></div>
+<div class="field"><label for="q2">Quarter 2</label><div class="money"><input type="number" id="q2" inputmode="decimal" min="0" step="any" value="13000"></div></div>
+<div class="field"><label for="q3">Quarter 3</label><div class="money"><input type="number" id="q3" inputmode="decimal" min="0" step="any" value="13000"></div></div>
+<div class="field"><label for="q4">Quarter 4</label><div class="money"><input type="number" id="q4" inputmode="decimal" min="0" step="any" value="13000"></div></div>
+</div></div>
+<div class="field" id="w-hrs" hidden><label for="hrs">Hours worked in Washington in that year</label><input type="number" id="hrs" inputmode="numeric" min="0" step="1" value="2080"><span class="hint">Full time all year is about 2,080 hours</span></div>
+</fieldset>
+<p class="sample">Example numbers are filled in. Replace them with yours.</p>
+<div class="btns"><button type="button" id="reset">Reset to example</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed">Ad · 336×280</div></aside>
+  <div id="cards2" class="results"></div>
+</div>
+</section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid">Ad · 728×90</div></aside>
+<section class="prose faq" id="faq"><h2>Common questions</h2>
+<details id="how"><summary>How the weekly benefit is figured</summary><div><p>Both states replace a big share of lower pay and a smaller share of higher pay, then apply a cap.</p><ol>
+<li><b>Oregon:</b> your average weekly wage is your total wages in the base year divided by 52. You get 100% of it up to 65% of the state average weekly wage, plus 50% of anything above that.</li>
+<li><b>Washington:</b> your average weekly wage is your two highest-paid quarters added together and divided by 26. You get 90% of it up to half the state average weekly wage, plus 50% of anything above that, rounded down to the dollar.</li>
+<li>The result can't be more than the state maximum or less than the minimum for the period your claim starts in.</li></ol></div></details>
+<details><summary>Which 12 months count?</summary><p>Usually the first four of the last five completed calendar quarters before your claim. If that doesn't make you eligible, both states can use the last four completed quarters instead. For a claim starting in October 2026, the usual base year is July 2025 through June 2026.</p></details>
+<details><summary>Is there a waiting week?</summary><p>In Washington, the first 7 days of leave aren't paid, except leave to bond with a new child or for a military exigency. Oregon has no waiting week.</p></details>
+<details><summary>Is paid leave taxed?</summary><p>The states don't take out taxes automatically. Ask the agency whether you can have federal tax withheld, and check IRS guidance or a tax preparer about how your benefits are taxed.</p></details>
+<details><summary>Does paid leave affect SSI or SNAP?</summary><p>Yes. Paid leave benefits replace wages, so SSI and SNAP generally count them as income. Use the <a href="benefits.html">benefits calculator</a> to see the effect.</p></details>
+<details><summary>Can I take leave a day at a time?</summary><p>Yes. Oregon pays in one-work-day or one-work-week increments. Washington pays in proportion to the hours you take off compared with your usual workweek, with a 4-hour minimum. This page assumes full weeks.</p></details>
+</section>
+
+<section class="prose" id="sources"><h2>Sources</h2><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.050: Amount of weekly benefit</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Pays 100% of your average weekly wage up to 65% of the state average weekly wage, plus 50% of anything above that. Minimum 5% and maximum 120% of the state average weekly wage.</span></li><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.010: Definitions (average weekly wage, base year)</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Your average weekly wage is your total base-year wages divided by the weeks in the base year. The base year is the first four of the last five completed calendar quarters.</span></li><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.015 and 657B.010(12): Who is eligible</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">You need at least $1,000 in wages in your base year (or the alternate base year).</span></li><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.020: Length of leave</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Up to 12 weeks of family, medical or safe leave in a benefit year, plus up to 2 more weeks for pregnancy, childbirth or a related condition (14 total).</span></li><li><a href="https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html" target="_blank" rel="noopener">ORS 657B.150: Contributions</a><span class="s-o">Oregon Revised Statutes</span><span class="s-n">Total contribution rate may not exceed 1% of wages, up to the Social Security wage base. Employees pay 60%, employers 40%.</span></li><li><a href="https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf" target="_blank" rel="noopener">Employer News, June 11, 2026: new benefit amounts</a><span class="s-o">Oregon Employment Department</span><span class="s-n">For benefit years starting June 28, 2026 or later: maximum $1,692.16, minimum $70.51, state average weekly wage $1,410.13 (up from $1,636.56, $68.19 and $1,363.80).</span></li><li><a href="https://www.oregon.gov/employ/Agency/Documents/2026/2026-04-24-OEDLegislativeSummary.pdf" target="_blank" rel="noopener">2026 legislative session summary</a><span class="s-o">Oregon Employment Department</span><span class="s-n">The 2026 session did not change the benefit formula, benefit amounts, duration, or the 1% maximum contribution rate and 60/40 split.</span></li><li><a href="https://app.leg.wa.gov/RCW/default.aspx?cite=50A.15.020" target="_blank" rel="noopener">RCW 50A.15.020: Benefit amount, waiting period, length</a><span class="s-o">Revised Code of Washington</span><span class="s-n">Pays 90% of your average weekly wage up to half the state average weekly wage, plus 50% above that, rounded down to the dollar. Minimum $100, maximum 90% of the state average weekly wage. First 7 days unpaid except for bonding with a new child or a military exigency.</span></li><li><a href="https://app.leg.wa.gov/RCW/default.aspx?cite=50A.05.010" target="_blank" rel="noopener">RCW 50A.05.010: Definitions (average weekly wage)</a><span class="s-o">Revised Code of Washington</span><span class="s-n">Your average weekly wage is the total of your two highest-paid quarters in the qualifying period, divided by 26.</span></li><li><a href="https://app.leg.wa.gov/RCW/default.aspx?cite=50A.15.010" target="_blank" rel="noopener">RCW 50A.15.010: Who is eligible</a><span class="s-o">Revised Code of Washington</span><span class="s-n">You need at least 820 hours of work in Washington during the qualifying period.</span></li><li><a href="https://esd.wa.gov/node/995" target="_blank" rel="noopener">Washington's average wage increased to $95,160 in 2024</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">State average weekly wage $1,830. Maximum paid leave benefit $1,647 for claims filed on or after January 1, 2026.</span></li><li><a href="https://esd.wa.gov/node/1254" target="_blank" rel="noopener">New average annual wage estimates adjust UI and paid leave benefits (June 10, 2026)</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">State average weekly wage $1,919. Maximum paid leave benefit $1,727 for claims filed on or after January 1, 2027.</span></li><li><a href="https://esd.wa.gov/node/1109" target="_blank" rel="noopener">Paid leave premium rate increases to 1.13% in 2026</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">2026 premium is 1.13% of gross wages. Employees pay 71.43%, employers 28.57%.</span></li><li><a href="https://paidleave.wa.gov/estimate-your-paid-leave-payments/" target="_blank" rel="noopener">Premiums: who pays and the 2026 wage cap</a><span class="s-o">Washington Paid Leave</span><span class="s-n">Premiums apply to wages up to the 2026 Social Security cap of $184,500. Employers with fewer than 50 employees do not owe the employer share.</span></li></ul></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"or-050": {"o": "Oregon Revised Statutes", "t": "ORS 657B.050: Amount of weekly benefit", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Pays 100% of your average weekly wage up to 65% of the state average weekly wage, plus 50% of anything above that. Minimum 5% and maximum 120% of the state average weekly wage.", "d": "Oct 12, 2026"}, "or-010": {"o": "Oregon Revised Statutes", "t": "ORS 657B.010: Definitions (average weekly wage, base year)", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Your average weekly wage is your total base-year wages divided by the weeks in the base year. The base year is the first four of the last five completed calendar quarters.", "d": "Oct 12, 2026"}, "or-015": {"o": "Oregon Revised Statutes", "t": "ORS 657B.015 and 657B.010(12): Who is eligible", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "You need at least $1,000 in wages in your base year (or the alternate base year).", "d": "Oct 12, 2026"}, "or-020": {"o": "Oregon Revised Statutes", "t": "ORS 657B.020: Length of leave", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Up to 12 weeks of family, medical or safe leave in a benefit year, plus up to 2 more weeks for pregnancy, childbirth or a related condition (14 total).", "d": "Oct 12, 2026"}, "or-150": {"o": "Oregon Revised Statutes", "t": "ORS 657B.150: Contributions", "u": "https://www.oregonlegislature.gov/bills_laws/ors/ors657B.html", "n": "Total contribution rate may not exceed 1% of wages, up to the Social Security wage base. Employees pay 60%, employers 40%.", "d": "Oct 12, 2026"}, "or-2026": {"o": "Oregon Employment Department", "t": "Employer News, June 11, 2026: new benefit amounts", "u": "https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf", "n": "For benefit years starting June 28, 2026 or later: maximum $1,692.16, minimum $70.51, state average weekly wage $1,410.13 (up from $1,636.56, $68.19 and $1,363.80).", "d": "Oct 12, 2026"}, "or-leg": {"o": "Oregon Employment Department", "t": "2026 legislative session summary", "u": "https://www.oregon.gov/employ/Agency/Documents/2026/2026-04-24-OEDLegislativeSummary.pdf", "n": "The 2026 session did not change the benefit formula, benefit amounts, duration, or the 1% maximum contribution rate and 60/40 split.", "d": "Oct 12, 2026"}, "wa-020": {"o": "Revised Code of Washington", "t": "RCW 50A.15.020: Benefit amount, waiting period, length", "u": "https://app.leg.wa.gov/RCW/default.aspx?cite=50A.15.020", "n": "Pays 90% of your average weekly wage up to half the state average weekly wage, plus 50% above that, rounded down to the dollar. Minimum $100, maximum 90% of the state average weekly wage. First 7 days unpaid except for bonding with a new child or a military exigency.", "d": "Oct 12, 2026"}, "wa-def": {"o": "Revised Code of Washington", "t": "RCW 50A.05.010: Definitions (average weekly wage)", "u": "https://app.leg.wa.gov/RCW/default.aspx?cite=50A.05.010", "n": "Your average weekly wage is the total of your two highest-paid quarters in the qualifying period, divided by 26.", "d": "Oct 12, 2026"}, "wa-010": {"o": "Revised Code of Washington", "t": "RCW 50A.15.010: Who is eligible", "u": "https://app.leg.wa.gov/RCW/default.aspx?cite=50A.15.010", "n": "You need at least 820 hours of work in Washington during the qualifying period.", "d": "Oct 12, 2026"}, "wa-2026": {"o": "Washington Employment Security Department", "t": "Washington's average wage increased to $95,160 in 2024", "u": "https://esd.wa.gov/node/995", "n": "State average weekly wage $1,830. Maximum paid leave benefit $1,647 for claims filed on or after January 1, 2026.", "d": "Oct 12, 2026"}, "wa-2027": {"o": "Washington Employment Security Department", "t": "New average annual wage estimates adjust UI and paid leave benefits (June 10, 2026)", "u": "https://esd.wa.gov/node/1254", "n": "State average weekly wage $1,919. Maximum paid leave benefit $1,727 for claims filed on or after January 1, 2027.", "d": "Oct 12, 2026"}, "wa-prem": {"o": "Washington Employment Security Department", "t": "Paid leave premium rate increases to 1.13% in 2026", "u": "https://esd.wa.gov/node/1109", "n": "2026 premium is 1.13% of gross wages. Employees pay 71.43%, employers 28.57%.", "d": "Oct 12, 2026"}, "wa-cap": {"o": "Washington Paid Leave", "t": "Premiums: who pays and the 2026 wage cap", "u": "https://paidleave.wa.gov/estimate-your-paid-leave-payments/", "n": "Premiums apply to wages up to the 2026 Social Security cap of $184,500. Employers with fewer than 50 employees do not owe the employer share.", "d": "Oct 12, 2026"}};</script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}f.reset();setTimeout(run,0);});
+  run();
+}
+
+const C=(k,l)=>`<a class="cite" data-cite="${k}" href="${(window.BM_SOURCES[k]||{}).u||"#sources"}" target="_blank" rel="noopener" aria-expanded="false">${l}</a>`;
+const pct=n=>(Math.round(n*1000)/10).toLocaleString("en-US")+"%";
+const WAGE_CAP=184500;
+const S={
+  OR:{name:"Paid Leave Oregon",
+    per:{p26:{l:"June 28, 2026 or later",saww:1410.13,max:1692.16,min:70.51,src:"or-2026"},
+         p25:{l:"July 6, 2025 to June 27, 2026",saww:1363.80,max:1636.56,min:68.19,src:"or-2026"}},
+    rate:0.01*0.60},
+  WA:{name:"Washington Paid Family and Medical Leave",
+    per:{y26:{l:"In 2026",saww:1830,max:1647,min:100,src:"wa-2026"},
+         y27:{l:"January 1, 2027 or later",saww:1919,max:1727,min:100,src:"wa-2027"}},
+    rate:0.0113*0.7143}
+};
+let lastSt=null;
+function run(){
+  const st=$("st-wa").checked?"WA":"OR", P=S[st];
+  if(st!==lastSt){
+    const sel=$("per"),keep=sel.value;
+    sel.innerHTML=Object.entries(P.per).map(([k,v])=>`<option value="${k}">${v.l}</option>`).join("");
+    if(P.per[keep])sel.value=keep;
+    $("o-other").textContent=st==="OR"?"Safe leave (domestic violence, harassment, stalking)":"Military exigency (family member's deployment)";
+    lastSt=st;
+  }
+  const per=P.per[$("per").value]||Object.values(P.per)[0];
+  const q=$("m-q").checked;
+  $("w-yr").hidden=q; $("w-q").hidden=!q; $("w-hrs").hidden=st!=="WA";
+  $("qhint").textContent=st==="OR"?"Wages in each of the 4 quarters of your base year. Oregon adds all four.":"Wages in each of the 4 quarters of your qualifying period. Washington uses your two highest.";
+  const type=$("type").value;
+  const qs=q?[num("q1"),num("q2"),num("q3"),num("q4")]:Array(4).fill(num("yr")/4);
+  const total=qs.reduce((a,b)=>a+b,0);
+  const maxWk=type==="preg"?14:12;
+  $("wkhint").textContent=`Up to ${maxWk} weeks for this reason`+(st==="WA"?" (16 a year combined with other leave, 18 with a pregnancy complication)":" (12 a year combined, 14 with pregnancy)");
+  const weeks=Math.min(Math.max(0,Math.floor(num("wk"))),maxWk);
+  const rows=[], notes=[];
+  let aww,wba,raw,elig,why="";
+  if(st==="OR"){
+    aww=total/52;
+    const knee=0.65*per.saww;
+    rows.push([q?"Base-year wages (all 4 quarters)":"Wages in the year",m2(total)],
+      [`÷ 52 weeks = your average weekly wage ${C("or-010","ORS 657B.010")}`,m2(aww)],
+      [`State average weekly wage ${C(per.src,"OED 2026")}`,m2(per.saww)],
+      [`65% of that ${C("or-050","ORS 657B.050")}`,m2(knee)]);
+    if(aww<=knee){raw=aww;rows.push(["Your wage is at or under 65%, so you get 100% of it",m2(raw)]);}
+    else{raw=knee+0.5*(aww-knee);rows.push(["100% of the first part",m2(knee)],[`+ 50% of the ${m2(aww-knee)} above it`,m2(0.5*(aww-knee))],["= Formula amount",m2(raw)]);}
+    wba=Math.min(per.max,Math.max(per.min,raw)); wba=Math.round(wba*100)/100;
+    if(wba!==Math.round(raw*100)/100)rows.push([raw>per.max?`Capped at the maximum (120% of state average)`:`Raised to the minimum (5% of state average)`,m2(raw>per.max?per.max:per.min)]);
+    rows.push(["Weekly benefit",m2(wba),"total"]);
+    elig=total>=1000; if(!elig)why="Oregon requires at least $1,000 in base-year wages.";
+    notes.push("Oregon may use an alternate base year (the last four completed quarters) if that makes you eligible.","Shown to the cent; the department's own rounding may differ by a few cents.");
+  }else{
+    const top2=[...qs].sort((a,b)=>b-a).slice(0,2).reduce((a,b)=>a+b,0);
+    aww=top2/26;
+    const half=per.saww/2;
+    rows.push([q?"Your two highest quarters, added":"Half of the year's wages (two equal quarters)",m2(top2)],
+      [`÷ 26 = your average weekly wage ${C("wa-def","RCW 50A.05.010")}`,m2(aww)],
+      [`State average weekly wage ${C(per.src,"ESD")}`,m2(per.saww)],
+      [`Half of that ${C("wa-020","RCW 50A.15.020")}`,m2(half)]);
+    if(aww<=half){raw=0.9*aww;rows.push(["Your wage is at or under half, so you get 90% of it",m2(raw)]);}
+    else{raw=0.9*half+0.5*(aww-half);rows.push(["90% of the first part",m2(0.9*half)],[`+ 50% of the ${m2(aww-half)} above it`,m2(0.5*(aww-half))],["= Formula amount",m2(raw)]);}
+    let b=raw;
+    if(b>per.max){b=per.max;rows.push(["Capped at the maximum (90% of state average)",m0(per.max)]);}
+    else if(b<100){b=aww<100?aww:100;rows.push([aww<100?"Under $100: you get your full weekly wage":"Raised to the $100 minimum",m2(b)]);}
+    wba=Math.floor(b);
+    rows.push(["Rounded down to the dollar ⇒ weekly benefit",m0(wba),"total"]);
+    const hrs=num("hrs"); elig=hrs>=820; if(!elig)why="Washington requires at least 820 hours of work in the qualifying period.";
+    notes.push("If you don't qualify with the first four of the last five completed quarters, Washington can use the last four completed quarters.");
+  }
+  const wait=st==="WA"&&!(type==="bond"||type==="other")?1:0;
+  const paidWk=elig?Math.max(0,weeks-wait):0;
+  const totalPay=paidWk*wba;
+  const prem=Math.min(total,WAGE_CAP)*P.rate;
+  const repl=aww>0?wba/aww:0;
+  $("sum").innerHTML=`<h2>${P.name}</h2>`+tot([[st==="WA"?m0(elig?wba:0):m2(elig?wba:0),"Weekly benefit"],[elig?pct(repl):"—","Of your weekly wage"],[m0(totalPay),`For ${weeks} week${weeks===1?"":"s"} of leave`]])+
+    `<p>${elig?(wait?`The first week is an unpaid waiting week, so ${paidWk} of your ${weeks} weeks are paid.`:`All ${weeks} weeks are paid.`):why}</p>`;
+  let out=card({t:"Your weekly benefit",scope:`${st==="OR"?"ORS 657B.050":"RCW 50A.15.020"} · claims starting ${per.l}`,amt:st==="WA"?m0(wba):m2(wba),al:"per week",
+    st:elig?"good":"no",chip:elig?`About ${pct(repl)} of your average weekly wage`:"Not eligible as entered",
+    p:[st==="OR"?"Oregon pays all of your wage up to a set point, then half of the rest.":"Washington pays 90% of your wage up to a set point, then half of the rest."],rows,notes,open:true});
+  const lrows=[["Weeks you plan to take",String(Math.floor(num("wk")))],[`Most for this reason ${C(st==="OR"?"or-020":"wa-020",st==="OR"?"ORS 657B.020":"RCW 50A.15.020")}`,`${maxWk} weeks`]];
+  if(wait)lrows.push([`Unpaid waiting week ${C("wa-020","RCW 50A.15.020")}`,"− 1 week"]);
+  lrows.push(["Paid weeks",String(paidWk)],[`× weekly benefit`,st==="WA"?m0(wba):m2(wba)],["Total for your leave",m0(totalPay),"total"]);
+  out+=card({t:"What your leave pays",scope:"Full weeks off",amt:m0(totalPay),al:"total",st:elig?"good":"no",
+    chip:wait?"First 7 days unpaid":"No waiting week",rows:lrows,
+    notes:[st==="WA"?"Washington's limits are in hours: 12 times your usual weekly hours for one kind of leave, 16 times combined, 18 with a pregnancy complication.":"Oregon's 12 weeks cover family, medical and safe leave combined; pregnancy can add 2 weeks.",
+      "Partial weeks are paid in proportion to the time you take off."]});
+  $("cards").innerHTML=out;
+  const erows=st==="OR"?[[`Base-year wages needed ${C("or-015","ORS 657B.015")}`,m0(1000)],["Your wages",m0(total),"total"]]:[[`Hours needed in the qualifying period ${C("wa-010","RCW 50A.15.010")}`,"820"],["Your hours",String(Math.round(num("hrs"))),"total"]];
+  let out2=card({t:"Are you eligible?",scope:st==="OR"?"Oregon":"Washington",st:elig?"good":"no",chip:elig?"Meets the work requirement":"Below the requirement",rows:erows,
+    notes:st==="OR"?["You also need to have contributed to Paid Leave Oregon (most Oregon employees do through payroll) and to file a claim."]:["Most Washington employees are covered; some federal and tribal employees are not."]});
+  out2+=card({t:"What you pay in",scope:"Employee premium · 2026",amt:m0(prem),al:"per year",st:"info",
+    chip:wba>0?`About ${(prem/wba).toFixed(1)} weeks of benefits`:"",
+    rows:(st==="OR"?[[`Total rate ${C("or-150","ORS 657B.150")}`,"1%"],["Your share: 60%","0.6% of wages"]]:[[`2026 premium ${C("wa-prem","ESD")}`,"1.13%"],["Your share: 71.43%","0.81% of wages"]])
+      .concat([[`Wages counted (up to ${m0(WAGE_CAP)}) ${C(st==="OR"?"or-150":"wa-cap",st==="OR"?"ORS 657B.150":"WA Paid Leave")}`,m0(Math.min(total,WAGE_CAP))],["Your premium for the year",m0(prem),"total"]]),
+    notes:[st==="OR"?"Your employer takes your 60% share out of each paycheck and adds its own 40% share.":"Employers with fewer than 50 employees don't owe the employer share; you still pay yours."]});
+  $("cards2").innerHTML=out2;
+}
+document.querySelectorAll('input[name="st"]').forEach(r=>r.addEventListener("change",()=>{lastSt=null;}));
+wire("bm-leave",run);
+})();
+</script>
+<script>
+(function(){
+  var S=window.BM_SOURCES||{},pop=null,from=null;
+  function close(){if(pop){pop.remove();pop=null;if(from){from.setAttribute('aria-expanded','false');}}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cite');
+    if(pop&&!e.target.closest('.citepop')&&a!==from)close();
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var s=S[a.getAttribute('data-cite')];if(!s)return;
+    e.preventDefault();
+    if(pop&&from===a){close();return;}
+    close();from=a;a.setAttribute('aria-expanded','true');
+    pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
+    pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open official source ↗</a>';
+    document.body.appendChild(pop);
+    var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
+    var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
+    pop.style.left=x+'px';pop.style.top=y+'px';
+    pop.querySelector('.cp-x').addEventListener('click',function(){var f=from;close();if(f)f.focus();});
+    pop.querySelector('.cp-go').focus({preventScroll:true});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop){var f=from;close();if(f)f.focus();}});
+})();
+</script>
+<script>
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+<div class="mbar" id="mbar" role="region" aria-label="Your estimate">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">See details</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": 0}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
+})();
+</script>
+</body></html>

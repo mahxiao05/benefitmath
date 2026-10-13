@@ -221,28 +221,49 @@ details.optional>fieldset{margin-top:14px}
 details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
 details.figs[open]>summary{margin-bottom:10px}
 </style><style>
-/* ===== shared site chrome (menu, phone results bar) ===== */
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
 body{margin:0}
 [hidden]{display:none!important}
-.site nav a small,.nav-home{display:none}
-.navbtn{display:none}
-.site nav{-webkit-mask-image:none!important;mask-image:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;width:min(780px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 22px 48px -16px rgba(0,0,0,.4)}
+.site.open .mega{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 10px 4px}
+.ngroup a,.mega-foot a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:1px}
+.ngroup a[aria-current="page"],.mega-foot a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover,.mega-foot a:hover{background:var(--sunk)}
+.mega-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2px 6px;border-top:1px solid var(--line);padding-top:8px}
+.mega-foot a{font-size:13.5px;color:var(--muted);font-weight:500}
 @media (max-width:800px){
-  .site{flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;position:relative}
-  .site nav{display:none!important}
-  .navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px}
-  .navbtn svg{transition:transform .15s ease}
-  .navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
-  .navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
-  .site.open nav{display:flex!important;flex-direction:column;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:60;margin:0!important;width:auto!important;
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;gap:2px;overflow:visible;-webkit-mask-image:none;mask-image:none;
-    box-shadow:0 18px 40px -12px rgba(0,0,0,.35)}
-  .site.open nav a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 12px;border-radius:9px;font-size:15px;font-weight:600;color:var(--ink);white-space:normal}
-  .site.open nav a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);text-align:right}
-  .site.open nav a.nav-home{display:flex;border-bottom:1px solid var(--line);border-radius:9px 9px 0 0;margin-bottom:2px}
-  .site.open nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
-  .site.open nav a:hover{background:var(--sunk)}
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .site.open .mega{grid-template-columns:minmax(0,1fr);gap:6px}
 }
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
 .mbar{display:none}
 @media (max-width:880px){
   .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
@@ -264,8 +285,11 @@ body{margin:0}
 <div class="wrap">
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
-  <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-  <nav id="sitenav" aria-label="Calculators"><a href="./" class="nav-home">All calculators<small>Home</small></a><a href="benefits.html">Benefits<small>SSI, SNAP, Medicaid, VA</small></a><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html" aria-current="page">Tips<small>No tax on tips</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a></nav>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="ngroup"><h4>Disability & VA</h4><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a></div><div class="ngroup"><h4>Health & care</h4><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a></div><div class="ngroup"><h4>Work & leave</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html" aria-current="page">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a></div><div class="ngroup"><h4>Family</h4><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a></div><div class="ngroup"><h4>Retirement</h4><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="mega-foot"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a></div></div>
 </div>
 <header class="top" id="top">
   <h1>No Tax on Tips Calculator</h1>
@@ -299,7 +323,7 @@ body{margin:0}
 <section class="prose faq" id="faq"><h2>Common questions</h2><details id="how"><summary>How the tips deduction works</summary><div><p>From 2025 through 2028, workers in jobs that customarily get tips can deduct up to $25,000 of tips a year from their income before federal income tax. It works whether you take the standard deduction or itemize.</p><ol><li>Add up the tips you got from customers, including tips shared with you through a tip pool.</li><li>Cap it at $25,000. If you're self-employed, it also can't be more than your profit from that work.</li><li>The cap shrinks by $100 for every $1,000 of income over $150,000 ($300,000 joint).</li><li>Your tax drops by the deduction times your bracket rate.</li></ol></div></details><details><summary>Which jobs count?</summary><p>The IRS published a list of occupations that customarily received tips as of December 31, 2024, such as servers, bartenders, hairstylists and delivery drivers. If your job isn't on the list, your tips don't qualify.</p></details><details><summary>Do I still pay Social Security tax on tips?</summary><p>Yes. The deduction only lowers federal income tax. Social Security and Medicare tax, and state income tax, still apply.</p></details><details><summary>Do service charges count?</summary><p>No. Mandatory service charges and automatic gratuities set by the business are wages, not tips.</p></details><details><summary>Does this affect SNAP or SSI?</summary><p>No. Those programs count your tips as earned income either way.</p></details></section>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="bottom">Ad · 728×90</div></aside>
 <footer id="about">
-  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a></div>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
   <p>An independent, free calculator. Not affiliated with the IRS, the Oregon Employment Department, Washington ESD or any other agency. Ads keep it free; we don't ask for personal information. Results are estimates, not official decisions.</p>
   <details><summary>Sources, privacy and fine print</summary><div>
   <p>Rules checked Oct 12, 2026.</p>
@@ -387,7 +411,6 @@ wire("bm-tips",run);
   btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
   document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
-  window.addEventListener('resize',function(){if(window.innerWidth>800)set(false);});
 })();
 </script>
 <div class="mbar" id="mbar" role="region" aria-label="Your estimate">

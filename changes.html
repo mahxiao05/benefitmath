@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>What Changed: Benefit & Tax Rule Updates | BenefitMath</title>
+<meta name="description" content="Every rule change BenefitMath reflects, newest first, with links to official notices, upcoming changes and deadlines, and a corrections log.">
+<meta property="og:title" content="What Changed: Benefit & Tax Rule Updates | BenefitMath">
+<meta property="og:description" content="Every rule change BenefitMath reflects, newest first, with links to official notices, upcoming changes and deadlines, and a corrections log.">
+<meta property="og:type" content="website">
+<!-- AD NETWORK: paste your AdSense (or other) loader script here, then fill each .ad-slot in the page. -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+<style>
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.log li{display:grid;grid-template-columns:110px 84px minmax(0,1fr);gap:4px 14px;padding:12px 0;border-top:1px dashed var(--line);align-items:baseline}
+.log li:first-child{border-top:0}
+.log p{margin:0;max-width:none}
+.lg-d{font:500 13px var(--f-mono);color:var(--ink)}
+.lg-k{font:600 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;justify-self:start;background:var(--info-soft);color:var(--info)}
+.lg-coming .lg-k{background:var(--accent-soft);color:var(--accent)}
+.lg-deadline .lg-k{background:var(--warn-soft);color:var(--warn)}
+.lg-go{color:var(--accent);font-weight:600;text-decoration:none;white-space:nowrap}
+.prose ul.log+*{margin-top:0}
+.log li.lg-site{grid-template-columns:110px minmax(0,1fr)}
+@media (max-width:600px){.log li{grid-template-columns:minmax(0,1fr) auto}.log li p{grid-column:1/-1}}
+</style>
+<style>
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;width:min(780px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 22px 48px -16px rgba(0,0,0,.4)}
+.site.open .mega{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 14px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 10px 4px}
+.ngroup a,.mega-foot a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:1px}
+.ngroup a[aria-current="page"],.mega-foot a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover,.mega-foot a:hover{background:var(--sunk)}
+.mega-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:2px 6px;border-top:1px solid var(--line);padding-top:8px}
+.mega-foot a{font-size:13.5px;color:var(--muted);font-weight:500}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .site.open .mega{grid-template-columns:minmax(0,1fr);gap:6px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a href="changes.html" aria-current="page">What changed</a><a href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="ngroup"><h4>Disability & VA</h4><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a></div><div class="ngroup"><h4>Health & care</h4><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a></div><div class="ngroup"><h4>Work & leave</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a></div><div class="ngroup"><h4>Family</h4><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a></div><div class="ngroup"><h4>Retirement</h4><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="mega-foot"><a href="./">All calculators</a><a href="changes.html" aria-current="page">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a></div></div>
+</div>
+<header class="top" id="top">
+  <h1>What changed</h1>
+  <p class="lede">Every rule change this site reflects, newest first, with a link to the official notice. Upcoming changes and deadlines are listed at the top.</p>
+</header>
+<section class="prose"><h2>Rule changes and deadlines</h2><ul class="log"><li class="lg-coming"><span class="lg-d">Jan 1, 2027</span><span class="lg-k">Coming</span><p>Washington paid leave maximum rises to $1,727 a week for new claims. <a class="cite" data-cite="wa-esd27" href="https://esd.wa.gov/node/1254" target="_blank" rel="noopener" aria-expanded="false">WA ESD</a> <a class="lg-go" href="paid-leave.html">Calculator →</a></p></li><li class="lg-deadline"><span class="lg-d">Dec 31, 2026</span><span class="lg-k">Deadline</span><p>Last day to claim Washington's Working Families Tax Credit for tax year 2022. <a class="cite" data-cite="eta" href="https://dor.wa.gov/sites/default/files/2026-07/ETA3240.2026.pdf" target="_blank" rel="noopener" aria-expanded="false">WA DOR</a> <a class="lg-go" href="state-credits.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Oct 1, 2026</span><span class="lg-k">Rule</span><p>Washington Apple Health income standards updated. <a class="cite" data-cite="hca" href="https://www.hca.wa.gov/assets/free-or-low-cost/income-standards.pdf" target="_blank" rel="noopener" aria-expanded="false">WA HCA</a> <a class="lg-go" href="health-coverage.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Oct 1, 2026</span><span class="lg-k">Rule</span><p>New Working Connections Child Care copay chart. <a class="cite" data-cite="wccc" href="https://dcyf.wa.gov/services/earlylearning-childcare/getting-help/wccc" target="_blank" rel="noopener" aria-expanded="false">DCYF</a> <a class="lg-go" href="child-care.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jul 5, 2026</span><span class="lg-k">Rule</span><p>Washington unemployment: maximum $1,208 and minimum $383 a week for new claims. <a class="cite" data-cite="wa-esd27" href="https://esd.wa.gov/node/1254" target="_blank" rel="noopener" aria-expanded="false">WA ESD</a> <a class="lg-go" href="unemployment.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jul 1, 2026</span><span class="lg-k">Rule</span><p>WA Cares long-term care benefits launched statewide. <a class="cite" data-cite="wacares" href="https://wacaresfund.wa.gov/news/wa-cares-fund-benefits-now-available" target="_blank" rel="noopener" aria-expanded="false">WA Cares</a> <a class="lg-go" href="wa-cares.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jul 1, 2026</span><span class="lg-k">Rule</span><p>WIC income guidelines for July 2026 to June 2027 take effect. <a class="cite" data-cite="wic" href="https://www.fna.usda.gov/wic/fr-042926" target="_blank" rel="noopener" aria-expanded="false">USDA</a> <a class="lg-go" href="family-help.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jun 28, 2026</span><span class="lg-k">Rule</span><p>Paid Leave Oregon: maximum $1,692.16, minimum $70.51. Oregon unemployment: maximum $902, minimum $211. <a class="cite" data-cite="or-oed" href="https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf" target="_blank" rel="noopener" aria-expanded="false">OED</a> <a class="lg-go" href="paid-leave.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Mar 1, 2026</span><span class="lg-k">Rule</span><p>Oregon ERDC child care income limits updated. <a class="cite" data-cite="erdc" href="https://www.oregon.gov/delc/erdc" target="_blank" rel="noopener" aria-expanded="false">DELC</a> <a class="lg-go" href="child-care.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 2026</span><span class="lg-k">Rule</span><p>2026 poverty guidelines published: $15,960 for one person. <a class="cite" data-cite="fpl" href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines" target="_blank" rel="noopener" aria-expanded="false">HHS</a> <a class="lg-go" href="health-coverage.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>Enhanced marketplace tax credits expired; help again stops above 400% of poverty. <a class="cite" data-cite="kff" href="https://www.kff.org/faqs/faqs-health-insurance-marketplace-and-the-aca/what-kind-of-recent-changes-to-the-marketplace-premium-subsidies-have-happened-that-i-should-know-about/" target="_blank" rel="noopener" aria-expanded="false">KFF</a> <a class="lg-go" href="health-coverage.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>New 2026 premium tax credit percentages (2.10% to 9.96%). <a class="cite" data-cite="rp" href="https://www.irs.gov/pub/irs-drop/rp-25-25.pdf" target="_blank" rel="noopener" aria-expanded="false">IRS</a> <a class="lg-go" href="health-coverage.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>Washington paid leave: premium 1.13%; maximum $1,647 a week. <a class="cite" data-cite="wa-prem" href="https://esd.wa.gov/node/1109" target="_blank" rel="noopener" aria-expanded="false">WA ESD</a> <a class="lg-go" href="paid-leave.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>Federal tax brackets and standard deductions for 2026. <a class="cite" data-cite="irs26" href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener" aria-expanded="false">IRS</a> <a class="lg-go" href="paycheck.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>Social Security wage base rises to $184,500. <a class="cite" data-cite="ssa" href="https://www.ssa.gov/oact/cola/cbb.html" target="_blank" rel="noopener" aria-expanded="false">SSA</a> <a class="lg-go" href="paycheck.html">Calculator →</a></p></li><li class="lg-rule"><span class="lg-d">Jan 1, 2026</span><span class="lg-k">Rule</span><p>Oregon withholding formulas for 2026. <a class="cite" data-cite="orwh" href="https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf" target="_blank" rel="noopener" aria-expanded="false">Oregon DOR</a> <a class="lg-go" href="paycheck.html">Calculator →</a></p></li></ul></section>
+<section class="prose"><h2>Site updates</h2><ul class="log"><li class="lg-site"><span class="lg-d">Oct 12, 2026</span><p>Added calculators for paid leave, health coverage, take-home pay, state tax credits, WA Cares, child care, family help and Social Security retirement, plus the "What could I qualify for?" screener. Every figure on the new pages links to its source.</p></li><li class="lg-site"><span class="lg-d">Oct 12, 2026</span><p>Moved the disability and VA calculator to its own page and added a homepage.</p></li></ul></section>
+<section class="prose" id="corrections"><h2>Corrections</h2>
+<p>When we find a mistake in a calculator, we fix it and list it here with the date, what was wrong, and who it may have affected. Nothing has needed correcting since this log began on October 12, 2026.</p></section>
+<section class="prose" id="sources"><h2>Sources</h2><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf" target="_blank" rel="noopener">Employer News, June 11, 2026</a><span class="s-o">Oregon Employment Department</span><span class="s-n">New Paid Leave Oregon and unemployment amounts for claims starting June 28, 2026.</span></li><li><a href="https://esd.wa.gov/node/1254" target="_blank" rel="noopener">New average annual wage estimates (June 10, 2026)</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">WA unemployment from July 5, 2026; paid leave maximum $1,727 from January 1, 2027.</span></li><li><a href="https://esd.wa.gov/node/995" target="_blank" rel="noopener">Average wage increased to $95,160 in 2024</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">WA paid leave maximum $1,647 for 2026 claims.</span></li><li><a href="https://esd.wa.gov/node/1109" target="_blank" rel="noopener">Paid leave premium rate 1.13% in 2026</a><span class="s-o">Washington Employment Security Department</span><span class="s-n">Premium rises from 0.92% to 1.13% on January 1, 2026.</span></li><li><a href="https://www.hca.wa.gov/assets/free-or-low-cost/income-standards.pdf" target="_blank" rel="noopener">Apple Health income standards (Oct 1, 2026)</a><span class="s-o">Washington Health Care Authority</span><span class="s-n">Updated Apple Health limits effective October 1, 2026.</span></li><li><a href="https://dcyf.wa.gov/services/earlylearning-childcare/getting-help/wccc" target="_blank" rel="noopener">Working Connections Child Care</a><span class="s-o">Washington DCYF</span><span class="s-n">Copay chart effective October 1, 2026.</span></li><li><a href="https://wacaresfund.wa.gov/news/wa-cares-fund-benefits-now-available" target="_blank" rel="noopener">Benefits now available statewide</a><span class="s-o">WA Cares Fund</span><span class="s-n">Benefits launched July 1, 2026.</span></li><li><a href="https://www.fna.usda.gov/wic/fr-042926" target="_blank" rel="noopener">WIC income guidelines 2026–27</a><span class="s-o">U.S. Department of Agriculture</span><span class="s-n">Effective July 1, 2026 to June 30, 2027.</span></li><li><a href="https://www.oregon.gov/delc/erdc" target="_blank" rel="noopener">Employment Related Day Care</a><span class="s-o">Oregon DELC</span><span class="s-n">Income limits effective March 1, 2026.</span></li><li><a href="https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines" target="_blank" rel="noopener">2026 poverty guidelines</a><span class="s-o">U.S. Department of Health and Human Services</span><span class="s-n">$15,960 for one person plus $5,680 per additional person.</span></li><li><a href="https://www.kff.org/faqs/faqs-health-insurance-marketplace-and-the-aca/what-kind-of-recent-changes-to-the-marketplace-premium-subsidies-have-happened-that-i-should-know-about/" target="_blank" rel="noopener">Changes to marketplace premium subsidies</a><span class="s-o">KFF</span><span class="s-n">Enhanced premium tax credits expired at the end of 2025.</span></li><li><a href="https://www.irs.gov/pub/irs-drop/rp-25-25.pdf" target="_blank" rel="noopener">Rev. Proc. 2025-25</a><span class="s-o">Internal Revenue Service</span><span class="s-n">2026 applicable percentage table for premium tax credits.</span></li><li><a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill" target="_blank" rel="noopener">Tax year 2026 inflation adjustments</a><span class="s-o">Internal Revenue Service</span><span class="s-n">2026 brackets and standard deductions.</span></li><li><a href="https://www.ssa.gov/oact/cola/cbb.html" target="_blank" rel="noopener">Contribution and benefit base</a><span class="s-o">Social Security Administration</span><span class="s-n">$184,500 for 2026.</span></li><li><a href="https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf" target="_blank" rel="noopener">2026 withholding formulas</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">Effective January 1, 2026.</span></li><li><a href="https://dor.wa.gov/sites/default/files/2026-07/ETA3240.2026.pdf" target="_blank" rel="noopener">ETA 3240.2026</a><span class="s-o">Washington Department of Revenue</span><span class="s-n">Working Families Tax Credit amounts and claim periods; 2022 claims close December 31, 2026.</span></li></ul></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"or-oed": {"o": "Oregon Employment Department", "t": "Employer News, June 11, 2026", "u": "https://www.oregon.gov/employ/Businesses/Documents/Employer%20News%20Archived%20issues/Employer%20News%2006.11.2026.pdf", "n": "New Paid Leave Oregon and unemployment amounts for claims starting June 28, 2026.", "d": "Oct 12, 2026"}, "wa-esd27": {"o": "Washington Employment Security Department", "t": "New average annual wage estimates (June 10, 2026)", "u": "https://esd.wa.gov/node/1254", "n": "WA unemployment from July 5, 2026; paid leave maximum $1,727 from January 1, 2027.", "d": "Oct 12, 2026"}, "wa-esd26": {"o": "Washington Employment Security Department", "t": "Average wage increased to $95,160 in 2024", "u": "https://esd.wa.gov/node/995", "n": "WA paid leave maximum $1,647 for 2026 claims.", "d": "Oct 12, 2026"}, "wa-prem": {"o": "Washington Employment Security Department", "t": "Paid leave premium rate 1.13% in 2026", "u": "https://esd.wa.gov/node/1109", "n": "Premium rises from 0.92% to 1.13% on January 1, 2026.", "d": "Oct 12, 2026"}, "hca": {"o": "Washington Health Care Authority", "t": "Apple Health income standards (Oct 1, 2026)", "u": "https://www.hca.wa.gov/assets/free-or-low-cost/income-standards.pdf", "n": "Updated Apple Health limits effective October 1, 2026.", "d": "Oct 12, 2026"}, "wccc": {"o": "Washington DCYF", "t": "Working Connections Child Care", "u": "https://dcyf.wa.gov/services/earlylearning-childcare/getting-help/wccc", "n": "Copay chart effective October 1, 2026.", "d": "Oct 12, 2026"}, "wacares": {"o": "WA Cares Fund", "t": "Benefits now available statewide", "u": "https://wacaresfund.wa.gov/news/wa-cares-fund-benefits-now-available", "n": "Benefits launched July 1, 2026.", "d": "Oct 12, 2026"}, "wic": {"o": "U.S. Department of Agriculture", "t": "WIC income guidelines 2026\u201327", "u": "https://www.fna.usda.gov/wic/fr-042926", "n": "Effective July 1, 2026 to June 30, 2027.", "d": "Oct 12, 2026"}, "erdc": {"o": "Oregon DELC", "t": "Employment Related Day Care", "u": "https://www.oregon.gov/delc/erdc", "n": "Income limits effective March 1, 2026.", "d": "Oct 12, 2026"}, "fpl": {"o": "U.S. Department of Health and Human Services", "t": "2026 poverty guidelines", "u": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines", "n": "$15,960 for one person plus $5,680 per additional person.", "d": "Oct 12, 2026"}, "kff": {"o": "KFF", "t": "Changes to marketplace premium subsidies", "u": "https://www.kff.org/faqs/faqs-health-insurance-marketplace-and-the-aca/what-kind-of-recent-changes-to-the-marketplace-premium-subsidies-have-happened-that-i-should-know-about/", "n": "Enhanced premium tax credits expired at the end of 2025.", "d": "Oct 12, 2026"}, "rp": {"o": "Internal Revenue Service", "t": "Rev. Proc. 2025-25", "u": "https://www.irs.gov/pub/irs-drop/rp-25-25.pdf", "n": "2026 applicable percentage table for premium tax credits.", "d": "Oct 12, 2026"}, "irs26": {"o": "Internal Revenue Service", "t": "Tax year 2026 inflation adjustments", "u": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill", "n": "2026 brackets and standard deductions.", "d": "Oct 12, 2026"}, "ssa": {"o": "Social Security Administration", "t": "Contribution and benefit base", "u": "https://www.ssa.gov/oact/cola/cbb.html", "n": "$184,500 for 2026.", "d": "Oct 12, 2026"}, "orwh": {"o": "Oregon Department of Revenue", "t": "2026 withholding formulas", "u": "https://www.oregon.gov/dor/forms/FormsPubs/withholding-tax-formulas_206-436_2026.pdf", "n": "Effective January 1, 2026.", "d": "Oct 12, 2026"}, "eta": {"o": "Washington Department of Revenue", "t": "ETA 3240.2026", "u": "https://dor.wa.gov/sites/default/files/2026-07/ETA3240.2026.pdf", "n": "Working Families Tax Credit amounts and claim periods; 2022 claims close December 31, 2026.", "d": "Oct 12, 2026"}};</script>
+
+<script>
+(function(){
+  var S=window.BM_SOURCES||{},pop=null,from=null;
+  function close(){if(pop){pop.remove();pop=null;if(from){from.setAttribute('aria-expanded','false');}}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cite');
+    if(pop&&!e.target.closest('.citepop')&&a!==from)close();
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var s=S[a.getAttribute('data-cite')];if(!s)return;
+    e.preventDefault();
+    if(pop&&from===a){close();return;}
+    close();from=a;a.setAttribute('aria-expanded','true');
+    pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
+    pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open official source ↗</a>';
+    document.body.appendChild(pop);
+    var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
+    var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
+    pop.style.left=x+'px';pop.style.top=y+'px';
+    pop.querySelector('.cp-x').addEventListener('click',function(){var f=from;close();if(f)f.focus();});
+    pop.querySelector('.cp-go').focus({preventScroll:true});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop){var f=from;close();if(f)f.focus();}});
+})();
+</script>
+<script>
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+
+</body></html>
