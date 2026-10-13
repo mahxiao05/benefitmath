@@ -86,6 +86,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
 <meta name="google-adsense-account" content="ca-pub-7867146450299069">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com", "parentOrganization": {"@type": "Organization", "name": "X Ventures LLC"}}, {"@type": "WebSite", "@id": "https://benefitmath.com/#site", "url": "https://benefitmath.com/", "name": "BenefitMath", "description": "See what you qualify for in Oregon and Washington: free SNAP, disability, tax credit and health coverage calculators built on official rules.", "publisher": {"@id": "https://benefitmath.com/#org"}, "inLanguage": "en-US"}]}</script>
 <style id="bm-home2">
 .hero2{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin:10px 0 0}
 .hero2 .hk{display:flex;flex-wrap:wrap;gap:6px}
@@ -129,6 +130,23 @@
 .topic a span{grid-column:1;font-size:13px;color:var(--muted)}
 .topic a i{grid-column:2;grid-row:1/span 2;font-style:normal;color:var(--muted)}
 .topic li+li a{border-top:1px solid var(--line);border-radius:0}
+.jleg button.sb{cursor:pointer;font:600 11px/1.6 var(--f-mono);letter-spacing:.08em;border:1px solid transparent;padding:4px 12px 4px 10px;transition:transform .12s,box-shadow .12s,border-color .12s}
+.jleg button.sb-both{border-color:var(--line)}
+.jleg button.sb:hover,.jleg button.sb:focus-visible,.jleg button.sb[aria-pressed="true"]{transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(0,0,0,.45)}
+.jleg button.sb-fed[aria-pressed="true"],.jleg button.sb-fed:hover{border-color:var(--info)}
+.jleg button.sb-state[aria-pressed="true"],.jleg button.sb-state:hover{border-color:var(--accent)}
+.jleg button.sb-both[aria-pressed="true"],.jleg button.sb-both:hover{border-color:var(--ink)}
+.jleg button.sb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.jl-t{font-size:12.5px;color:var(--muted)}
+.jl-n{font-size:12.5px;font-weight:600;color:var(--ink);display:inline-block;width:22ch;white-space:nowrap}
+.topics a,.topic h2{transition:opacity .18s,background-color .18s,box-shadow .18s,transform .18s}
+.topics.hl a{opacity:.32}
+.topics.hl a.on{opacity:1;transform:translateX(3px)}
+.topics.hl[data-j="fed"] a.on{background:var(--info-soft);box-shadow:inset 3px 0 0 var(--info)}
+.topics.hl[data-j="state"] a.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.topics.hl[data-j="both"] a.on{background:var(--sunk);box-shadow:inset 3px 0 0 var(--ink)}
+.topics.hl .topic.none h2{opacity:.35}
+@media (prefers-reduced-motion:reduce){.topics a,.topic h2,.jleg button.sb{transition:none}.topics.hl a.on{transform:none}}
 .glist2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .glist2 a{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink)}
 .glist2 a:hover{border-color:var(--accent)}
@@ -144,7 +162,6 @@
 @media (max-width:760px){.topics{grid-template-columns:minmax(0,1fr)}.how{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:560px){.feat,.glist2{grid-template-columns:minmax(0,1fr)}}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com", "parentOrganization": {"@type": "Organization", "name": "X Ventures LLC"}}, {"@type": "WebSite", "@id": "https://benefitmath.com/#site", "url": "https://benefitmath.com/", "name": "BenefitMath", "description": "See what you qualify for in Oregon and Washington: free SNAP, disability, tax credit and health coverage calculators built on official rules.", "publisher": {"@id": "https://benefitmath.com/#org"}, "inLanguage": "en-US"}]}</script>
 <meta property="og:title" content="BenefitMath: Benefit &amp; Tax Calculators for Oregon &amp; Washington"><meta property="og:description" content="See what you qualify for in Oregon and Washington: free SNAP, disability, tax credit and health coverage calculators built on official rules."><meta property="og:type" content="website"><meta property="og:url" content="https://benefitmath.com/"><meta property="og:site_name" content="BenefitMath"><meta property="og:image" content="https://benefitmath.com/assets/og/index.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/site.css">
 </head><body>
@@ -194,7 +211,7 @@
 </div>
 <p style="margin:10px 2px 0;font-size:14px"><a href="calculadora-snap.html" hreflang="es" lang="es" style="color:var(--accent);font-weight:600">Calculadora de SNAP en español →</a></p>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home"></div></aside>
-<div class="sech"><h2>All calculators</h2><p>Dots show who sets the rules:<span class="sb sb-fed">Federal</span><span class="sb sb-state">OR &amp; WA</span><span class="sb sb-both">Federal + state</span></p></div>
+<div class="sech"><h2>All calculators</h2><p class="jleg" role="group" aria-label="Highlight by who sets the rules"><span class="jl-t">Who sets the rules:</span><button type="button" class="sb sb-fed" data-j="fed" aria-pressed="false">Federal</button><button type="button" class="sb sb-state" data-j="state" aria-pressed="false">OR &amp; WA</button><button type="button" class="sb sb-both" data-j="both" aria-pressed="false">Federal + state</button><span class="jl-n" aria-live="polite"></span></p></div>
 <div class="topics"><section class="topic" aria-labelledby="t-food"><h2 id="t-food">Food, health &amp; family</h2><ul><li><a class="j-both" href="snap.html" title="Federal + state"><b>SNAP food stamps</b><span>How much you'll get</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="ebt-deposit-schedule.html" title="Oregon &amp; Washington"><b>EBT deposit schedule</b><span>When SNAP comes each month</span><i aria-hidden="true">→</i></a></li><li><a class="j-both" href="health-coverage.html" title="Federal + state"><b>Health coverage</b><span>OHP, Apple Health, marketplace</span><i aria-hidden="true">→</i></a></li><li><a class="j-both" href="family-help.html" title="Federal + state"><b>Cash, WIC &amp; energy help</b><span>TANF, WIC, utility bills</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="child-care.html" title="Oregon &amp; Washington"><b>Child care help</b><span>ERDC, Working Connections</span><i aria-hidden="true">→</i></a></li></ul></section><section class="topic" aria-labelledby="t-dis"><h2 id="t-dis">Disability &amp; retirement</h2><ul><li><a class="j-both" href="benefits.html" title="Federal + state"><b>Disability benefits</b><span>SSI, SSDI, Medicaid, housing</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="ssi-ssdi-work.html" title="Federal"><b>Working on SSI or SSDI</b><span>How much you can earn</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="benefits.html#va" title="Federal"><b>VA benefits</b><span>Ratings, compensation, pension</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="retirement.html" title="Federal"><b>Social Security retirement</b><span>When to claim</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="cola.html" title="Federal"><b>2027 COLA</b><span>How much your check goes up</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="wa-cares.html" title="Oregon &amp; Washington"><b>WA Cares</b><span>Long-term care benefit</span><i aria-hidden="true">→</i></a></li></ul></section><section class="topic" aria-labelledby="t-work"><h2 id="t-work">Work &amp; paychecks</h2><ul><li><a class="j-both" href="paycheck.html" title="Federal + state"><b>Take-home pay</b><span>Every deduction, explained</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="or-vs-wa.html" title="Oregon &amp; Washington"><b>Oregon vs. Washington</b><span>Live in one, work in the other</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="unemployment.html" title="Oregon &amp; Washington"><b>Unemployment</b><span>Your weekly benefit</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="paid-leave.html" title="Oregon &amp; Washington"><b>Paid leave</b><span>Paid Leave Oregon, WA PFML</span><i aria-hidden="true">→</i></a></li></ul></section><section class="topic" aria-labelledby="t-tax"><h2 id="t-tax">Taxes &amp; refunds</h2><ul><li><a class="j-fed" href="eitc.html" title="Federal"><b>Earned income credit</b><span>EITC</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="child-tax-credit.html" title="Federal"><b>Child tax credit</b><span>Credit per child</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="state-credits.html" title="Oregon &amp; Washington"><b>State tax credits</b><span>WA Working Families, Oregon</span><i aria-hidden="true">→</i></a></li><li><a class="j-state" href="kicker.html" title="Oregon &amp; Washington"><b>Oregon kicker</b><span>Surplus credit on your return</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="tips.html" title="Federal"><b>No tax on tips</b><span>Tax you'll save</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="overtime.html" title="Federal"><b>No tax on overtime</b><span>Tax you'll save</span><i aria-hidden="true">→</i></a></li><li><a class="j-fed" href="senior-deduction.html" title="Federal"><b>Senior deduction</b><span>Age 65+, up to $6,000</span><i aria-hidden="true">→</i></a></li></ul></section></div>
 <div class="sech"><h2>Guides</h2><a href="guides.html">All guides →</a></div>
 <div class="glist2">
@@ -282,6 +299,27 @@ const f=$("sf");load();f.addEventListener("input",()=>{save();run();});f.addEven
       o.ed=!!(g("s-dis").checked||(+g("s-age").value>=60));
       localStorage.setItem("bm-snap",JSON.stringify(o));}catch(err){}
   });
+})();
+</script>
+<script id="bm-legend-js">
+(function(){
+  var leg=document.querySelector(".jleg"),box=document.querySelector(".topics");if(!leg||!box)return;
+  var btns=[].slice.call(leg.querySelectorAll("button[data-j]")),cnt=leg.querySelector(".jl-n"),locked=null;
+  var names={fed:"federal",state:"Oregon & Washington",both:"federal + state"};
+  function show(j){
+    box.classList.toggle("hl",!!j);if(j)box.setAttribute("data-j",j);else box.removeAttribute("data-j");
+    var n=0;box.querySelectorAll(".topic").forEach(function(t){var any=false;t.querySelectorAll("a").forEach(function(a){var on=!!j&&a.classList.contains("j-"+j);a.classList.toggle("on",on);if(on){any=true;n++;}});t.classList.toggle("none",!!j&&!any);});
+    cnt.textContent=j?n+" "+names[j]:"";
+  }
+  btns.forEach(function(b){
+    var j=b.getAttribute("data-j");
+    b.addEventListener("mouseenter",function(){if(!locked)show(j);});
+    b.addEventListener("mouseleave",function(){if(!locked)show(null);});
+    b.addEventListener("focus",function(){if(!locked)show(j);});
+    b.addEventListener("blur",function(){if(!locked)show(null);});
+    b.addEventListener("click",function(){locked=locked===j?null:j;btns.forEach(function(x){x.setAttribute("aria-pressed",String(x.getAttribute("data-j")===locked));});show(locked);});
+  });
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&locked){locked=null;btns.forEach(function(x){x.setAttribute("aria-pressed","false");});show(null);}});
 })();
 </script>
 </body></html>
