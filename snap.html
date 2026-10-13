@@ -413,13 +413,44 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 @media (max-width:800px){.ngroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.ngroup a small{display:none}.ngroup a{padding:9px 10px;font-size:14px}.mtitle{margin:8px 10px 4px;padding-bottom:6px}.mleg{padding:10px 12px 0}}
 @media (max-width:1060px) and (min-width:801px){.mcols{grid-template-columns:repeat(2,minmax(0,1fr))}.mcol:nth-child(odd){border-left:0}.mcol:nth-child(n+3){border-top:1px solid var(--line);padding-top:8px;margin-top:6px}}
 </style>
+<style id="bm-feat">
+.fk{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.fk span{font:600 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.fk span.new{background:var(--accent);color:var(--accent-ink)}
+.fjump{display:flex;gap:8px;overflow-x:auto;padding:14px 0 2px;scrollbar-width:none}
+.fjump::-webkit-scrollbar{display:none}
+.fjump a{flex:none;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap}
+.fjump a:hover{border-color:var(--accent);color:var(--accent)}
+.fsec{scroll-margin-top:16px;border-top:3px solid var(--accent)!important}
+.fsec .tbl td:not(:first-child){font-family:var(--f-mono)}
+.fsec .tbl th,.fsec .tbl td{text-align:left!important;padding-right:14px;padding-left:0!important}
+.fout a{color:var(--accent);font-weight:600}
+.fsec .tbl td.w{white-space:normal;font-family:var(--f-body);text-align:left;color:var(--muted);font-size:13.5px}
+.fcta{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.fcta a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:12px;padding:11px 16px;background:var(--accent);color:var(--accent-ink)!important}
+.fcta a.alt{background:var(--surface);color:var(--ink)!important;border:1px solid var(--line)}
+.fcta a::after{content:"→"}
+.fsrc{font-size:12.5px;color:var(--muted);margin:2px 0 0}.fsrc a{color:var(--muted)}
+.fpick{display:flex;flex-direction:column;gap:12px;max-width:640px}
+.fpick .seg{grid-template-columns:repeat(auto-fit,minmax(0,1fr));display:grid}
+.fout{background:var(--accent-soft);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.fout b{font:600 24px var(--f-display);color:var(--ink)}
+.fout span{font-size:14.5px;color:var(--ink)}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+@media (min-width:900px){.perks{grid-template-columns:repeat(4,minmax(0,1fr))}.perks.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.perk{background:var(--sunk);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.perk b{font:600 16px var(--f-display);color:var(--ink)}
+.perk span{font-size:14px;color:var(--muted)}
+.perk a,.perkmore a{color:var(--accent);font-weight:600}
+.perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
+</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BenefitMath", "item": "https://benefitmath.com/"}, {"@type": "ListItem", "position": 2, "name": "SNAP Calculator: Oregon & Washington", "item": "https://benefitmath.com/snap.html"}]}, {"@type": "WebApplication", "name": "SNAP Calculator: Oregon & Washington", "url": "https://benefitmath.com/snap.html", "description": "Free SNAP (food stamps) calculator for Oregon and Washington Basic Food. See 2026 income limits by household size and estimate how much SNAP you'll get, with the math shown.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://benefitmath.com/#org"}, "dateModified": "2026-10-12"}, {"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much SNAP will I get?", "acceptedAnswer": {"@type": "Answer", "text": "Start with your household's monthly income. Subtract 20% of pay from work, a standard deduction ($217 for 1 to 3 people), and child care costs. Add up rent and your state's utility allowance. Whatever is more than half of your remaining income becomes a shelter deduction, up to $769 (no cap if someone is 60+ or disabled). SNAP expects you to spend 30% of what's left on food. Your benefit is the maximum for your household size minus that 30%."}}, {"@type": "Question", "name": "What is the SNAP income limit in Oregon?", "acceptedAnswer": {"@type": "Answer", "text": "For most households, income before taxes under $2,660 a month for 1 person, $3,607 for 2, $4,554 for 3 and $5,500 for 4, adding $947 for each extra person. Those limits run March 2026 through February 2027."}}, {"@type": "Question", "name": "What is the food stamps income limit in Washington?", "acceptedAnswer": {"@type": "Answer", "text": "Washington's Basic Food program uses the same 200% of poverty limits: $2,660 a month for 1 person, $3,607 for 2, about $4,553 for 3 and $5,500 for 4."}}, {"@type": "Question", "name": "Is there an asset limit?", "acceptedAnswer": {"@type": "Answer", "text": "Not for most households under the income limit in either state. If your income is over the limit and someone is 60+ or disabled, you can still qualify with net income under 100% of poverty and assets under $4,750."}}, {"@type": "Question", "name": "Does SNAP count my paycheck before or after taxes?", "acceptedAnswer": {"@type": "Answer", "text": "Before taxes. SNAP uses gross income, then takes off 20% of earnings to account for taxes and work costs."}}, {"@type": "Question", "name": "Do I have to work to get SNAP?", "acceptedAnswer": {"@type": "Answer", "text": "Most adults 18 to 64 have to register for work. Adults without children under 14 in the household can be limited to 3 months of SNAP in 3 years unless they work or train at least 20 hours a week or are exempt, for example because of a disability that limits work."}}, {"@type": "Question", "name": "How do I apply?", "acceptedAnswer": {"@type": "Answer", "text": "Oregon: apply online through ONE Oregon or call 800-699-9075. Washington: apply at Washington Connection or call 877-501-2233. Both states need an interview, usually by phone."}}, {"@type": "Question", "name": "Does getting SNAP affect my other benefits?", "acceptedAnswer": {"@type": "Answer", "text": "No. SNAP doesn't count as income for taxes, SSI or Medicaid. Getting it can also qualify you for other help, such as school meals and phone and internet discounts."}}]}]}</script>
 </head><body>
 <div class="wrap">
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
   <div class="site-r">
-    <nav class="navlinks" aria-label="Site"><a class="qk" href="snap.html" aria-current="page">SNAP</a><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="snap.html" aria-current="page">SNAP</a><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="eitc.html">Tax credits</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
     <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>

@@ -426,6 +426,19 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <meta name="google-adsense-account" content="ca-pub-7867146450299069">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
 <style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<style id="bm-nav">
+.mega{width:min(1010px,calc(100vw - 32px))}
+@media (min-width:1061px){.mcols{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.mtitle{font:600 15px var(--f-display);color:var(--ink);margin:4px 10px 6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.ngroup a .jn::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin:0 0 2px 7px;vertical-align:middle;background:var(--ink)}
+.ngroup a.j-fed .jn::after{background:var(--info)}.ngroup a.j-state .jn::after{background:var(--accent)}
+.ngroup a.j-both .jn::after{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.mleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:12px 16px 0;font-size:12.5px;color:var(--muted)}
+.hleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:30px 0 -14px;font-size:13px;color:var(--muted)}
+.gt2{font:600 20px var(--f-display);margin:0;color:var(--ink)}
+@media (max-width:800px){.ngroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.ngroup a small{display:none}.ngroup a{padding:9px 10px;font-size:14px}.mtitle{margin:8px 10px 4px;padding-bottom:6px}.mleg{padding:10px 12px 0}}
+@media (max-width:1060px) and (min-width:801px){.mcols{grid-template-columns:repeat(2,minmax(0,1fr))}.mcol:nth-child(odd){border-left:0}.mcol:nth-child(n+3){border-top:1px solid var(--line);padding-top:8px;margin-top:6px}}
+</style>
 <style id="bm-home">
 .spot{margin-top:24px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:0;border-radius:18px;overflow:hidden;border:1px solid var(--accent);background:var(--surface);box-shadow:0 18px 40px -26px rgba(0,0,0,.45)}
 .spot-l{padding:24px;background:linear-gradient(160deg,var(--accent-soft),transparent 70%);display:flex;flex-direction:column;gap:12px}
@@ -451,6 +464,14 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .spot-go{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:700;font-size:15.5px;border-radius:12px;padding:13px 16px;background:var(--accent);color:var(--accent-ink)}
 .spot-go:hover{filter:brightness(1.08)}
 .spot-fine{font-size:12px;color:var(--muted);margin:0}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.duo-c{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:16px;border:1px solid var(--line);border-top:3px solid var(--accent);background:var(--surface);text-decoration:none;color:var(--ink)}
+.duo-c:hover{border-color:var(--accent)}
+.duo-k{font:600 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.duo-c b{font:600 22px var(--f-display);line-height:1.2}
+.duo-c span:not(.duo-k){font-size:14px;color:var(--muted)}
+.duo-c i{font-style:normal;font-weight:700;color:var(--accent);margin-top:auto;padding-top:4px}
+@media (max-width:640px){.duo{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:820px){.spot{grid-template-columns:minmax(0,1fr)}.spot-r{border-left:0;border-top:1px solid var(--line)}}
 .topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
 .topic{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px 6px 8px}
@@ -472,26 +493,13 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .tophead p{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:0;font-size:12.5px;color:var(--muted)}
 @media (max-width:760px){.topics{grid-template-columns:minmax(0,1fr)}}
 </style>
-<style id="bm-nav">
-.mega{width:min(1010px,calc(100vw - 32px))}
-@media (min-width:1061px){.mcols{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.mtitle{font:600 15px var(--f-display);color:var(--ink);margin:4px 10px 6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.ngroup a .jn::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin:0 0 2px 7px;vertical-align:middle;background:var(--ink)}
-.ngroup a.j-fed .jn::after{background:var(--info)}.ngroup a.j-state .jn::after{background:var(--accent)}
-.ngroup a.j-both .jn::after{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
-.mleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:12px 16px 0;font-size:12.5px;color:var(--muted)}
-.hleg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:30px 0 -14px;font-size:13px;color:var(--muted)}
-.gt2{font:600 20px var(--f-display);margin:0;color:var(--ink)}
-@media (max-width:800px){.ngroup{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.ngroup a small{display:none}.ngroup a{padding:9px 10px;font-size:14px}.mtitle{margin:8px 10px 4px;padding-bottom:6px}.mleg{padding:10px 12px 0}}
-@media (max-width:1060px) and (min-width:801px){.mcols{grid-template-columns:repeat(2,minmax(0,1fr))}.mcol:nth-child(odd){border-left:0}.mcol:nth-child(n+3){border-top:1px solid var(--line);padding-top:8px;margin-top:6px}}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com", "parentOrganization": {"@type": "Organization", "name": "X Ventures LLC"}}, {"@type": "WebSite", "@id": "https://benefitmath.com/#site", "url": "https://benefitmath.com/", "name": "BenefitMath", "description": "Free calculators for SSI, SNAP, Medicaid, VA, paid leave, Oregon and Washington unemployment, and 2026 tax breaks. Every figure linked to its source.", "publisher": {"@id": "https://benefitmath.com/#org"}, "inLanguage": "en-US"}]}</script>
 </head><body>
 <div class="wrap">
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
   <div class="site-r">
-    <nav class="navlinks" aria-label="Site"><a class="qk" href="snap.html">SNAP</a><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="snap.html">SNAP</a><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="eitc.html">Tax credits</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
     <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
@@ -521,6 +529,10 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   <p class="spot-fine">Before taxes. Nothing you type leaves your device.</p>
 </form>
 </section>
+<div class="duo">
+<a class="duo-c" href="benefits.html"><span class="duo-k">Disability benefits</span><b>SSI up to $994 a month</b><span>Estimate SSI, SSDI, Medicaid and VA pay, and see what happens if you work.</span><i>Open the calculator →</i></a>
+<a class="duo-c" href="eitc.html"><span class="duo-k">Tax credits</span><b>EITC up to $8,231</b><span>See your 2026 earned income credit, plus Oregon and Washington credits on top.</span><i>Open the calculator →</i></a>
+</div>
 <section class="screener" id="screener" aria-labelledby="scr-h">
 <div class="scr-head"><h2 id="scr-h">What could I qualify for?</h2><p>Answer 6 questions. Nothing leaves your device.</p></div>
 <form id="sf" class="scr-form" novalidate>
@@ -542,6 +554,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="scr-out" id="sout" aria-live="polite"></div>
 </section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home"></div></aside>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home"></div></aside>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home"></div></aside>
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home"></div></aside>
