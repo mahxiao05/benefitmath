@@ -840,8 +840,12 @@ function render(){
   const open = new Set([...document.querySelectorAll("#panel-dis details[data-id][open]")].map(d=>d.dataset.id));
   const ssi = calcSSI(p), ssdi = calcSSDI(p), snap = calcSNAP(p,s,ssi.amount||0), mcd = calcMedicaid(p,s,ssi), msp = calcMSP(p,s,ssi), lis = calcLIS(p,ssi,msp,mcd), able = calcABLE(p), hud = calcHUD(p, ssi.amount||0);
   const list = [ssi, snap, mcd, ssdi, msp, lis, able, hud, stateExtras(s,p)];
-  $("cards").innerHTML = list.slice(0,3).map(card).join("");
-  $("cards2").innerHTML = list.slice(3).map(card).join("");
+  /* Show what applies first; fold the rest into "Also checked" so results stay short */
+  let main = list.filter(c=>c.status==="good"||c.status==="warn"), rest = list.filter(c=>!(c.status==="good"||c.status==="warn"));
+  if(!main.length){ main = rest.slice(0,2); rest = rest.slice(2); }
+  const alsoOpen = !!document.querySelector("#cards2 details.alsochk[open]");
+  $("cards").innerHTML = main.map(card).join("");
+  $("cards2").innerHTML = rest.length ? `<details class="alsochk"${alsoOpen?" open":""}><summary><b>Also checked: ${rest.length} more</b><span>${rest.map(c=>esc(c.title)).join(" · ")}</span></summary><div class="alsoin">${rest.map(card).join("")}</div></details>` : "";
   lastSummary = {p, list};
   document.querySelectorAll("#panel-dis details[data-id]").forEach(d=>{ if(open.has(d.dataset.id)) d.open = true; });
   const income = p.earned + p.ss + p.va + p.other;

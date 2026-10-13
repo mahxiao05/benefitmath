@@ -146,6 +146,10 @@
 .topics.hl[data-j="state"] a.on{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
 .topics.hl[data-j="both"] a.on{background:var(--sunk);box-shadow:inset 3px 0 0 var(--ink)}
 .topics.hl .topic.none h2{opacity:.35}
+.topic.short li:nth-child(n+4){display:none}
+.topics.hl .topic.short li{display:list-item}
+.topics.hl .tmore{display:none}
+.tmore{display:block;margin:6px 12px 6px;font:600 14px var(--f-body);color:var(--accent);background:none;border:0;padding:6px 0;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.topics a,.topic h2,.jleg button.sb{transition:none}.topics.hl a.on{transform:none}}
 .glist2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .glist2 a{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink)}
@@ -319,6 +323,12 @@ const f=$("sf");load();f.addEventListener("input",()=>{save();run();});f.addEven
     b.addEventListener("blur",function(){if(!locked)show(null);});
     b.addEventListener("click",function(){locked=locked===j?null:j;btns.forEach(function(x){x.setAttribute("aria-pressed",String(x.getAttribute("data-j")===locked));});show(locked);});
   });
+  /* phones: show the top 3 in each group, with "Show all" */
+  if(window.matchMedia&&matchMedia("(max-width:760px)").matches){
+    box.querySelectorAll(".topic").forEach(function(tp){var n=tp.querySelectorAll("li").length;if(n<=3)return;tp.classList.add("short");
+      var b=document.createElement("button");b.type="button";b.className="tmore";b.textContent="Show all "+n;b.setAttribute("aria-expanded","false");tp.appendChild(b);
+      b.addEventListener("click",function(){var o=tp.classList.toggle("short");b.textContent=o?"Show all "+n:"Show fewer";b.setAttribute("aria-expanded",String(!o));});});
+  }
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&locked){locked=null;btns.forEach(function(x){x.setAttribute("aria-pressed","false");});show(null);}});
 })();
 </script>

@@ -38,3 +38,40 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
     else if(a==='copy')copy(text(),b);
     else if(a==='print')window.print();});
 })();
+
+/* ---- lighter pages: short FAQs, and fold extra sections on phones ---- */
+(function(){
+  var es=document.documentElement.lang==='es';
+  /* FAQs: show the first 5, the rest behind a button (they stay in the page for search) */
+  document.querySelectorAll('section.faq').forEach(function(sec){
+    var items=[].slice.call(sec.querySelectorAll(':scope > details, :scope > div > details')).filter(function(d){return (d.parentNode===sec||d.parentNode.parentNode===sec)&&!/^\s*(Sources|Fuentes)/.test((d.querySelector('summary')||{}).textContent||'');});
+    if(items.length<=5||sec.querySelector('.faqmore'))return;
+    var extra=items.slice(5);extra.forEach(function(d){d.hidden=true;});
+    var b=document.createElement('button');b.type='button';b.className='faqmore';
+    var lab=function(open){return open?(es?'Menos preguntas':'Fewer questions'):(es?'Más preguntas ('+extra.length+')':'More questions ('+extra.length+')');};
+    b.textContent=lab(false);b.setAttribute('aria-expanded','false');
+    extra[extra.length-1].insertAdjacentElement('afterend',b);
+    b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')!=='true';extra.forEach(function(d){d.hidden=!o;});b.setAttribute('aria-expanded',String(o));b.textContent=lab(o);});
+    /* opening a hidden FAQ from a link (#id) reveals it */
+    if(location.hash){var t=sec.querySelector(location.hash);if(t&&t.hidden){b.click();}}
+  });
+  /* Phones: sections below the calculator open with a tap */
+  var mq=window.matchMedia&&matchMedia('(max-width:760px)');
+  if(!mq||!mq.matches||!document.getElementById('calculator'))return;
+  var secs=[].slice.call(document.querySelectorAll('section.fsec, section.related, section#limits, section#arrive, section#stretch, section#state'));
+  secs=secs.filter(function(s,i){return secs.indexOf(s)===i;});
+  secs.forEach(function(s){
+    var h=s.querySelector('h2');if(!h||s.classList.contains('fold'))return;
+    var body=document.createElement('div');body.className='foldin';
+    while(h.nextSibling)body.appendChild(h.nextSibling);
+    s.appendChild(body);s.classList.add('fold');
+    h.setAttribute('role','button');h.setAttribute('tabindex','0');h.setAttribute('aria-expanded','false');
+    var tog=function(open){s.classList.toggle('open',open);h.setAttribute('aria-expanded',String(open));};
+    h.addEventListener('click',function(){tog(!s.classList.contains('open'));});
+    h.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(!s.classList.contains('open'));}});
+    s._open=function(){tog(true);};
+  });
+  function openHash(){var id=location.hash.slice(1);if(!id)return;var t=document.getElementById(id);if(t&&t._open)t._open();}
+  window.addEventListener('hashchange',openHash);openHash();
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t._open)t._open();});
+})();
