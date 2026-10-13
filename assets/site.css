@@ -63,3 +63,15 @@ html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 13, 2026"}
 .rel b{font:600 15.5px var(--f-display);color:var(--accent)}
 .rel b::after{content:" →"}
 .rel span{font-size:13.5px;color:var(--muted)}
+/* ---- share / copy / print ---- */
+.sharebar{display:flex;flex-wrap:wrap;gap:8px}
+.sharebar button{font:600 13.5px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.sharebar button:hover{border-color:var(--accent);color:var(--accent)}
+.sharebar button:first-child{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media print{
+  .site,.mega,.ad-slot,footer,.mbar,.fjump,.snapjump,.sharebar,.related,.faq,#sources,.btns,.sample,.mlinks{display:none!important}
+  body{background:#fff!important;color:#000!important}
+  .grid{display:block!important}
+  .card,.summary{break-inside:avoid}
+  .results::after{content:"Estimate from benefitmath.com. Not an official decision: only the agency can decide.";display:block;margin-top:14px;font-size:12px}
+}
