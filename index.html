@@ -235,6 +235,22 @@ details.figs[open]>summary{margin-bottom:10px}
 .scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
 </style>
 <style>
+.hero h1{max-width:none!important;font-size:clamp(30px,4.6vw,46px)!important}
+.hero .lede{font-size:17px!important}
+.checked{margin:0;font:500 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:980px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.tile{position:relative;display:flex;flex-direction:column;gap:4px;padding:14px 34px 14px 14px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+.tile b{font-size:15.5px;font-weight:600;line-height:1.25}
+.tile span{font-size:13px;color:var(--muted);line-height:1.4}
+.tile i{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--muted);transition:transform .15s,color .15s}
+.tile:hover{border-color:var(--accent)}.tile:hover i{color:var(--accent);transform:translate(3px,-50%)}
+.tile:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tile.t-fed{border-top-color:var(--info)}.tile.t-state{border-top-color:var(--accent)}.tile.t-both{border-top-color:var(--ink)}
+.group{margin-top:28px!important}
+@media (prefers-reduced-motion:reduce){.tile,.tile i{transition:none}}
 .hero{display:flex;flex-direction:column;gap:14px;margin:6px 0 8px}
 .hero h1{font-size:clamp(32px,5.4vw,54px);max-width:17ch}
 .hero .lede{font-size:16.5px;max-width:62ch}
@@ -242,7 +258,8 @@ details.figs[open]>summary{margin-bottom:10px}
 .trust li{font-size:13px;font-weight:500;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 10px;display:inline-flex;gap:7px;align-items:center}
 .trust li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--good)}
 .group{margin-top:34px}
-.group>h2{font:600 12.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.ghead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 12px}.ghead h2{margin:0;font-size:inherit}.ghead .sb{font-size:12px;padding:4px 12px 4px 10px}.ghead p{margin:0;color:var(--muted);font-size:14px}
+
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}}
@@ -253,7 +270,7 @@ details.figs[open]>summary{margin-bottom:10px}
 .tcard h3{font-family:var(--f-display);font-weight:600;font-size:19px;line-height:1.25;margin:0;text-wrap:balance}
 .tcard p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
 .tcard .go{margin-top:auto;padding-top:8px;font-weight:600;font-size:14px;color:var(--accent)}
-.tcard.feature{grid-column:span 2;background:linear-gradient(135deg,var(--accent-soft),var(--surface) 70%)}
+.tcard.feature{grid-column:span 2;background:var(--surface)}
 .tcard.feature h3{font-size:clamp(21px,2.4vw,26px)}
 @media (max-width:600px){.tcard.feature{grid-column:auto}}
 .why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:34px}
@@ -262,6 +279,8 @@ details.figs[open]>summary{margin-bottom:10px}
 .why p{margin:0;color:var(--muted);font-size:14px}
 .why a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.tcard{transition:none}.tcard:hover{transform:none}}
+.cards .tcard{border-top-width:3px}.cards .tcard.t-fed{border-top-color:var(--info)}.cards .tcard.t-state{border-top-color:var(--accent)}.cards .tcard.t-both{border-top-color:var(--ink)}
+.tcard.t-fed .tag{color:var(--info)}.tcard.t-both .tag{color:var(--muted)}
 </style><style>
 .screener{margin-top:26px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
 .scr-head h2{font-family:var(--f-display);font-size:clamp(22px,2.6vw,28px);margin:0}
@@ -270,22 +289,65 @@ details.figs[open]>summary{margin-bottom:10px}
 @media (max-width:900px){.scr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.scr-grid .field:first-child{grid-column:1/-1}}
 .scr-form{display:flex;flex-direction:column;gap:14px}
 .scr-checks{display:flex;flex-wrap:wrap;gap:8px 20px}
-.scr-out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.scr-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:900px){.scr-out{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:700px){.scr-out{grid-template-columns:minmax(0,1fr)}}
 .scr-out h3{grid-column:1/-1;font:600 12.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
-.res{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg)}
+.res{display:flex;flex-direction:column;gap:3px;padding:11px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--bg)}
 .res.likely{border-left:4px solid var(--good)}.res.check{border-left:4px solid var(--info)}
 .res b{font-size:15.5px}
 .res p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
 .res a.go{color:var(--accent);font-weight:600;font-size:14px;text-decoration:none;margin-top:auto}
 .res a.go:hover{text-decoration:underline}
 </style>
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .themebtn .i-sun{display:block}:root:not([data-theme="light"]) .themebtn .i-moon{display:none}}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
 /* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
 body{margin:0}
 [hidden]{display:none!important}
 .site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
 .site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
 .site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
 .navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
 .navbtn svg{transition:transform .15s ease}
@@ -363,19 +425,19 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
   <div class="site-r">
-    <nav class="navlinks" aria-label="Site"><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></nav>
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
-  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="ngroup"><h4>Disability & VA</h4><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a></div><div class="ngroup"><h4>Health & care</h4><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a></div><div class="ngroup"><h4>Retirement</h4><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div></div><div class="mcol"><div class="ngroup"><h4>Work & leave</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div><div class="ngroup"><h4>Family</h4><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a></div></div><div class="mcol"><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="#screener"><b>Not sure where to start?</b><span>Jump to the quick questions →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a></div></div></div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Tax credits</h4><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="#screener"><b>Not sure where to start?</b><span>Jump to the quick questions →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="mailto:xventuresbusiness@gmail.com">Contact</a></div></div></div>
 </div>
 <header class="hero" id="top">
-  <p class="eyebrow">Free · Oregon &amp; Washington · Federal · 2026 rules</p>
-  <h1>Benefit and tax calculators that show their math</h1>
-  <p class="lede">See what you could get from SSI, SNAP, Medicaid, VA, paid leave, unemployment and the new 2026 tax breaks. Every number comes with the steps behind it and a link to the law it comes from.</p>
-  <ul class="trust"><li>Rules checked Oct 12, 2026</li><li>Every figure linked to its source</li><li>Nothing you type leaves your device</li></ul>
+  <h1>Benefit &amp; tax calculators</h1>
+  <p class="lede">Free for Oregon, Washington and federal programs. Every number shows its math.</p>
+  <p class="checked">✓ Rules checked Oct 12, 2026</p>
 </header>
 <section class="screener" id="screener" aria-labelledby="scr-h">
-<div class="scr-head"><h2 id="scr-h">What could I qualify for?</h2><p>Answer a few questions to see which programs to check first. Nothing you enter leaves your device.</p></div>
+<div class="scr-head"><h2 id="scr-h">What could I qualify for?</h2><p>Answer 6 questions. Nothing leaves your device.</p></div>
 <form id="sf" class="scr-form" novalidate>
 <div class="scr-grid">
 <div class="field"><span class="lbl">State</span><div class="seg" role="radiogroup" aria-label="State"><input type="radio" name="sst" id="s-or" value="OR" checked><label for="s-or">Oregon</label><input type="radio" name="sst" id="s-wa" value="WA"><label for="s-wa">Washington</label></div></div>
@@ -395,23 +457,15 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 </form>
 <div class="scr-out" id="sout" aria-live="polite"></div>
 </section>
-<section class="group" aria-labelledby="g0"><h2 id="g0">Disability & VA</h2><div class="cards"><a class="tcard feature" href="benefits.html"><span class="tag">Oregon · Washington</span><h3>Will working change my SSI, SNAP or Medicaid?</h3><p>Estimate SSI, SSDI work limits, SNAP, Medicaid, Medicare Savings, ABLE and HUD rent together, since each one changes the others.</p><span class="go">Disability benefits calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="benefits.html#va"><span class="tag">All states</span><h3>What will VA pay with my ratings?</h3><p>Combine ratings the way VA does, see monthly compensation with dependents, and check Veterans Pension.</p><span class="go">VA benefits calculator<span aria-hidden="true"> →</span></span></a></div></section>
-<section class="group" aria-labelledby="g1"><h2 id="g1">Health & care</h2><div class="cards"><a class="tcard" href="health-coverage.html"><span class="tag">Oregon · Washington</span><h3>What will health insurance cost me in 2026?</h3><p>See whether you land on OHP or Apple Health, a state program, or the marketplace, and what you pay after tax credits.</p><span class="go">Health coverage calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="wa-cares.html"><span class="tag">Washington</span><h3>Have I earned WA Cares long-term care benefits?</h3><p>Check the three ways to qualify, how much of the lifetime benefit you have earned, and what you pay in.</p><span class="go">WA Cares checker<span aria-hidden="true"> →</span></span></a></div></section>
-<section class="group" aria-labelledby="g2"><h2 id="g2">Work & leave</h2><div class="cards"><a class="tcard" href="paid-leave.html"><span class="tag">Oregon · Washington</span><h3>How much would paid leave pay me?</h3><p>Your weekly benefit for family, medical or bonding leave, the total for your leave, and what you pay in premiums.</p><span class="go">Paid leave calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="unemployment.html"><span class="tag">Oregon · Washington</span><h3>How much unemployment would I get?</h3><p>Your weekly benefit, the most a claim can pay, and what a week of part-time work does to it.</p><span class="go">Unemployment calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="paycheck.html"><span class="tag">Oregon · Washington</span><h3>Where does my paycheck go?</h3><p>Federal and Oregon income tax, Social Security, Medicare, paid leave and WA Cares, line by line.</p><span class="go">Take-home pay calculator<span aria-hidden="true"> →</span></span></a></div></section>
+<section class="group" aria-labelledby="g-both"><div class="ghead"><h2 id="g-both"><span class="sb sb-both">Federal + state</span></h2></div><div class="tiles"><a class="tile t-both" href="benefits.html"><b>Disability benefits</b><span>SSI, SNAP, Medicaid</span><i aria-hidden="true">→</i></a><a class="tile t-both" href="health-coverage.html"><b>Health insurance</b><span>Cost after credits</span><i aria-hidden="true">→</i></a><a class="tile t-both" href="family-help.html"><b>Cash, food &amp; energy</b><span>TANF, WIC, energy</span><i aria-hidden="true">→</i></a><a class="tile t-both" href="paycheck.html"><b>Paycheck</b><span>Take-home pay</span><i aria-hidden="true">→</i></a></div></section>
+<section class="group" aria-labelledby="g-state"><div class="ghead"><h2 id="g-state"><span class="sb sb-state">State · OR &amp; WA</span></h2></div><div class="tiles"><a class="tile t-state" href="paid-leave.html"><b>Paid leave</b><span>Weekly leave pay</span><i aria-hidden="true">→</i></a><a class="tile t-state" href="unemployment.html"><b>Unemployment</b><span>Weekly benefit</span><i aria-hidden="true">→</i></a><a class="tile t-state" href="wa-cares.html"><b>WA Cares</b><span>Long-term care</span><i aria-hidden="true">→</i></a><a class="tile t-state" href="child-care.html"><b>Child care</b><span>Your copay</span><i aria-hidden="true">→</i></a><a class="tile t-state" href="state-credits.html"><b>State tax credits</b><span>Washington and Oregon</span><i aria-hidden="true">→</i></a></div></section>
 <!-- AD SLOT: leaderboard between calculator groups. -->
 <aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="home">Ad · 728×90</div></aside>
-<section class="group" aria-labelledby="g3"><h2 id="g3">Taxes</h2><div class="cards"><a class="tcard" href="overtime.html"><span class="tag">2026 federal tax</span><h3>What does no tax on overtime save me?</h3><p>How much of your overtime you can deduct and how much federal tax that actually saves.</p><span class="go">Overtime calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="tips.html"><span class="tag">2026 federal tax</span><h3>What does no tax on tips save me?</h3><p>How much of your tips you can deduct and what it saves on your federal return.</p><span class="go">Tips calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="eitc.html"><span class="tag">2026 federal tax</span><h3>How much EITC can I get?</h3><p>Your Earned Income Tax Credit by income and number of children, and where you fall on the curve.</p><span class="go">EITC calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="child-tax-credit.html"><span class="tag">2026 federal tax</span><h3>How much is my child tax credit?</h3><p>Your total credit, how much lowers your tax, and how much comes back as a refund.</p><span class="go">Child tax credit calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="senior-deduction.html"><span class="tag">2026 federal tax · 65+</span><h3>What is the new senior deduction worth?</h3><p>How much of the new $6,000 deduction you get at your income and whether it lowers your tax.</p><span class="go">Senior deduction calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="state-credits.html"><span class="tag">Oregon · Washington</span><h3>Am I owed a state tax credit?</h3><p>Washington's Working Families Tax Credit, including back years, plus Oregon's earned income credit and Kids Credit.</p><span class="go">State credits calculator<span aria-hidden="true"> →</span></span></a></div></section>
-<section class="group" aria-labelledby="g4"><h2 id="g4">Family</h2><div class="cards"><a class="tcard" href="child-care.html"><span class="tag">Oregon · Washington</span><h3>What would I pay for child care with state help?</h3><p>Check the income limit and estimate your monthly copay in Oregon's ERDC or Washington's Working Connections.</p><span class="go">Child care calculator<span aria-hidden="true"> →</span></span></a><a class="tcard" href="family-help.html"><span class="tag">Oregon · Washington</span><h3>Could I get cash, WIC or energy bill help?</h3><p>Income limits and amounts for TANF cash aid, WIC and home energy assistance in your state.</p><span class="go">Family help checker<span aria-hidden="true"> →</span></span></a></div></section>
-<section class="group" aria-labelledby="g5"><h2 id="g5">Retirement</h2><div class="cards"><a class="tcard" href="retirement.html"><span class="tag">All states</span><h3>How much more do I get if I wait to claim?</h3><p>Your monthly check at 62, at full retirement age and at 70, and what working while claiming does.</p><span class="go">Retirement calculator<span aria-hidden="true"> →</span></span></a></div></section>
+<section class="group" aria-labelledby="g-fed"><div class="ghead"><h2 id="g-fed"><span class="sb sb-fed">Federal</span></h2></div><div class="tiles"><a class="tile t-fed" href="benefits.html#va"><b>VA benefits</b><span>Ratings and monthly pay</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="retirement.html"><b>Social Security</b><span>When to claim</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="overtime.html"><b>Overtime</b><span>Tax saved</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="tips.html"><b>Tips</b><span>Tax saved</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="eitc.html"><b>EITC</b><span>Earned income credit</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="child-tax-credit.html"><b>Child tax credit</b><span>Credit per child</span><i aria-hidden="true">→</i></a><a class="tile t-fed" href="senior-deduction.html"><b>Senior deduction</b><span>Age 65+</span><i aria-hidden="true">→</i></a></div></section>
 
-<section class="why" aria-label="Why BenefitMath">
-  <div><h3>See how it's figured</h3><p>Open the math on any result to follow each step, from your income to the final amount.</p></div>
-  <div><h3>Every number has a source</h3><p>Tap a <b>§</b> label to see the exact law or agency notice a figure comes from, and when it was last checked. <a href="how-we-check.html">How we check →</a></p></div>
-  <div><h3>Private by design</h3><p>Everything is calculated in your browser. No accounts, no sign-ups, nothing sent to us.</p></div>
-</section>
 
 <footer>
-  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="mailto:xventuresbusiness@gmail.com">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
   <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
 </footer>
 </div>
@@ -435,32 +489,32 @@ function run(){
   const p26=yr/F26(n)*100, p25=yr/F25(n)*100;
   const L=[],K=[];
   // SNAP
-  if(mo<=2*F26(n)/12)L.push(item("likely","SNAP food benefits",`Income is under 200% of the poverty level (${m0(2*F26(n)/12)}/month for ${n}) ${C("fpl","HHS")}.`,"benefits.html","Estimate SNAP"));
-  else if(dis||age>=60)K.push(item("check","SNAP food benefits","Households with someone 60+ or disabled can qualify at higher gross incomes.","benefits.html","Check SNAP"));
+  if(mo<=2*F26(n)/12)L.push(item("likely","SNAP food benefits",`Limit ${m0(2*F26(n)/12)}/mo for ${n} ${C("fpl","HHS")}`,"benefits.html","Estimate SNAP"));
+  else if(dis||age>=60)K.push(item("check","SNAP food benefits","Higher limits if someone is 60+ or disabled","benefits.html","Check SNAP"));
   // health
   const adult=age>=19&&age<65;
-  if(age>=65)K.push(item("check","Medicare help","At 65 or older, Medicare Savings Programs can pay Medicare costs.","benefits.html","Check Medicare help"));
-  else if(adult&&p26<=138)L.push(item("likely",st==="OR"?"Oregon Health Plan (OHP)":"Apple Health (Medicaid)",`Adults qualify up to 138% of poverty; you're at about ${Math.round(p26)}% ${C(st==="OR"?"or-chart":"wa-hca",st==="OR"?"OHA":"HCA")}.`,"health-coverage.html","See your coverage"));
-  else if(st==="OR"&&adult&&yr>=Math.ceil(1.33*F26(n)/12)*12&&yr<=2*F26(n))L.push(item("likely","OHP Bridge",`Adults from 133% to 200% of poverty, with no member costs; you're at about ${Math.round(p26)}% ${C("or-chart","OHA")}.`,"health-coverage.html","See your coverage"));
-  else if(p25<=400&&p25>=100)L.push(item("likely","Marketplace tax credit",`Credits are available up to 400% of poverty in 2026; you're at about ${Math.round(p25)}% ${C("fpl","HHS")}.`,"health-coverage.html","Estimate your premium"));
-  if(kids>0){const kl=st==="OR"?305:317;if(p26<=kl)L.push(item("likely",st==="OR"?"OHP for kids":"Apple Health for Kids",`Children qualify up to ${kl}% of poverty${st==="WA"?" (with a small premium above 215%)":""} ${C(st==="OR"?"or-chart":"wa-hca",st==="OR"?"OHA":"HCA")}.`,"health-coverage.html","Check kids' coverage"));}
+  if(age>=65)K.push(item("check","Medicare help","Help paying Medicare costs","benefits.html","Check Medicare help"));
+  else if(adult&&p26<=138)L.push(item("likely",st==="OR"?"Oregon Health Plan (OHP)":"Apple Health (Medicaid)",`You ${Math.round(p26)}% of poverty · limit 138% ${C(st==="OR"?"or-chart":"wa-hca",st==="OR"?"OHA":"HCA")}`,"health-coverage.html","See your coverage"));
+  else if(st==="OR"&&adult&&yr>=Math.ceil(1.33*F26(n)/12)*12&&yr<=2*F26(n))L.push(item("likely","OHP Bridge",`You ${Math.round(p26)}% · range 133–200%, no cost ${C("or-chart","OHA")}`,"health-coverage.html","See your coverage"));
+  else if(p25<=400&&p25>=100)L.push(item("likely","Marketplace tax credit",`You ${Math.round(p25)}% of poverty · limit 400% ${C("fpl","HHS")}`,"health-coverage.html","Estimate your premium"));
+  if(kids>0){const kl=st==="OR"?305:317;if(p26<=kl)L.push(item("likely",st==="OR"?"OHP for kids":"Apple Health for Kids",`Kids qualify up to ${kl}% of poverty ${C(st==="OR"?"or-chart":"wa-hca",st==="OR"?"OHA":"HCA")}`,"health-coverage.html","Check kids' coverage"));}
   // WIC
-  if(young&&yr<=WIC(n))L.push(item("likely","WIC",`Income is under the WIC limit of ${m0(WIC(n))} a year for ${n} ${C("wic","USDA")}.`,"family-help.html","Check WIC"));
+  if(young&&yr<=WIC(n))L.push(item("likely","WIC",`Limit ${m0(WIC(n))}/yr for ${n} ${C("wic","USDA")}`,"family-help.html","Check WIC"));
   // child care
-  if(kids>0&&work){const lim=st==="OR"?2*F26(n)/12:WC[Math.min(8,n)];if(mo<=lim)L.push(item("likely",st==="OR"?"Child care help (ERDC)":"Working Connections Child Care",`Income is under the limit to apply (${m0(lim)}/month for ${n}) ${C(st==="OR"?"erdc":"wccc",st==="OR"?"DELC":"DCYF")}.${st==="OR"?" Oregon has a waitlist.":""}`,"child-care.html","Estimate your copay"));}
+  if(kids>0&&work){const lim=st==="OR"?2*F26(n)/12:WC[Math.min(8,n)];if(mo<=lim)L.push(item("likely",st==="OR"?"Child care help (ERDC)":"Working Connections Child Care",`Limit ${m0(lim)}/mo for ${n}${st==="OR"?" · waitlist":""} ${C(st==="OR"?"erdc":"wccc",st==="OR"?"DELC":"DCYF")}`,"child-care.html","Estimate your copay"));}
   // cash
-  if(kids>0&&p26<=100)K.push(item("check","TANF cash assistance","Families with children and very low income may get monthly cash help.","family-help.html","Check TANF"));
+  if(kids>0&&p26<=100)K.push(item("check","TANF cash assistance","Monthly cash for families","family-help.html","Check TANF"));
   // tax credits
-  if(work&&yr<=EITC[Math.min(3,kids)])L.push(item("likely","EITC and state credits",`Income looks under the EITC limit for ${Math.min(3,kids)}${kids>=3?"+":""} child${kids===1?"":"ren"} ${C("irs-eitc","IRS")}${st==="WA"?", which also opens Washington's Working Families Tax Credit, including back years":", plus Oregon's earned income credit"}.`,"state-credits.html","Estimate credits"));
-  if(work&&kids>0)K.push(item("check","Child tax credit","Up to $2,200 per child under 17 for 2026.","child-tax-credit.html","Estimate it"));
+  if(work&&yr<=EITC[Math.min(3,kids)])L.push(item("likely","EITC and state credits",`Under the EITC limit ${C("irs-eitc","IRS")}${st==="WA"?" · plus WA credit":" · plus Oregon credit"}`,"state-credits.html","Estimate credits"));
+  if(work&&kids>0)K.push(item("check","Child tax credit","Up to $2,200 per child","child-tax-credit.html","Estimate it"));
   // disability / VA / work
-  if(dis)K.push(item("check","SSI and SSDI","See how working, savings and other income affect disability benefits.","benefits.html","Check disability benefits"));
-  if(vet)K.push(item("check","VA compensation and pension","Combine your ratings and check Veterans Pension.","benefits.html#va","Check VA benefits"));
-  if(leave)K.push(item("check","Paid family and medical leave",st==="OR"?"Paid Leave Oregon pays up to 12 weeks for your health, family care or a new child.":"Washington PFML pays up to 12 weeks (16 combined) for your health, family care or a new child.","paid-leave.html","Estimate paid leave"));
-  if(lost)K.push(item("check","Unemployment","Weekly benefits depend on your wages in the last year.","unemployment.html","Estimate unemployment"));
-  if(st==="WA"&&work&&age<65)K.push(item("check","WA Cares","Workers earn a long-term care benefit worth up to $36,500.","wa-cares.html","Check what you've earned"));
-  if(age>=55)K.push(item("check","Social Security retirement","See how much more you get by waiting to claim.","retirement.html","Compare claiming ages"));
-  $("sout").innerHTML=(L.length?`<h3>Likely worth applying for</h3>${L.join("")}`:"")+(K.length?`<h3>Also check</h3>${K.join("")}`:"")+(!L.length&&!K.length?`<h3>Nothing flagged</h3><div class="res check"><p>Based on these answers, none of the programs here stand out. Browse all calculators below.</p></div>`:"");
+  if(dis)K.push(item("check","SSI and SSDI","How work and savings affect them","benefits.html","Check disability benefits"));
+  if(vet)K.push(item("check","VA compensation and pension","Compensation and pension","benefits.html#va","Check VA benefits"));
+  if(leave)K.push(item("check","Paid family and medical leave","Up to 12 weeks of paid time off","paid-leave.html","Estimate paid leave"));
+  if(lost)K.push(item("check","Unemployment","Your weekly benefit","unemployment.html","Estimate unemployment"));
+  if(st==="WA"&&work&&age<65)K.push(item("check","WA Cares","Up to $36,500 for long-term care","wa-cares.html","Check what you've earned"));
+  if(age>=55)K.push(item("check","Social Security retirement","Your check at 62, 67 or 70","retirement.html","Compare claiming ages"));
+  $("sout").innerHTML=(L.length?`<h3>Likely</h3>${L.join("")}`:"")+(K.length?`<h3>Also check</h3>${K.join("")}`:"")+(!L.length&&!K.length?`<h3>Nothing flagged</h3><div class="res check"><p>Based on these answers, none of the programs here stand out. Browse all calculators below.</p></div>`:"");
 }
 const f=$("sf");load();f.addEventListener("input",()=>{save();run();});f.addEventListener("change",()=>{save();run();});f.addEventListener("submit",e=>e.preventDefault());run();
 })();
@@ -492,6 +546,12 @@ const f=$("sf");load();f.addEventListener("input",()=>{save();run();});f.addEven
 })();
 </script>
 <script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
 (function(){
   var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
   if(!btn)return;

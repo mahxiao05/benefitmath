@@ -235,12 +235,54 @@ details.figs[open]>summary{margin-bottom:10px}
 .scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
 </style>
 
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .themebtn .i-sun{display:block}:root:not([data-theme="light"]) .themebtn .i-moon{display:none}}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
 /* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
 body{margin:0}
 [hidden]{display:none!important}
 .site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
 .site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
 .site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
 .navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
 .navbtn svg{transition:transform .15s ease}
@@ -318,12 +360,13 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <div class="site">
   <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
   <div class="site-r">
-    <nav class="navlinks" aria-label="Site"><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></nav>
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
     <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
-  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="ngroup"><h4>Disability & VA</h4><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a></div><div class="ngroup"><h4>Health & care</h4><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a></div><div class="ngroup"><h4>Retirement</h4><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div></div><div class="mcol"><div class="ngroup"><h4>Work & leave</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div><div class="ngroup"><h4>Family</h4><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a></div></div><div class="mcol"><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a><a href="state-credits.html" aria-current="page">State credits<small>WA Working Families, Oregon credits</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a></div></div></div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Tax credits</h4><a href="state-credits.html" aria-current="page">State credits<small>WA Working Families, Oregon credits</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="mailto:xventuresbusiness@gmail.com">Contact</a></div></div></div>
 </div>
-<header class="top" id="top">
+<header class="top" id="top"><p class="pscope"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></p>
   <h1>State Tax Credits: Washington &amp; Oregon</h1>
   <p class="lede">Washington's Working Families Tax Credit, including back years you can still claim, plus Oregon's earned income credit and Kids Credit.</p>
   <p class="scopebox" id="deadline"></p>
@@ -382,7 +425,7 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 <section class="prose" id="sources"><h2>Sources</h2><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://app.leg.wa.gov/RCW/default.aspx?cite=82.08.0206" target="_blank" rel="noopener">RCW 82.08.0206: Working families tax credit</a><span class="s-o">Revised Code of Washington</span><span class="s-n">Base amounts of $300, $600, $900 and $1,200 by number of children, adjusted for inflation. The credit shrinks starting $2,500 (no children) or $5,000 (with children) below the federal EITC income limit. Any credit between zero and $50 becomes $50.</span></li><li><a href="https://dor.wa.gov/sites/default/files/2026-07/ETA3240.2026.pdf" target="_blank" rel="noopener">ETA 3240.2026: Working Families Tax Credit annual updates</a><span class="s-o">Washington Department of Revenue</span><span class="s-n">Maximum amounts and reduction percentages for tax years 2022 to 2025, the $50 minimum, and the claim period for each year (2022 claims close December 31, 2026).</span></li><li><a href="https://dor.wa.gov/about/news-releases/2026/working-families-tax-credit-application-window-opens-feb-1" target="_blank" rel="noopener">Working Families Tax Credit: applications for tax year 2025</a><span class="s-o">Washington Department of Revenue</span><span class="s-n">Eligibility: SSN or ITIN, lived in Washington at least 183 days, age 25 to 64 or a qualifying child, filed a federal return, and eligible for the federal EITC (or would be except for filing with an ITIN).</span></li><li><a href="https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables" target="_blank" rel="noopener">EITC income limits and maximum credit amounts</a><span class="s-o">Internal Revenue Service</span><span class="s-n">Federal EITC income limits by year, number of children and filing status. Washington uses these as its income limits.</span></li><li><a href="https://www.oregon.gov/DOR/programs/individuals/Pages/credits.aspx" target="_blank" rel="noopener">Oregon tax credits for individuals</a><span class="s-o">Oregon Department of Revenue</span><span class="s-n">Oregon EIC is 12% of your federal EITC with a dependent under 3, otherwise 9%; ITIN filers can claim it. Oregon Kids Credit (2025): $1,050 per child age 0 to 5, up to five children, full at modified AGI up to $26,550 and gone at $31,550; refundable.</span></li></ul></section>
 <footer>
-  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <div class="links site-links"><a href="./">All calculators</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="mailto:xventuresbusiness@gmail.com">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
   <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
 </footer>
 </div>
@@ -515,6 +558,12 @@ wire("bm-credits",run);
 })();
 </script>
 <script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
 (function(){
   var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
   if(!btn)return;
