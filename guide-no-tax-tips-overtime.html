@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>No Tax on Tips and Overtime: Who Qualifies and How to Claim | BenefitMath</title>
+<meta name="description" content="The federal tips and overtime deductions explained: who qualifies, the $25,000 and $12,500 caps, income limits, how to claim them, and how Oregon and Washington treat them.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>.prose h3{font-family:var(--f-display);font-size:17px;margin:6px 0 0}.prose ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}.prose a{color:var(--accent)}.prose code{font-family:var(--f-mono);font-size:13px;background:var(--sunk);padding:1px 5px;border-radius:4px}</style>
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:min(820px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 56px -18px rgba(0,0,0,.45)}
+.mega::before{content:"";position:absolute;top:-7px;right:52px;width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.site.open .mega{display:block;animation:megaIn .14s ease-out}
+@keyframes megaIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:10px}
+.mcol{display:flex;flex-direction:column;gap:6px;padding:6px;border-left:1px solid var(--line)}
+.mcol:first-child{border-left:0}
+.ngroup{display:flex;flex-direction:column}
+.ngroup+.ngroup{margin-top:10px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 10px 4px}
+.ngroup a{display:block;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:2px}
+.ngroup a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover{background:var(--sunk)}
+.ngroup a:focus-visible,.mega-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.mega-foot{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);background:var(--sunk);border-radius:0 0 16px 16px}
+.mstart{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);font-size:13.5px;line-height:1.35}
+.mstart span{color:var(--accent);font-weight:600}
+.mstart:hover span{text-decoration:underline}
+.mlinks{display:flex;flex-wrap:wrap;gap:2px 4px}
+.mlinks a{padding:6px 9px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none}
+.mlinks a:hover{background:var(--surface);color:var(--ink)}
+.mlinks a[aria-current="page"]{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.site.open .mega{animation:none}}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .mega::before{right:44px}
+  .mcols{grid-template-columns:minmax(0,1fr);padding:6px}
+  .mcol{border-left:0;padding:0 6px}
+  .mcol+.mcol{border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+<link rel="canonical" href="https://benefitmath.com/guide-no-tax-tips-overtime.html">
+<meta property="og:url" content="https://benefitmath.com/guide-no-tax-tips-overtime.html">
+<meta property="og:site_name" content="BenefitMath">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
+<meta name="google-adsense-account" content="ca-pub-7867146450299069">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<meta property="og:title" content="No Tax on Tips and Overtime: Who Qualifies and How to Claim | BenefitMath"><meta property="og:description" content="The federal tips and overtime deductions explained: who qualifies, the $25,000 and $12,500 caps, income limits, how to claim them, and how Oregon and Washington treat them."><meta property="og:type" content="article">
+<style>
+.ghead .pscope{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gread{font:12px var(--f-mono);color:var(--muted)}
+.glance{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--ink);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.glance h2{font-family:var(--f-display);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
+.gstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.gstat{background:var(--sunk);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.gstat b{font:500 24px var(--f-mono);color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2}
+.gstat span{font-size:13px;color:var(--muted);line-height:1.35}
+.gtake{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.gjump{display:flex;gap:8px;overflow-x:auto;padding:14px 0 2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gjump::-webkit-scrollbar{display:none}
+.gjump a{flex:none;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap}
+.gjump a:hover{border-color:var(--accent);color:var(--accent)}
+.gsec{scroll-margin-top:16px}
+.gsec h2{display:flex;align-items:center;gap:10px}
+.gsec h2 i{font:600 12px var(--f-mono);font-style:normal;color:var(--accent);background:var(--accent-soft);border-radius:999px;width:26px;height:26px;display:inline-grid;place-items:center;flex:none}
+.gsec ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.gt td{white-space:normal!important;text-align:left!important;font-family:var(--f-body)!important;padding:9px 10px 9px 0;vertical-align:top}
+.gt th{text-align:left;padding:8px 10px 8px 0;font-size:13px}.gt td:first-child{color:var(--ink);font-weight:600;width:30%}.gt table{min-width:0}
+.gt td.n{font-family:var(--f-mono)!important;white-space:nowrap!important;font-size:13px}
+.gcta{display:flex;flex-wrap:wrap;gap:10px}
+.gcta a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:12px;padding:11px 16px;background:var(--accent);color:var(--accent-ink)!important}
+.gcta a.alt{background:var(--surface);color:var(--ink)!important;border:1px solid var(--line)}
+.gcta a::after{content:"→"}
+.gsrc{border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.gsrc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 15px var(--f-display);color:var(--ink)}
+.gsrc>summary::-webkit-details-marker{display:none}
+.gsrc>summary small{font:500 12.5px var(--f-body);color:var(--muted);display:block;margin-top:2px}
+.gsrc>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+.gsrc[open]>summary::after{transform:rotate(-135deg)}
+.gsrc ol{margin:0;padding:0 16px 14px 36px;display:flex;flex-direction:column;gap:7px;font-size:14px}
+.gsrc ol a{color:var(--accent);font-weight:600}.gsrc ol span{color:var(--muted)}
+.gnote{font-size:13px;color:var(--muted);margin:14px 0 0}
+.glist{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.glist a{height:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;background:var(--surface);color:var(--ink)}
+.glist a:hover{border-color:var(--accent)}
+.glist b{font-family:var(--f-display);font-size:18px;line-height:1.25}
+.glist span{color:var(--muted);font-size:14.5px}
+.glist em{font:600 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.ghub h2{font-family:var(--f-display);font-size:20px;margin:26px 0 10px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BenefitMath", "item": "https://benefitmath.com/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://benefitmath.com/guides.html"}, {"@type": "ListItem", "position": 3, "name": "No Tax on Tips and Overtime: Who Qualifies", "item": "https://benefitmath.com/guide-no-tax-tips-overtime.html"}]}, {"@type": "Article", "headline": "No Tax on Tips and Overtime: Who Qualifies", "description": "The federal tips and overtime deductions explained: who qualifies, the $25,000 and $12,500 caps, income limits, how to claim them, and how Oregon and Washington treat them.", "url": "https://benefitmath.com/guide-no-tax-tips-overtime.html", "mainEntityOfPage": "https://benefitmath.com/guide-no-tax-tips-overtime.html", "datePublished": "2026-10-12", "dateModified": "2026-10-12", "author": {"@id": "https://benefitmath.com/#org"}, "publisher": {"@id": "https://benefitmath.com/#org"}, "inLanguage": "en-US"}, {"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com"}]}</script>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a><a href="ssi-ssdi-work.html">Working on SSI or SSDI<small>How much you can earn</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Taxes and credits</h4><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a><a href="kicker.html">Oregon kicker<small>Surplus credit on your return</small></a><a href="or-vs-wa.html">Oregon vs. Washington<small>Live in one, work in the other</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="guides.html">Guides</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></div></div>
+</div>
+<header class="top ghead"><p class="pscope"><span class="sb sb-both">Guide</span><span class="gread">4 min read · Updated October 12, 2026</span></p><h1>No Tax on Tips and Overtime: Who Qualifies</h1><p class="lede">Two federal deductions cut income tax on tips and overtime from 2025 through 2028. They don't make that pay tax-free, but they can save you hundreds.</p></header>
+<section class="glance" aria-label="At a glance"><h2>At a glance</h2><div class="gstats"><div class="gstat"><b>$25,000</b><span>Most tips you can deduct a year</span></div><div class="gstat"><b>$12,500</b><span>Most overtime you can deduct ($25,000 joint)</span></div><div class="gstat"><b>2025–2028</b><span>Tax years covered</span></div></div><ul class="gtake"><li>They lower federal income tax only. Social Security and Medicare still apply.</li><li>You get them with the standard deduction. No itemizing needed.</li><li>Oregon lets you subtract the same amounts on your Oregon return.</li></ul></section>
+<nav class="gjump" aria-label="On this page"><a href="#tips">Tips</a><a href="#overtime">Overtime</a><a href="#rules">Rules</a><a href="#claim">How to claim</a><a href="#states">OR & WA</a></nav>
+<section class="prose gsec" id="tips"><h2><i>1</i>Tips: who qualifies</h2><ul><li>Your job is on the IRS list of occupations that customarily got tips as of December 31, 2024, like servers, bartenders, hairstylists and delivery drivers.</li><li>Voluntary tips from customers count, including tips shared through a tip pool. Mandatory service charges and automatic gratuities don't.</li><li>If you're self-employed, the deduction can't be more than your profit from that work.</li></ul></section>
+<section class="prose gsec" id="overtime"><h2><i>2</i>Overtime: what counts</h2><ul><li>Only the <b>extra half</b> of time-and-a-half that federal law requires. Earn $20 an hour and get $30 for overtime? Only $10 is deducted.</li><li>Federal overtime means hours over 40 in a workweek. Daily overtime under state law and extra union-contract premiums don't count.</li><li>You must be nonexempt, meaning your employer has to pay you overtime under federal law.</li></ul></section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid"></div></aside>
+<section class="prose gsec" id="rules"><h2><i>3</i>Rules for both</h2><ul><li>You need a valid Social Security number.</li><li>If you're married, you must file jointly.</li><li>Above $150,000 of modified AGI ($300,000 joint), the cap shrinks by $100 for each $1,000 over.</li></ul></section>
+<section class="prose gsec" id="claim"><h2><i>4</i>How to claim it</h2><p>Claim it on your federal return using the new Schedule 1-A. For 2025, employers didn't have to list qualified overtime separately on your W-2, so keep your pay stubs and any statement your employer gives you about tips or overtime.</p><div class="gcta"><a href="tips.html">Estimate your tips savings</a><a href="overtime.html" class="alt">Estimate your overtime savings</a></div></section>
+<section class="prose gsec" id="states"><h2><i>5</i>Oregon and Washington</h2><p><b>Oregon:</b> claim the same tip and overtime deductions as subtractions on Schedule OR-ASC with your Oregon return. Nonresidents can only count tips and overtime earned while working in Oregon.</p><p><b>Washington:</b> no income tax, so there's nothing to claim. If you get SNAP or SSI, these programs still count your full pay.</p></section>
+<section class="prose" style="padding:0;border:0;background:none"><details class="gsrc"><summary><span>Sources<small>4 official sources · checked October 12, 2026</small></span></summary><ol><li><a href="https://www.irs.gov/newsroom/what-the-no-tax-on-tips-deduction-means-for-you" target="_blank" rel="noopener">What the no tax on tips deduction means for you</a> <span>· Internal Revenue Service</span></li><li><a href="https://www.irs.gov/newsroom/what-to-know-about-the-no-tax-on-overtime-deduction" target="_blank" rel="noopener">What to know about the no tax on overtime deduction</a> <span>· Internal Revenue Service</span></li><li><a href="https://www.irs.gov/newsroom/one-big-beautiful-bill-provisions" target="_blank" rel="noopener">One Big Beautiful Bill provisions</a> <span>· Internal Revenue Service</span></li><li><a href="https://www.oregon.gov/dor/forms/FormsPubs/sch_or-asc_or-asc-np-inst_101-063-1_2025.pdf" target="_blank" rel="noopener">2025 Schedule OR-ASC instructions: new federal deductions</a> <span>· Oregon Department of Revenue</span></li></ol></details><p class="gnote">General information, not tax or legal advice. Rules change; the agency has the final say on your case.</p></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="guides.html">Guides</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+  <p style="font-size:12px;opacity:.7;margin-top:6px">© 2026 X Ventures LLC</p>
+</footer>
+</div>
+<script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
+</script>
+</body></html>
