@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>How Much Can I Work on SSI or SSDI? 2026 Calculator | BenefitMath</title>
+<meta name="description" content="See how a job affects SSI or SSDI in 2026: the $1,690 SGA limit, $1,210 trial work months, how much SSI you keep, and when Medicaid continues in Oregon and Washington.">
+<meta property="og:title" content="How Much Can I Work on SSI or SSDI? 2026 Calculator | BenefitMath">
+<meta property="og:description" content="See how a job affects SSI or SSDI in 2026: the $1,690 SGA limit, $1,210 trial work months, how much SSI you keep, and when Medicaid continues in Oregon and Washington.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0} img{max-width:100%} [hidden]{display:none!important}
+/* Layout: two-pane worksheet — inputs on the left (sticky on desktop), benefit cards with expandable math on the right; stacks on phones. */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
+  --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
+  --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:10px;
+}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --sunk:#1b2723; --ink:#e4ede9; --muted:#97a9a2; --line:#2a3833;
+  --accent:#5cc3a5; --accent-ink:#0b1311; --accent-soft:#1d3a31;
+  --good:#6fd39c; --good-soft:#173527; --warn:#e8b65a; --warn-soft:#3a2c12; --no:#f08f80; --no-soft:#3d1f1a; --info:#8fb5e3; --info-soft:#1b2a3d;
+  color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 56px}
+header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4.4vw,42px);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:66ch;margin:4px 0 0}
+.grid{display:grid;grid-template-columns:minmax(0,370px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:minmax(0,1fr)}}
+form.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:880px){form.panel{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--f-display);font-weight:600;font-size:16px;margin-bottom:6px;padding:0}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field label,.lbl{font-size:13px;font-weight:600;color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=number],select{width:100%;font:500 15px var(--f-mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:7px;padding:8px 10px;font-variant-numeric:tabular-nums}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.money{position:relative}
+.money input{padding-left:22px}
+.money::before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--f-mono);font-size:14px;pointer-events:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{text-align:center;padding:9px 6px;font-weight:600;font-size:14px;cursor:pointer;background:var(--sunk);color:var(--muted)}
+.seg input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{margin-top:4px;accent-color:var(--accent);width:16px;height:16px;flex:none}
+.sample{font-size:12px;color:var(--warn);background:var(--warn-soft);border-radius:6px;padding:7px 10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:600 14px var(--f-body);border-radius:7px;padding:8px 12px;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--f-display);font-size:20px;margin:0}
+.totals{display:flex;flex-wrap:wrap;gap:10px 28px}
+.tot{display:flex;flex-direction:column}
+.tot b{font-family:var(--f-mono);font-size:26px;font-weight:500;font-variant-numeric:tabular-nums}
+.tot span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.covlist{display:flex;flex-wrap:wrap;gap:6px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.toolbar .hint{font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.card .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;padding:16px 18px 12px}
+.card h3{font-family:var(--f-display);font-weight:600;font-size:18px;margin:0;line-height:1.25}
+.card .scope{font-size:12px;color:var(--muted);font-family:var(--f-mono);letter-spacing:.03em}
+.amt{font-family:var(--f-mono);font-size:22px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt small{display:block;font-size:11px;color:var(--muted);font-family:var(--f-body);letter-spacing:.04em;text-transform:uppercase}
+.card .body{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.card p{margin:0;max-width:70ch}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;width:max-content;max-width:100%}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.good{color:var(--good);background:var(--good-soft)} .warn{color:var(--warn);background:var(--warn-soft)} .no{color:var(--no);background:var(--no-soft)} .info{color:var(--info);background:var(--info-soft)}
+.card.st-good{border-left:4px solid var(--good)} .card.st-warn{border-left:4px solid var(--warn)} .card.st-no{border-left:4px solid var(--no)} .card.st-info{border-left:4px solid var(--info)}
+details.math{border-top:1px solid var(--line);background:var(--sunk)}
+details.math summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none;display:flex;align-items:center;gap:8px}
+details.math summary::-webkit-details-marker{display:none}
+details.math summary::before{content:"+";font-family:var(--f-mono);width:14px}
+details.math[open] summary::before{content:"−"}
+.mathin{padding:0 18px 16px;display:flex;flex-direction:column;gap:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+td{padding:6px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+td:last-child{text-align:right;font-family:var(--f-mono);white-space:nowrap;padding-left:14px;font-variant-numeric:tabular-nums}
+tr.total td{border-bottom:0;border-top:1px solid var(--ink);font-weight:600}
+td .op{font-family:var(--f-mono);color:var(--muted);display:inline-block;width:18px}
+.notes{margin:0;padding-left:18px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.src{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.src a{color:var(--accent)}
+.figs{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.figs h2{font-family:var(--f-display);font-size:18px;margin:0 0 8px}
+.figs td:first-child{color:var(--muted)}
+.fig-btn{all:unset;cursor:pointer;color:var(--ink);display:inline-flex;gap:8px;align-items:baseline}
+.fig-btn::before{content:"+";font-family:var(--f-mono);color:var(--accent);width:12px;flex:none}
+.fig-btn[aria-expanded="true"]::before{content:"−"}
+.fig-btn:hover{color:var(--accent)}
+.fig-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.fig-row:has(.fig-btn[aria-expanded="true"]) td{border-bottom:0}
+.figs tr.fig-x td{text-align:left;white-space:normal;font-family:var(--f-body);font-size:13.5px;color:var(--ink);background:var(--accent-soft);padding:8px 12px 8px 30px;border-radius:6px}
+/* site chrome */
+.site{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap;padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:22px}
+.brand{font-family:var(--f-display);font-weight:700;font-size:17px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-grid;place-items:center;color:var(--accent-ink);font:600 12px var(--f-mono);font-style:normal}
+.site nav{display:flex;gap:4px 16px;flex-wrap:wrap}
+.site nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.site nav a:hover{color:var(--accent)}
+.updated{font-family:var(--f-mono);font-size:12px;color:var(--good);background:var(--good-soft);border-radius:999px;padding:3px 10px;width:max-content}
+/* ad slots: fixed heights reserve space so the page doesn't jump when ads load */
+.ad-slot{display:flex;flex-direction:column;align-items:center;gap:4px;margin-block:18px}
+.ad-slot .ad-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ad-slot .ad-box{width:100%;max-width:728px;min-height:90px;border:1px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--muted);font:12px var(--f-mono);background:var(--surface)}
+.ad-slot.rect .ad-box{max-width:336px;min-height:280px}
+@media (max-width:600px){.ad-slot .ad-box{max-width:320px;min-height:100px}.ad-slot.rect .ad-box{max-width:300px;min-height:250px}}
+/* content sections */
+.prose{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.prose h2{font-family:var(--f-display);font-size:22px;margin:0;text-wrap:balance}
+.prose p,.prose li{max-width:70ch;margin:0}
+.prose ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.faq details{border-top:1px solid var(--line);padding-block:10px}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:8px;color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{text-align:left;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 16px var(--f-display);display:flex;flex-direction:column;gap:2px}
+.tabs button small{font:500 12px var(--f-body);color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tabs button[aria-selected="true"] small{color:var(--accent-ink);opacity:.85}
+.ratings{display:flex;flex-direction:column;gap:8px}
+.rrow{display:grid;grid-template-columns:minmax(0,1fr) 110px 36px;gap:8px;align-items:center}
+.rrow label{font-size:13px;font-weight:600}
+.rrow .rm{padding:6px 0;font-family:var(--f-mono)}
+details.about{border-top:1px solid var(--line)}
+details.about summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"?";font:600 11px var(--f-mono);width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.aboutin{padding:0 18px 14px;display:flex;flex-direction:column;gap:8px}
+.aboutin p{font-size:14px}
+.aboutin h4{margin:0;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.aboutin ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.usebtn{align-self:flex-start}
+.copybtn[data-done]{background:var(--good-soft);color:var(--good);border-color:var(--good)}
+footer{margin-top:28px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px}
+footer p{max-width:80ch;margin:0}
+footer .links{display:flex;flex-wrap:wrap;gap:6px 18px}
+footer .links a{color:var(--accent)}
+footer h3{font-family:var(--f-display);font-size:15px;color:var(--ink);margin:0}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+
+/* tool menu: groups every calculator by type so tax, benefits and unemployment tools never blur together */
+.tools{display:flex;flex-wrap:wrap;gap:10px 22px;margin:-8px 0 22px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.tgroup{display:flex;flex-wrap:wrap;align-items:center;gap:4px 4px;min-width:0}
+.tgroup>b{font:600 10.5px var(--f-mono);letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:999px;margin-right:4px}
+.tgroup.ben>b{color:var(--good);background:var(--good-soft)}
+.tgroup.tax>b{color:var(--info);background:var(--info-soft)}
+.tgroup.job>b{color:var(--warn);background:var(--warn-soft)}
+.tgroup a{font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px}
+.tgroup a:hover{background:var(--sunk);color:var(--accent)}
+.tgroup a[aria-current="page"]{background:var(--accent);color:var(--accent-ink)}
+.tgroup a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:600px){.tools{flex-direction:column;gap:8px}}
+.kind{font:600 11.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:5px 10px;width:max-content;max-width:100%}
+.kind.ben{color:var(--good);background:var(--good-soft)}
+.kind.tax{color:var(--info);background:var(--info-soft)}
+.kind.job{color:var(--warn);background:var(--warn-soft)}
+.scopebox{font-size:13.5px;border-left:3px solid var(--info);background:var(--info-soft);color:var(--ink);padding:8px 12px;border-radius:0 8px 8px 0;max-width:70ch}
+.scopebox.job{border-left-color:var(--warn);background:var(--warn-soft)}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
+.more a{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);background:var(--bg)}
+.more a:hover{border-color:var(--accent)}
+.more a b{font-family:var(--f-display);font-size:16px;font-weight:600}
+.more a span{font-size:13px;color:var(--muted)}
+.more a i{font:600 10.5px var(--f-mono);font-style:normal;letter-spacing:.08em;text-transform:uppercase;width:max-content;padding:2px 7px;border-radius:999px}
+.more a i.ben{color:var(--good);background:var(--good-soft)} .more a i.tax{color:var(--info);background:var(--info-soft)} .more a i.job{color:var(--warn);background:var(--warn-soft)}
+.mgroup{display:flex;flex-direction:column;gap:8px}
+.mgroup h3{margin:0;font:600 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.scopebox a,.card a{color:var(--accent)}
+
+
+/* ---- clean-up layer: one quiet nav, fewer boxes, details tucked away ---- */
+.site{border-bottom:1px solid var(--line);margin-bottom:28px;padding-block:14px;flex-wrap:nowrap}
+.site nav{flex-wrap:nowrap;overflow-x:auto;gap:2px;scrollbar-width:none;min-width:0;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+.site nav::-webkit-scrollbar{display:none}
+.site nav a{white-space:nowrap;padding:6px 10px;border-radius:999px;font-size:13.5px}
+.site nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.site nav a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+@media (max-width:600px){.site{flex-direction:column;align-items:flex-start;gap:8px}.site nav{width:100%;margin-inline:-10px}}
+header.top{gap:10px;margin-bottom:26px}
+.lede{font-size:16px}
+.scopebox,.scopebox.job{border:0;background:none;padding:0;font-size:13.5px;color:var(--muted)}
+.card.st-good,.card.st-warn,.card.st-no,.card.st-info{border-left:1px solid var(--line)}
+.card .scope{font-size:11.5px}
+.sample{background:none;padding:0;color:var(--muted);font-size:12.5px}
+.sample::before{content:"Example · ";color:var(--warn);font-weight:600}
+.ad-slot{margin-block:24px}
+.ad-slot .ad-box{border:0;background:var(--sunk);border-radius:var(--r)}
+.ad-slot .ad-label{font-size:10px;opacity:.75}
+.faq h2{margin-bottom:4px}
+.faq details>div{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.faq details>div ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+footer{gap:10px}
+footer details summary{cursor:pointer;color:var(--ink);font-weight:600}
+footer details[open] summary{margin-bottom:10px}
+footer details>div{display:flex;flex-direction:column;gap:10px}
+details.optional{border-top:1px solid var(--line);padding-top:14px}
+details.optional>summary{cursor:pointer;font:600 16px var(--f-display);list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.optional>summary::-webkit-details-marker{display:none}
+details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
+details.optional[open]>summary::after{content:"−"}
+details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
+details.optional>fieldset{margin-top:14px}
+.toolbar{justify-content:flex-end}
+details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
+details.figs[open]>summary{margin-bottom:10px}
+</style>
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<style>
+:root[data-theme="light"]{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;padding:0;flex:none}
+.themebtn:hover{border-color:var(--accent);color:var(--accent)}
+.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.themebtn .i-sun{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+:root[data-theme="dark"] .themebtn .i-sun{display:block}:root[data-theme="dark"] .themebtn .i-moon{display:none}
+/* ===== "receipt" theme: warm paper, ink text, green saved for results and actions ===== */
+:root{--bg:#f5f2ea;--surface:#fffdf8;--sunk:#efebe1;--ink:#1c1f1b;--muted:#5c6058;--line:#e1dbcd;--rule:#cfc8b6;
+  --accent:#17694e;--accent-ink:#ffffff;--accent-soft:#e0eee6;--info:#2c5a8a;--info-soft:#e3ebf5}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+:root[data-theme="dark"]{--bg:#121411;--surface:#1a1c18;--sunk:#21241f;--ink:#ecebe4;--muted:#a4a89d;--line:#30332d;--rule:#3d4139;
+  --accent:#5fc49f;--accent-ink:#0b1410;--accent-soft:#1b3228;--info:#8fb5e3;--info-soft:#1b2a3d}
+.seg input:checked+label{background:var(--ink);color:var(--surface)}
+.seg{border-color:var(--rule)}
+.check input{accent-color:var(--ink)}
+.tabs button{border-color:var(--rule)}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
+.tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
+.summary{border-top:3px solid var(--ink)}
+.summary::before{content:"✓ Rules checked Oct 12, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.tot b{color:var(--ink)}
+details.math{background:var(--sunk)}
+.mathin td{border-bottom:1px dashed var(--rule)}
+.mathin tr.total td{border-top:3px double var(--ink);border-bottom:0}
+input[type=number],select{border-color:var(--rule)}
+/* federal / state badges */
+.sb{display:inline-flex;align-items:center;gap:6px;font:600 10.5px/1.6 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 10px 2px 8px;width:max-content;white-space:nowrap}
+.sb::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.sb-fed{color:var(--info);background:var(--info-soft)}
+.sb-state{color:var(--accent);background:var(--accent-soft)}
+.sb-both{color:var(--ink);background:var(--sunk);border:1px solid var(--line)}
+.sb-both::before{background:linear-gradient(90deg,var(--info) 50%,var(--accent) 50%)}
+.sb-d{font-size:12.5px;color:var(--muted)}
+.pscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 2px}
+.mhead{display:flex;flex-direction:column;gap:4px;padding:6px 10px 8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+/* ===== shared site chrome: menu, citation popovers, phone results bar ===== */
+body{margin:0}
+[hidden]{display:none!important}
+.site{position:relative;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important}
+.site-r{display:flex;align-items:center;gap:6px;min-width:0}
+.site .navlinks a.qk{color:var(--ink);font-weight:600}
+.site .navlinks a.xt{border-left:1px solid var(--line);border-radius:0;padding-left:12px;margin-left:2px}
+.site .navlinks a.xt~a.xt{border-left:0;padding-left:10px;margin-left:0}
+@media (max-width:1180px){.site .navlinks a.xt{display:none}}
+.site .navlinks{-webkit-mask-image:none!important;mask-image:none!important;overflow:visible;width:auto!important;margin:0!important}
+.navbtn{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--f-body);padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:40px;white-space:nowrap}
+.navbtn svg{transition:transform .15s ease}
+.navbtn:hover,.navbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.navbtn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.mega{display:none;position:absolute;top:calc(100% + 10px);right:0;z-index:60;width:min(820px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 56px -18px rgba(0,0,0,.45)}
+.mega::before{content:"";position:absolute;top:-7px;right:52px;width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.site.open .mega{display:block;animation:megaIn .14s ease-out}
+@keyframes megaIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:10px}
+.mcol{display:flex;flex-direction:column;gap:6px;padding:6px;border-left:1px solid var(--line)}
+.mcol:first-child{border-left:0}
+.ngroup{display:flex;flex-direction:column}
+.ngroup+.ngroup{margin-top:10px}
+.ngroup h4{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:6px 10px 4px}
+.ngroup a{display:block;padding:7px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600;font-size:14.5px;line-height:1.3}
+.ngroup a small{display:block;font:400 12.5px var(--f-body);color:var(--muted);margin-top:2px}
+.ngroup a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.ngroup a:hover{background:var(--sunk)}
+.ngroup a:focus-visible,.mega-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.mega-foot{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid var(--line);background:var(--sunk);border-radius:0 0 16px 16px}
+.mstart{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);font-size:13.5px;line-height:1.35}
+.mstart span{color:var(--accent);font-weight:600}
+.mstart:hover span{text-decoration:underline}
+.mlinks{display:flex;flex-wrap:wrap;gap:2px 4px}
+.mlinks a{padding:6px 9px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none}
+.mlinks a:hover{background:var(--surface);color:var(--ink)}
+.mlinks a[aria-current="page"]{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.site.open .mega{animation:none}}
+@media (max-width:800px){
+  .site .navlinks{display:none!important}
+  .mega{left:0;right:0;width:auto;max-height:calc(100vh - 100px);overflow:auto}
+  .mega::before{right:44px}
+  .mcols{grid-template-columns:minmax(0,1fr);padding:6px}
+  .mcol{border-left:0;padding:0 6px}
+  .mcol+.mcol{border-top:1px solid var(--line);padding-top:8px;margin-top:4px}
+}
+/* citation chips + popover */
+a.cite{display:inline-flex;align-items:center;gap:4px;font:500 11.5px/1.5 var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:0 6px;text-decoration:none;vertical-align:1px;white-space:nowrap;cursor:pointer}
+a.cite::before{content:"§";font-weight:600}
+a.cite:hover{text-decoration:underline}
+a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.citepop{position:absolute;z-index:80;width:min(360px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 22px 48px -14px rgba(0,0,0,.45);font-size:13.5px;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.citepop .cp-o{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.citepop .cp-t{font-weight:600;font-size:14.5px}
+.citepop .cp-n{color:var(--muted);margin:0}
+.citepop .cp-d{font:12px var(--f-mono);color:var(--muted)}
+.citepop .cp-go{align-self:flex-start;margin-top:4px;font-weight:600;color:var(--accent-ink);background:var(--accent);border-radius:8px;padding:7px 12px;text-decoration:none}
+.citepop .cp-x{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;padding:4px 6px;border-radius:6px}
+@media (max-width:600px){.citepop{position:fixed;left:12px!important;right:12px;top:auto!important;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto}}
+.srclist{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.srclist li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:8px 0;border-top:1px dashed var(--line)}
+.srclist a{color:var(--accent);font-weight:600}
+.srclist .s-o{font:12px var(--f-mono);color:var(--muted)}
+.srclist .s-n{grid-column:1/-1;color:var(--muted);font-size:13.5px}
+/* phone results bar */
+.mbar{display:none}
+@media (max-width:880px){
+  .mbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:12px;
+    padding:10px 10px 10px 16px;border-radius:16px;background:var(--surface);color:var(--ink);border:1px solid var(--accent);
+    box-shadow:0 14px 34px -10px rgba(0,0,0,.45);transform:translateY(calc(100% + 30px));opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  .mbar.show{transform:none;opacity:1;pointer-events:auto}
+  .mbar .mb-txt{display:flex;flex-direction:column;min-width:0}
+  .mbar .mb-l{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar .mb-v{font:500 22px var(--f-mono);font-variant-numeric:tabular-nums;line-height:1.15}
+  .mbar.bump .mb-v{animation:mbump .35s ease}
+  .mbar button{margin-left:auto;flex:none;font:600 14px var(--f-body);background:var(--accent);color:var(--accent-ink);border:0;border-radius:11px;padding:10px 14px;min-height:42px;cursor:pointer}
+  body.has-mbar .wrap{padding-bottom:96px}
+}
+@keyframes mbump{0%{color:var(--accent)}100%{color:var(--ink)}}
+@media (prefers-reduced-motion:reduce){.mbar,.navbtn svg{transition:none}.mbar.bump .mb-v{animation:none}}
+</style>
+<link rel="canonical" href="https://benefitmath.com/ssi-ssdi-work.html">
+<meta property="og:url" content="https://benefitmath.com/ssi-ssdi-work.html">
+<meta property="og:site_name" content="BenefitMath">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
+<meta name="google-adsense-account" content="ca-pub-7867146450299069">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<style>/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}</style>
+<style>
+#sources .srcdrop{border:1px solid var(--line);border-radius:var(--r,10px);background:var(--surface)}
+#sources .srcdrop>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 16px var(--f-display,inherit);color:var(--ink)}
+#sources .srcdrop>summary::-webkit-details-marker{display:none}
+#sources .srcdrop>summary small{font:500 12.5px var(--f-body,inherit);color:var(--muted);display:block;margin-top:2px}
+#sources .srcdrop>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+#sources .srcdrop[open]>summary::after{transform:rotate(-135deg)}
+#sources .srcdrop>.srcin{padding:0 16px 12px}
+#sources{padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BenefitMath", "item": "https://benefitmath.com/"}, {"@type": "ListItem", "position": 2, "name": "How Much Can I Work on SSI or SSDI?", "item": "https://benefitmath.com/ssi-ssdi-work.html"}]}, {"@type": "WebApplication", "name": "How Much Can I Work on SSI or SSDI?", "url": "https://benefitmath.com/ssi-ssdi-work.html", "description": "See how a job affects SSI or SSDI in 2026: the $1,690 SGA limit, $1,210 trial work months, how much SSI you keep, and when Medicaid continues in Oregon and Washington.", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://benefitmath.com/#org"}, "dateModified": "2026-10-12"}, {"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much can I earn on SSI?", "acceptedAnswer": {"@type": "Answer", "text": "SSI doesn't count the first $20 of income, the first $65 of earnings, and half of the rest. With the 2026 maximum of $994, each $2 you earn above about $85 a month lowers SSI by about $1, so working always leaves you with more. For someone with no other income, SSI stops at about $2,073 a month in earnings, and Medicaid can continue well past that."}}, {"@type": "Question", "name": "How much can I earn on SSDI?", "acceptedAnswer": {"@type": "Answer", "text": "SSDI doesn't shrink as you earn. Instead, it watches two numbers. In 2026, any month you earn over $1,210 uses one of 9 trial work months, and SSDI keeps paying in full. After those 9 months, SSDI isn't paid for months when your earnings, minus disability-related work costs, are over $1,690 ($2,830 if blind)."}}, {"@type": "Question", "name": "What happens after my trial work period?", "acceptedAnswer": {"@type": "Answer", "text": "A 36-month extended period of eligibility starts. SSDI is paid for any month you earn under the limit and stops for months over it. The first month over the limit, plus the next two, are still paid as a grace period. If your benefits end and you have to stop working within 5 years, you can ask for expedited reinstatement instead of reapplying."}}, {"@type": "Question", "name": "Will I lose Medicaid or Medicare if I work?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not right away. If you got SSI, Section 1619(b) keeps Medicaid while your earnings stay under a state threshold: $47,856 a year in Oregon and $73,897 in Washington for 2026. With SSDI, Medicare continues for at least 93 months after your trial work period ends, as long as you still have a disability."}}, {"@type": "Question", "name": "What are impairment-related work expenses?", "acceptedAnswer": {"@type": "Answer", "text": "Costs you pay yourself because of your disability so you can work, such as a job coach, special transportation, or medication. SSA subtracts them from your earnings when deciding the SSDI limit, and excludes them for SSI. Keep receipts and tell SSA."}}, {"@type": "Question", "name": "Can I save money without losing SSI?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, with an ABLE account. The first $100,000 in one doesn't count toward SSI's $2,000 resource limit. Starting in 2026, your disability must have begun before age 46, and up to $20,000 a year can go in."}}, {"@type": "Question", "name": "Do I have to report my earnings?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Report your pay to Social Security every month for SSI, and report work promptly for SSDI. Late reporting is the most common cause of overpayments you'd have to pay back."}}, {"@type": "Question", "name": "What if I get both SSI and SSDI?", "acceptedAnswer": {"@type": "Answer", "text": "SSDI counts as unearned income for SSI, so after the $20 exclusion it lowers SSI dollar for dollar. Your earnings then follow both sets of rules at once. Choose \"Both\" above to see the combined result."}}]}]}</script>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="Site"><a class="qk" href="benefits.html">Disability benefits</a><a class="qk" href="unemployment.html">Unemployment</a><a class="qk" href="paycheck.html">Paycheck</a><a class="qk" href="guides.html">Guides</a><a class="xt" href="changes.html">What changed</a><a class="xt" href="how-we-check.html">How we check</a></nav>
+    <button type="button" class="themebtn" aria-label="Switch to dark mode" title="Light or dark mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">Calculators<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="All calculators"><div class="mcols"><div class="mcol"><div class="mhead"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></div><div class="ngroup"><h4>Benefits</h4><a href="benefits.html#va">VA benefits<small>Ratings, compensation, pension</small></a><a href="retirement.html">Social Security retirement<small>When to claim</small></a><a href="ssi-ssdi-work.html">Working on SSI or SSDI<small>How much you can earn</small></a></div><div class="ngroup"><h4>Taxes</h4><a href="overtime.html">Overtime<small>No tax on overtime</small></a><a href="tips.html">Tips<small>No tax on tips</small></a><a href="eitc.html">EITC<small>Earned income credit</small></a><a href="child-tax-credit.html">Child credit<small>Child tax credit</small></a><a href="senior-deduction.html">Seniors 65+<small>New $6,000 deduction</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-state">State · OR &amp; WA</span><span class="sb-d">Set by Oregon or Washington</span></div><div class="ngroup"><h4>Benefits</h4><a href="paid-leave.html">Paid leave<small>Paid Leave Oregon, WA PFML</small></a><a href="unemployment.html">Unemployment<small>Oregon and Washington</small></a><a href="wa-cares.html">WA Cares<small>Long-term care benefit</small></a><a href="child-care.html">Child care help<small>ERDC, Working Connections</small></a></div><div class="ngroup"><h4>Taxes and credits</h4><a href="state-credits.html">State credits<small>WA Working Families, Oregon credits</small></a><a href="kicker.html">Oregon kicker<small>Surplus credit on your return</small></a><a href="or-vs-wa.html">Oregon vs. Washington<small>Live in one, work in the other</small></a></div></div><div class="mcol"><div class="mhead"><span class="sb sb-both">Federal + state</span><span class="sb-d">Federal programs with state rules</span></div><div class="ngroup"><a href="benefits.html">Disability benefits<small>SSI, SNAP, Medicaid, housing</small></a><a href="health-coverage.html">Health coverage<small>OHP, Apple Health, marketplace</small></a><a href="family-help.html">Cash, food & energy<small>TANF, WIC, energy help</small></a><a href="paycheck.html">Take-home pay<small>Every deduction, explained</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>Not sure where to start?</b><span>Answer 6 quick questions to see what you may qualify for →</span></a><div class="mlinks"><a href="./">All calculators</a><a href="guides.html">Guides</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a><a href="about.html">About</a><a href="contact.html">Contact</a></div></div></div>
+</div>
+<header class="top" id="top"><p class="pscope"><span class="sb sb-fed">Federal</span><span class="sb-d">Same rules in every state</span></p>
+  <h1>How Much Can I Work on SSI or SSDI?</h1>
+  <p class="lede">See what a paycheck does to your SSI or SSDI in 2026: how much you keep, when a trial work month is used, and the earnings level where each benefit stops.</p>
+  <p class="scopebox">For one person, by month, using Social Security's 2026 work rules. Medicaid limits are shown for Oregon and Washington. Tap any <b>§</b> label to see the rule.</p>
+</header>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>Your benefits</legend>
+<div class="seg" role="radiogroup" aria-label="Which benefit you get" style="grid-template-columns:repeat(3,minmax(0,1fr))"><input type="radio" name="bt" id="bt-ssi" value="ssi" checked><label for="bt-ssi">SSI</label><input type="radio" name="bt" id="bt-ssdi" value="ssdi"><label for="bt-ssdi">SSDI</label><input type="radio" name="bt" id="bt-both" value="both"><label for="bt-both">Both</label></div>
+<div class="field" id="w-ssdi"><label for="ssdi">Your SSDI check, per month</label><div class="money"><input type="number" id="ssdi" inputmode="decimal" min="0" step="any" value="800"></div></div>
+<div class="field" id="w-twp"><label for="twpu">Trial work months already used</label><select id="twpu"><option value="0">None</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option value="9">All 9</option></select><span class="hint">Months in the last 5 years when you earned over the trial work amount.</span></div>
+<div class="field" id="w-oth"><label for="oth">Other unearned income, per month</label><div class="money"><input type="number" id="oth" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Not wages or SSDI: for example a pension or child support.</span></div>
+<div class="seg" role="radiogroup" aria-label="State"><input type="radio" name="st" id="st-or" value="OR" checked><label for="st-or">Oregon</label><input type="radio" name="st" id="st-wa" value="WA"><label for="st-wa">Washington</label></div>
+</fieldset>
+<fieldset><legend>Your work</legend>
+<div class="field"><label for="earn">Gross pay per month, before taxes</label><div class="money"><input type="number" id="earn" inputmode="decimal" min="0" step="any" value="1200"></div></div>
+<div class="field"><label for="irwe">Work costs because of your disability, per month</label><div class="money"><input type="number" id="irwe" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Things you pay for yourself so you can work, like a job coach, special transportation or medication. SSA has to approve them.</span></div>
+<label class="check"><input type="checkbox" id="blind"><span>I am blind (SSA's definition)</span></label>
+<div class="field" id="w-bwe" hidden><label for="bwe">Blind work expenses, per month</label><div class="money"><input type="number" id="bwe" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">Any work-related cost, such as taxes, a guide dog or transportation.</span></div>
+<label class="check" id="w-stu"><input type="checkbox" id="stu"><span>I'm a student under 22</span></label>
+</fieldset>
+<p class="sample">Example numbers are filled in. Replace them with yours.</p>
+<div class="btns"><button type="button" id="reset">Reset to example</button><button type="button" id="clearall">Clear all</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
+  <div id="cards" class="results"></div>
+  <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
+  <div id="cards2" class="results"></div>
+</div>
+</section>
+<aside class="ad-slot" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="mid"></div></aside>
+<section class="prose faq" id="faq"><h2>Common questions</h2><p>Not sure which benefit you have? Read <a href="guide-ssi-vs-ssdi.html">SSI vs. SSDI: what's the difference?</a></p>
+<details id="how"><summary>How much can I earn on SSI?</summary><p>SSI doesn't count the first $20 of income, the first $65 of earnings, and half of the rest. With the 2026 maximum of $994, each $2 you earn above about $85 a month lowers SSI by about $1, so working always leaves you with more. For someone with no other income, SSI stops at about $2,073 a month in earnings, and Medicaid can continue well past that.</p></details>
+<details><summary>How much can I earn on SSDI?</summary><p>SSDI doesn't shrink as you earn. Instead, it watches two numbers. In 2026, any month you earn over $1,210 uses one of 9 trial work months, and SSDI keeps paying in full. After those 9 months, SSDI isn't paid for months when your earnings, minus disability-related work costs, are over $1,690 ($2,830 if blind).</p></details>
+<details><summary>What happens after my trial work period?</summary><p>A 36-month extended period of eligibility starts. SSDI is paid for any month you earn under the limit and stops for months over it. The first month over the limit, plus the next two, are still paid as a grace period. If your benefits end and you have to stop working within 5 years, you can ask for expedited reinstatement instead of reapplying.</p></details>
+<details><summary>Will I lose Medicaid or Medicare if I work?</summary><p>Usually not right away. If you got SSI, Section 1619(b) keeps Medicaid while your earnings stay under a state threshold: $47,856 a year in Oregon and $73,897 in Washington for 2026. With SSDI, Medicare continues for at least 93 months after your trial work period ends, as long as you still have a disability.</p></details>
+<details><summary>What are impairment-related work expenses?</summary><p>Costs you pay yourself because of your disability so you can work, such as a job coach, special transportation, or medication. SSA subtracts them from your earnings when deciding the SSDI limit, and excludes them for SSI. Keep receipts and tell SSA.</p></details>
+<details><summary>Can I save money without losing SSI?</summary><p>Yes, with an ABLE account. The first $100,000 in one doesn't count toward SSI's $2,000 resource limit. Starting in 2026, your disability must have begun before age 46, and up to $20,000 a year can go in.</p></details>
+<details><summary>Do I have to report my earnings?</summary><p>Yes. Report your pay to Social Security every month for SSI, and report work promptly for SSDI. Late reporting is the most common cause of overpayments you'd have to pay back.</p></details>
+<details><summary>What if I get both SSI and SSDI?</summary><p>SSDI counts as unearned income for SSI, so after the $20 exclusion it lowers SSI dollar for dollar. Your earnings then follow both sets of rules at once. Choose "Both" above to see the combined result.</p></details>
+</section>
+
+<section class="prose" id="sources"><details class="srcdrop"><summary><span>Sources<small>9 sources · checked October 12, 2026</small></span></summary><div class="srcin"><p>Every figure on this page links to one of these. Tap any <a class="cite" href="#sources" style="pointer-events:none">source</a> label to see what it says. All checked October 12, 2026.</p><ul class="srclist"><li><a href="https://www.ssa.gov/oact/cola/sga.html" target="_blank" rel="noopener">Substantial gainful activity amounts</a><span class="s-o">Social Security Administration</span><span class="s-n">2026 SGA: $1,690 a month, or $2,830 if you are blind.</span></li><li><a href="https://www.ssa.gov/oact/cola/twp.html" target="_blank" rel="noopener">Trial work period</a><span class="s-o">Social Security Administration</span><span class="s-n">In 2026, a month with earnings over $1,210 counts as a trial work month.</span></li><li><a href="https://www.ssa.gov/redbook/eng/ssdi-only-employment-supports.htm" target="_blank" rel="noopener">Red Book: SSDI employment supports</a><span class="s-o">Social Security Administration</span><span class="s-n">9 trial work months within a 60-month window, counted on gross earnings, with full SSDI. Then a 36-month extended period of eligibility: no check for months over SGA, a check for months under it. The first SGA month plus 2 more are paid (grace period). Expedited reinstatement within 5 years; Medicare continues at least 93 months after the trial work period.</span></li><li><a href="https://www.ssa.gov/redbook/eng/ssdi-and-ssi-employments-supports.htm" target="_blank" rel="noopener">Red Book: Impairment-related work expenses</a><span class="s-o">Social Security Administration</span><span class="s-n">Work costs you pay because of your impairment, without reimbursement, are subtracted from earnings when SSA decides SGA for SSDI, and are excluded from earnings for SSI.</span></li><li><a href="https://www.ssa.gov/ssi/amount" target="_blank" rel="noopener">SSI amounts for 2026</a><span class="s-o">Social Security Administration</span><span class="s-n">Maximum federal SSI payment: $994 a month for one person, $1,491 for a couple.</span></li><li><a href="https://www.ssa.gov/ssi/text-income-ussi.htm" target="_blank" rel="noopener">Understanding SSI: income</a><span class="s-o">Social Security Administration</span><span class="s-n">SSI doesn't count the first $20 of most income, the first $65 of earnings and half of the rest, impairment-related and blind work expenses, and, for students under 22, up to $2,410 a month of earnings ($9,730 a year) in 2026.</span></li><li><a href="https://www.ssa.gov/redbook/eng/ssi-only-employment-supports.htm" target="_blank" rel="noopener">Red Book: SSI employment supports</a><span class="s-o">Social Security Administration</span><span class="s-n">The student exclusion comes off first; the $20 exclusion applies to unearned income first and any rest to earnings; then $65, then half of what's left. Under 1619(a), SSI keeps paying when earnings are at the SGA level.</span></li><li><a href="https://www.ssa.gov/disabilityresearch/wi/1619b.htm" target="_blank" rel="noopener">Continued Medicaid eligibility (Section 1619(b))</a><span class="s-o">Social Security Administration</span><span class="s-n">2026 threshold amounts: $47,856 in Oregon and $73,897 in Washington. You must have been eligible for SSI for at least a month, still have a disability, meet other SSI rules, need Medicaid to work, and have earnings too low to replace SSI, Medicaid and attendant care.</span></li><li><a href="https://thearc.org/blog/able-accounts-2026-updates-how-to-open/" target="_blank" rel="noopener">ABLE accounts expanded on January 1, 2026</a><span class="s-o">The Arc</span><span class="s-n">Disability must begin before age 46. Up to $20,000 a year can go in, more for some working account owners. The first $100,000 doesn't count toward SSI's resource limit.</span></li></ul></div></details></section>
+<footer>
+  <div class="links site-links"><a href="./">All calculators</a><a href="guides.html">Guides</a><a href="about.html">About</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a><a href="changes.html">What changed</a><a href="how-we-check.html">How we check</a></div>
+  <p>An independent, free calculator site. Not affiliated with any government agency. Results are estimates, not official decisions; only the agency can decide whether you qualify.</p>
+  <p style="font-size:12px;opacity:.7;margin-top:6px">© 2026 X Ventures LLC</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"sga": {"o": "Social Security Administration", "t": "Substantial gainful activity amounts", "u": "https://www.ssa.gov/oact/cola/sga.html", "n": "2026 SGA: $1,690 a month, or $2,830 if you are blind.", "d": "Oct 12, 2026"}, "twp": {"o": "Social Security Administration", "t": "Trial work period", "u": "https://www.ssa.gov/oact/cola/twp.html", "n": "In 2026, a month with earnings over $1,210 counts as a trial work month.", "d": "Oct 12, 2026"}, "rb-ssdi": {"o": "Social Security Administration", "t": "Red Book: SSDI employment supports", "u": "https://www.ssa.gov/redbook/eng/ssdi-only-employment-supports.htm", "n": "9 trial work months within a 60-month window, counted on gross earnings, with full SSDI. Then a 36-month extended period of eligibility: no check for months over SGA, a check for months under it. The first SGA month plus 2 more are paid (grace period). Expedited reinstatement within 5 years; Medicare continues at least 93 months after the trial work period.", "d": "Oct 12, 2026"}, "rb-irwe": {"o": "Social Security Administration", "t": "Red Book: Impairment-related work expenses", "u": "https://www.ssa.gov/redbook/eng/ssdi-and-ssi-employments-supports.htm", "n": "Work costs you pay because of your impairment, without reimbursement, are subtracted from earnings when SSA decides SGA for SSDI, and are excluded from earnings for SSI.", "d": "Oct 12, 2026"}, "ssi-amt": {"o": "Social Security Administration", "t": "SSI amounts for 2026", "u": "https://www.ssa.gov/ssi/amount", "n": "Maximum federal SSI payment: $994 a month for one person, $1,491 for a couple.", "d": "Oct 12, 2026"}, "ssi-inc": {"o": "Social Security Administration", "t": "Understanding SSI: income", "u": "https://www.ssa.gov/ssi/text-income-ussi.htm", "n": "SSI doesn't count the first $20 of most income, the first $65 of earnings and half of the rest, impairment-related and blind work expenses, and, for students under 22, up to $2,410 a month of earnings ($9,730 a year) in 2026.", "d": "Oct 12, 2026"}, "rb-ssi": {"o": "Social Security Administration", "t": "Red Book: SSI employment supports", "u": "https://www.ssa.gov/redbook/eng/ssi-only-employment-supports.htm", "n": "The student exclusion comes off first; the $20 exclusion applies to unearned income first and any rest to earnings; then $65, then half of what's left. Under 1619(a), SSI keeps paying when earnings are at the SGA level.", "d": "Oct 12, 2026"}, "1619b": {"o": "Social Security Administration", "t": "Continued Medicaid eligibility (Section 1619(b))", "u": "https://www.ssa.gov/disabilityresearch/wi/1619b.htm", "n": "2026 threshold amounts: $47,856 in Oregon and $73,897 in Washington. You must have been eligible for SSI for at least a month, still have a disability, meet other SSI rules, need Medicaid to work, and have earnings too low to replace SSI, Medicaid and attendant care.", "d": "Oct 12, 2026"}, "able": {"o": "The Arc", "t": "ABLE accounts expanded on January 1, 2026", "u": "https://thearc.org/blog/able-accounts-2026-updates-how-to-open/", "n": "Disability must begin before age 46. Up to $20,000 a year can go in, more for some working account owners. The first $100,000 doesn't count toward SSI's resource limit.", "d": "Oct 12, 2026"}};</script>
+<script src="assets/charts.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>Show the math</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const note=f.querySelector(".sample");const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}HTMLFormElement.prototype.reset.call(f);if(note)note.hidden=false;setTimeout(()=>{f.dispatchEvent(new Event("change"));try{localStorage.removeItem(key);}catch(e){}},0);});const c=$("clearall");if(c)c.addEventListener("click",()=>{els.forEach(e=>{if(e.type==="checkbox")e.checked=false;else if(e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="hidden")e.value="";});if(note)note.hidden=true;go();const first=els.find(e=>e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="checkbox"&&e.offsetParent);if(first)first.focus();});
+  run();
+}
+
+const C=(k,l)=>`<a class="cite" data-cite="${k}" href="${(window.BM_SOURCES[k]||{}).u||"#sources"}" target="_blank" rel="noopener" aria-expanded="false">${l}</a>`;
+const R={FBR:994,GIE:20,EIE:65,SEIE:2410,SGA:1690,SGA_B:2830,TWP:1210,T1619:{OR:47856,WA:73897}};
+/* SSI for one person. Order: student exclusion, $20 (unearned first), $65, IRWE, half, blind work expenses. */
+function ssi(p){
+  const U=p.oth+(p.bt==="both"?p.ssdi:0);
+  const gieU=Math.min(R.GIE,U),rest=R.GIE-gieU,cU=U-gieU;
+  const seie=p.stu?Math.min(p.earn,R.SEIE):0;
+  const e1=p.earn-seie,e2=Math.max(0,e1-rest),e3=Math.max(0,e2-R.EIE),e4=Math.max(0,e3-p.irwe),e5=e4/2,e6=Math.max(0,e5-(p.blind?p.bwe:0));
+  const cnt=cU+e6,amt=Math.max(0,R.FBR-cnt);
+  let be=null; /* earnings where SSI reaches $0 */
+  if(R.FBR-cU>0){be=2*(R.FBR-cU+(p.blind?p.bwe:0))+p.irwe+R.EIE+rest;if(p.stu)be+=R.SEIE;}
+  return {U,gieU,rest,cU,seie,e1,e2,e3,e4,e5,e6,cnt,amt,be};
+}
+/* SSDI for a month at these earnings */
+function ssdi(p){
+  const lim=p.blind?R.SGA_B:R.SGA,left=Math.max(0,9-p.twpu),twpMonth=p.earn>R.TWP,net=Math.max(0,p.earn-p.irwe),over=net>lim;
+  let phase,paid;
+  if(left>0){phase=twpMonth?"twp-use":"twp-no";paid=p.ssdi;}
+  else{phase=over?"over":"under";paid=over?0:p.ssdi;}
+  return {lim,left,twpMonth,net,over,phase,paid};
+}
+window.BM_WORK={ssi,ssdi,R};
+function run(){
+  const bt=$("bt-both").checked?"both":$("bt-ssdi").checked?"ssdi":"ssi",st=$("st-wa").checked?"WA":"OR";
+  const p={bt,st,earn:num("earn"),irwe:num("irwe"),blind:$("blind").checked,bwe:num("bwe"),stu:$("stu").checked,oth:num("oth"),ssdi:num("ssdi"),twpu:+$("twpu").value};
+  const hasSSI=bt!=="ssdi",hasSSDI=bt!=="ssi";
+  $("w-ssdi").hidden=!hasSSDI;$("w-twp").hidden=!hasSSDI;$("w-oth").hidden=!hasSSI;$("w-stu").hidden=!hasSSI;$("w-bwe").hidden=!(p.blind&&hasSSI);
+  if(!hasSSI){p.oth=0;p.stu=false;}
+  if(!hasSSDI)p.ssdi=0;
+  const s=hasSSI?ssi(p):null,d=hasSSDI?ssdi(p):null;
+  const ssiAmt=s?s.amt:0,ssdiAmt=d?d.paid:0,total=p.earn+p.oth+ssiAmt+ssdiAmt;
+  const items=[];
+  if(hasSSI)items.push([m0(ssiAmt),"SSI this month"]);
+  if(hasSSDI)items.push([d.phase==="over"?"$0*":m0(ssdiAmt),"SSDI this month"]);
+  items.push([m0(total),"Total income per month"]);
+  let lead="";
+  if(hasSSDI){
+    lead=d.phase==="twp-use"?`This month uses 1 of your ${d.left} remaining trial work months, and SSDI pays in full.`:
+         d.phase==="twp-no"?`You're under the ${m0(R.TWP)} trial work amount, so SSDI pays in full and no trial work month is used.`:
+         d.phase==="under"?`Your trial work period is over, and your countable earnings are under the ${m0(d.lim)} limit, so SSDI keeps paying.`:
+         `Your trial work period is over and you're above the ${m0(d.lim)} limit. *After a 3-month grace period, SSDI isn't paid for months like this one.`;
+  }
+  if(hasSSI)lead+=(lead?" ":"")+(s.amt>0?`SSI drops to ${m0(s.amt)}, but your total still rises with every dollar you earn.`:s.be==null?`Your other income is above SSI's ${m0(R.FBR)} limit after exclusions, so SSI is $0 whatever you earn.`:`At these earnings SSI is $0, but Medicaid can continue under 1619(b).`);
+  $("sum").innerHTML=`<h2>Working ${m0(p.earn)} a month</h2>`+tot(items)+`<p>${lead}</p>`;
+  let out="";
+  if(hasSSI){
+    const rows=[[`Gross earnings`,m2(p.earn)]];
+    if(s.seie)rows.push([`− Student earned income exclusion ${C("ssi-inc","SSA")}`,"−"+m2(s.seie)]);
+    if(s.rest>0)rows.push([`− Rest of the $20 general exclusion ${C("rb-ssi","SSA")}`,"−"+m2(Math.min(s.rest,s.e1))]);
+    rows.push([`− $65 earned income exclusion ${C("ssi-inc","SSA")}`,"−"+m2(Math.min(R.EIE,s.e2))]);
+    if(p.irwe)rows.push([`− Disability-related work costs ${C("rb-irwe","SSA")}`,"−"+m2(Math.min(p.irwe,s.e3))]);
+    rows.push(["÷ 2, the half SSI doesn't count",m2(s.e5)]);
+    if(p.blind&&p.bwe)rows.push([`− Blind work expenses ${C("ssi-inc","SSA")}`,"−"+m2(Math.min(p.bwe,s.e5))]);
+    rows.push(["= Countable earnings",m2(s.e6)]);
+    if(s.U>0)rows.push([`+ Countable unearned income (${bt==="both"?"SSDI and other":"other"} income minus $${s.gieU.toFixed(0)}) ${C("rb-ssi","SSA")}`,m2(s.cU)]);
+    rows.push([`2026 maximum SSI ${C("ssi-amt","SSA")}`,m2(R.FBR)],["− Countable income","−"+m2(Math.min(s.cnt,R.FBR))],["= SSI this month",m2(s.amt),"total"]);
+    out+=card({t:"SSI with your earnings",scope:"2026 · one person · federal amount",amt:m0(s.amt),al:"per month",st:s.amt>0?"good":"warn",
+      chip:s.be!=null?`SSI stops at about ${m0(s.be)}/month in earnings`:"Other income already uses up SSI",
+      p:[s.amt>0?`Compared with not working, you have ${m0(p.earn+s.amt-ssi(Object.assign({},p,{earn:0})).amt)} more per month after the SSI reduction.`:s.be==null?"Your other income already uses up the SSI maximum, so work doesn't change your SSI.":"Your cash SSI is $0 at these earnings. That isn't the end of your SSI status: Medicaid can continue under 1619(b), and SSI restarts in months your pay drops."],
+      rows,open:true,notes:["Some people get a smaller federal rate, for example if someone else pays for their housing.","The student exclusion is capped at $9,730 for the year.","SSI counts pay in the month you receive it."]});
+  }
+  if(hasSSDI){
+    const rows=[[`Gross earnings`,m2(p.earn)],[`Trial work month amount (2026) ${C("twp","SSA")}`,m2(R.TWP)],["Trial work months left",`${d.left} of 9`]];
+    rows.push([`− Disability-related work costs ${C("rb-irwe","SSA")}`,"−"+m2(Math.min(p.irwe,p.earn))],["= Earnings SSA compares to the limit",m2(d.net)],[`Substantial gainful activity limit${p.blind?" (blind)":""} ${C("sga","SSA")}`,m2(d.lim)],
+      ["SSDI this month",d.phase==="over"?"$0 after grace":m2(d.paid),"total"]);
+    out+=card({t:"SSDI and your work",scope:d.left>0?"Trial work period":"Extended period of eligibility",amt:d.phase==="over"?"$0":m0(d.paid),al:d.phase==="over"?"after grace period":"per month",
+      st:d.phase==="over"?"warn":"good",chip:d.left>0?(d.twpMonth?"Uses a trial work month":"Not a trial work month"):(d.over?"Over the limit":"Under the limit"),
+      p:[d.left>0?`During the trial work period SSDI pays in full no matter how much you earn. Once your 9 months are used, the limit is ${m0(d.lim)} a month${p.irwe?`, or ${m0(d.lim+p.irwe)} in gross pay with your work costs`:""}.`:
+        d.over?`For the 36 months after your trial work period, SSDI isn't paid for months over the limit but restarts for months under it. Your first month over the limit and the next 2 are still paid ${C("rb-ssdi","SSA")}.`:
+        `Stay at or under ${m0(d.lim+p.irwe)} a month in gross pay${p.irwe?" (counting your work costs)":""} to keep SSDI ${C("sga","SSA")}.`],
+      rows,open:!hasSSI,notes:["Trial work months are counted on gross pay, before work costs.","Medicare continues for at least 93 months after the trial work period, as long as you still have a disability."]});
+  }
+  $("cards").innerHTML=out;
+  const T=R.T1619[st];
+  let out2=card({t:"Keeping Medicaid",scope:`${st==="OR"?"Oregon (OHP)":"Washington (Apple Health)"} · 2026`,amt:m0(T),al:"yearly 1619(b) threshold",st:"info",
+    chip:hasSSI?(p.earn*12<=T?"Your earnings are under it":"Over the standard threshold"):"Applies if you get SSI",
+    p:[`If you've had SSI, Medicaid can continue after your SSI check stops, as long as yearly earnings stay under ${m0(T)} and you meet the other rules ${C("1619b","SSA")}. SSA can set a higher, individual threshold if you have high medical or support costs.`,
+       hasSSDI&&!hasSSI?"With SSDI alone, your health coverage is Medicare, which continues for years after you start working.":`Your earnings come to ${m0(p.earn*12)} a year.`]});
+  out2+=card({t:"Save without losing SSI: ABLE accounts",scope:"Federal · 2026",st:"info",
+    p:[`The first $100,000 in an ABLE account doesn't count toward SSI's $2,000 limit. Since January 2026, you qualify if your disability began before age 46, and up to $20,000 a year can be deposited ${C("able","The Arc")}.`]});
+  $("cards2").innerHTML=out2;
+  if(window.BMChart){
+    const xmax=Math.max(3000,Math.ceil(p.earn*1.4/500)*500),xs=[];for(let x=0;x<=xmax;x+=25)xs.push(x);
+    const at=x=>{const q=Object.assign({},p,{earn:x});return {i:hasSSI?ssi(q).amt:0,d:hasSSDI?ssdi(q):null};};
+    const pts=xs.map(at);
+    const series=[{name:"Your pay",color:"var(--c1)",ys:xs}];
+    if(p.oth)series.push({name:"Other income",color:"var(--c6)",ys:xs.map(()=>p.oth),opacity:.45});
+    if(hasSSDI)series.push({name:"SSDI",color:"var(--c4)",ys:pts.map(z=>z.d.paid)});
+    if(hasSSI)series.push({name:"SSI",color:"var(--c2)",ys:pts.map(z=>z.i)});
+    const marks=[];
+    if(hasSSI&&s.be!=null&&s.be<=xmax)marks.push({x:s.be,label:"SSI ends"});
+    if(hasSSDI&&d.left===0&&d.lim+p.irwe<=xmax)marks.push({x:d.lim+p.irwe,label:"SSDI limit"});
+    const yi=xs.indexOf(Math.round(p.earn/25)*25);
+    BMChart.curve($("chart"),{title:"What happens if you earn more",scope:hasSSDI&&d.left>0?"Per month · during your trial work period":"Per month · 2026 rules",
+      xs,series,marks,you:{x:p.earn,y:total,label:"You"},xFmt:v=>BMChart.short(v),
+      alt:`Monthly total of pay${hasSSI?", SSI":""}${hasSSDI?", SSDI":""} for earnings from $0 to ${m0(xmax)}.`,
+      readout:i=>{const z=pts[i],tt=xs[i]+p.oth+z.i+(z.d?z.d.paid:0);return `Pay <b>${m0(xs[i])}</b>/mo →${hasSSI?` SSI ${m0(z.i)}`:""}${hasSSDI?` SSDI ${m0(z.d.paid)}`:""}, total <b>${m0(tt)}</b>`;},
+      note:hasSSDI&&d.left>0?"During the trial work period SSDI doesn't change with pay. After it, months over the limit pay no SSDI, which is why the total can drop at that point.":"The top of the colored area is your total each month. Taxes aren't subtracted."});
+  }
+}
+wire("bm-work",run);
+})();
+</script>
+<script>
+(function(){
+  var S=window.BM_SOURCES||{},pop=null,from=null;
+  function close(){if(pop){pop.remove();pop=null;if(from){from.setAttribute('aria-expanded','false');}}}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cite');
+    if(pop&&!e.target.closest('.citepop')&&a!==from)close();
+    if(!a||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var s=S[a.getAttribute('data-cite')];if(!s)return;
+    e.preventDefault();
+    if(pop&&from===a){close();return;}
+    close();from=a;a.setAttribute('aria-expanded','true');
+    pop=document.createElement('div');pop.className='citepop';pop.setAttribute('role','dialog');pop.setAttribute('aria-label','Source: '+s.t);
+    pop.innerHTML='<button type="button" class="cp-x" aria-label="Close">×</button><span class="cp-o">'+esc(s.o)+'</span><span class="cp-t">'+esc(s.t)+'</span>'+
+      (s.n?'<p class="cp-n">'+esc(s.n)+'</p>':'')+'<span class="cp-d">Checked '+esc(s.d||'')+'</span><a class="cp-go" href="'+esc(s.u)+'" target="_blank" rel="noopener">Open source ↗</a>';
+    document.body.appendChild(pop);
+    var r=a.getBoundingClientRect(),w=pop.offsetWidth,x=Math.min(Math.max(12,r.left+window.scrollX),window.scrollX+document.documentElement.clientWidth-w-12);
+    var y=r.bottom+window.scrollY+8;if(r.bottom+pop.offsetHeight+16>window.innerHeight&&r.top>pop.offsetHeight+16)y=r.top+window.scrollY-pop.offsetHeight-8;
+    pop.style.left=x+'px';pop.style.top=y+'px';
+    pop.querySelector('.cp-x').addEventListener('click',function(){var f=from;close();if(f)f.focus();});
+    pop.querySelector('.cp-go').focus({preventScroll:true});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pop){var f=from;close();if(f)f.focus();}});
+})();
+</script>
+<script>
+(function(){
+  var tb=document.querySelector('.themebtn'),R=document.documentElement;
+  function eff(){var a=R.getAttribute('data-theme');return a||'light';}
+  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
+})();
+(function(){
+  var site=document.querySelector('.site'),btn=site&&site.querySelector('.navbtn');
+  if(!btn)return;
+  function set(o){site.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');}
+  btn.addEventListener('click',function(e){e.stopPropagation();set(!site.classList.contains('open'));});
+  document.addEventListener('click',function(e){if(!site.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&site.classList.contains('open')){set(false);btn.focus();}});
+})();
+</script>
+<div class="mbar" id="mbar" role="region" aria-label="Your estimate">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">See details</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": -1}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
+})();
+</script>
+<script>(function(){function o(){if(location.hash==="#sources"){var d=document.querySelector("#sources details");if(d)d.open=true;}}o();window.addEventListener("hashchange",o);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#sources"]');if(a){var d=document.querySelector("#sources details");if(d)d.open=true;}});})();</script>
+<script>
+/* AD SPOTS: after AdSense approves the site, create a "Display ad" unit for each spot below (AdSense > Ads > By ad unit)
+   and paste its data-ad-slot number between the quotes. Empty quotes = that spot stays hidden. */
+window.BM_ADS={client:"ca-pub-7867146450299069",slots:{home:"",mid:"",infeed:"","infeed-va":"",bottom:""}};
+(function(){var c=window.BM_ADS;document.querySelectorAll(".ad-slot .ad-box[data-ad-slot]").forEach(function(box){var id=c.slots[box.getAttribute("data-ad-slot")];if(!id)return;var slot=box.closest(".ad-slot"),ins=document.createElement("ins");ins.className="adsbygoogle";ins.style.display="block";ins.setAttribute("data-ad-client",c.client);ins.setAttribute("data-ad-slot",id);ins.setAttribute("data-ad-format","auto");ins.setAttribute("data-full-width-responsive","true");box.replaceWith(ins);slot.classList.add("on");try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}});})();
+</script>
+</body></html>
