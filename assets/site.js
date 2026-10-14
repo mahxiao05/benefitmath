@@ -89,3 +89,21 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
   });
   if(hit){var n=f.querySelector('.sample');if(n)n.hidden=true;f.dispatchEvent(new Event('change',{bubbles:true}));}
 })();
+
+/* ---- "rules changed" email signup above the footer ---- */
+/* EMAIL: paste your email provider's form address to turn the signup on, e.g. Buttondown:
+   action: "https://buttondown.com/api/emails/embed-subscribe/YOURNAME" (field "email"),
+   or Mailchimp's embedded-form action URL with field: "EMAIL". Empty action = hidden. */
+window.BM_SIGNUP={action:"",field:"email"};
+(function(){
+  var C=window.BM_SIGNUP||{},ft=document.querySelector('footer');if(!C.action||!ft||document.querySelector('.signup'))return;
+  var es=document.documentElement.lang==='es';
+  var L=es?{h:'Avísame cuando cambien las reglas',p:'Un correo cuando cambien SNAP, los créditos tributarios o los beneficios de Oregon y Washington. Sin spam; cancele cuando quiera.',ph:'Su correo electrónico',b:'Suscribirme',ok:'¡Listo! Revise su correo para confirmar.'}
+    :{h:'Get an email when the rules change',p:'One short email when SNAP, tax credits or Oregon and Washington benefits change. No spam; unsubscribe anytime.',ph:'Your email address',b:'Sign me up',ok:'Done! Check your inbox to confirm.'};
+  var s=document.createElement('section');s.className='signup';s.setAttribute('aria-labelledby','su-h');
+  s.innerHTML='<div><h2 id="su-h">'+L.h+'</h2><p>'+L.p+' <a href="privacy.html">'+(es?'Privacidad':'Privacy')+'</a></p></div>'+
+    '<form method="post" target="_blank"><label class="vh" for="su-e">'+L.ph+'</label><input id="su-e" type="email" required autocomplete="email" placeholder="'+L.ph+'"><button type="submit">'+L.b+'</button></form><p class="su-ok" hidden>'+L.ok+'</p>';
+  var f=s.querySelector('form'),i=s.querySelector('input');f.action=C.action;i.name=C.field||'email';
+  f.addEventListener('submit',function(){setTimeout(function(){f.hidden=true;s.querySelector('.su-ok').hidden=false;},50);});
+  ft.parentNode.insertBefore(s,ft);
+})();
