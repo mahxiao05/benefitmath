@@ -42,7 +42,7 @@
 .perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
 
 /* ---- one place for the rules-checked date ---- */
-html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 13, 2026"}
+html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 14, 2026"}
 /* ---- top links on phones ---- */
 @media (max-width:800px){
   .site{flex-wrap:wrap!important}
