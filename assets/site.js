@@ -75,3 +75,17 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
   window.addEventListener('hashchange',openHash);openHash();
   document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t._open)t._open();});
 })();
+/* Prefill a calculator from a link another calculator sends, e.g. or-vs-wa.html?sal=52000&fs=mfj.
+   Keys are form field ids; checkboxes and radios take 1 or 0. Pages keep their canonical URL, so search engines see one page. */
+(function(){
+  var f=document.getElementById('f');if(!f||!location.search||!window.URLSearchParams)return;
+  var hit=false;
+  new URLSearchParams(location.search).forEach(function(v,k){
+    var e=document.getElementById(k);if(!e||!f.contains(e)||!/^(INPUT|SELECT)$/.test(e.tagName))return;
+    if(e.type==='checkbox'||e.type==='radio')e.checked=v==='1';
+    else if(e.tagName==='SELECT'){if(![].some.call(e.options,function(o){return o.value===v;}))return;e.value=v;}
+    else e.value=v;
+    hit=true;
+  });
+  if(hit){var n=f.querySelector('.sample');if(n)n.hidden=true;f.dispatchEvent(new Event('change',{bubbles:true}));}
+})();

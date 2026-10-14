@@ -209,7 +209,7 @@ details.optional>summary::-webkit-details-marker{display:none}
 details.optional>summary::after{content:"+";font-family:var(--f-mono);color:var(--accent);font-size:18px}
 details.optional[open]>summary::after{content:"−"}
 details.optional>summary small{display:block;font:400 12px var(--f-body);color:var(--muted)}
-details.optional>fieldset{margin-top:14px}
+details.optional>fieldset{margin-top:14px}.more-count{font:600 11.5px var(--f-body);font-style:normal;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:2px}
 .toolbar{justify-content:flex-end}
 details.figs>summary{cursor:pointer;font:600 16px var(--f-display);color:var(--ink)}
 details.figs[open]>summary{margin-bottom:10px}
