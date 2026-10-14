@@ -68,7 +68,31 @@ var NEW={
   }
 };
 
-window.BM_TAX={FED:FED,PAY:PAY,OR:OR,NEW:NEW,brTax:brTax,fedTax:fedTax,fedRate:fedRate,stdDed:stdDed,orFedSubCap:orFedSubCap,
+/* Earned Income Tax Credit, tax year 2026. Index = qualifying children (0, 1, 2, 3+).
+   ei: earned income where the credit maxes out; mx: max credit; pin/pout: phase-in and phase-out rates;
+   th/thj: phase-out start, single or joint; inv: investment income limit. */
+var EITC={ei:[8680,13020,18290,18290],mx:[664,4427,7316,8231],pin:[.0765,.34,.40,.45],pout:[.0765,.1598,.2106,.2106],th:[10860,23890,23890,23890],thj:[18140,31160,31160,31160],inv:12200};
+function eitc(o){
+  var k=Math.min(3,o.kids|0), th=o.fs==="mfj"?EITC.thj[k]:EITC.th[k], tent=Math.min(EITC.mx[k],o.earned*EITC.pin[k]);
+  var over=Math.max(0,Math.max(o.agi,o.earned)-th), red=over*EITC.pout[k], cr=Math.max(0,Math.round(tent-red)), why="";
+  if(o.fs==="mfs"){cr=0;why="Married people filing separately usually can't claim the EITC. There is an exception if you lived apart from your spouse for the last 6 months of the year and have a qualifying child.";}
+  else if(!o.ssn){cr=0;why="Everyone on the return needs a Social Security number valid for work.";}
+  else if(k===0&&!o.age){cr=0;why="Without a qualifying child, you (or your spouse) must be 25 to 64.";}
+  else if((o.inv||0)>EITC.inv){cr=0;why="Investment income over $"+EITC.inv.toLocaleString("en-US")+" rules out the EITC.";}
+  return {cr:cr,k:k,th:th,tent:tent,over:over,red:red,why:why};
+}
+
+/* Child tax credit, tax year 2026: $2,200 per child under 17, $500 per other dependent,
+   up to $1,700 per child refundable (Additional Child Tax Credit). tax = income tax before credits. */
+var CTC={per:2200,odc:500,ref:1700,thr:{single:200000,hoh:200000,mfs:200000,mfj:400000}};
+function ctc(o){
+  var thr=CTC.thr[o.fs], red=50*Math.ceil(Math.max(0,o.agi-thr)/1000), pool=CTC.per*o.kids+CTC.odc*o.odep;
+  var total=o.ssn?Math.max(0,pool-red):0, used=Math.min(total,o.tax), left=total-used, cap=CTC.ref*o.kids;
+  var earn15=Math.max(0,o.earned-2500)*0.15, actc=Math.round(Math.min(left,cap,earn15));
+  return {thr:thr,red:red,pool:pool,total:total,used:used,left:left,cap:cap,earn15:earn15,actc:actc};
+}
+
+window.BM_TAX={FED:FED,PAY:PAY,OR:OR,NEW:NEW,brTax:brTax,fedTax:fedTax,fedRate:fedRate,stdDed:stdDed,orFedSubCap:orFedSubCap,EITC:EITC,eitc:eitc,CTC:CTC,ctc:ctc,
   FSN:{single:"Single",hoh:"Head of household",mfj:"Married filing jointly",mfs:"Married filing separately"}};
 })();
 
