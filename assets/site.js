@@ -107,3 +107,84 @@ window.BM_SIGNUP={action:"",field:"email"};
   f.addEventListener('submit',function(){setTimeout(function(){f.hidden=true;s.querySelector('.su-ok').hidden=false;},50);});
   ft.parentNode.insertBefore(s,ft);
 })();
+
+/* ---- site search: button in the top bar, keyword search over every page ----
+   The index (assets/search-index.js) loads only when someone opens search.
+   After adding or editing a page, rebuild it: python3 scripts/build-search-index.py */
+(function(){
+  var bar=document.querySelector('.site .site-r'),theme=bar&&bar.querySelector('.themebtn');if(!bar)return;
+  var d=document,es=d.documentElement.lang==='es';
+  var L=es?{btn:'Buscar',ph:'Buscar calculadoras y guías',none:'Sin resultados. Pruebe otra palabra, como "SNAP" o "reembolso".',hint:'Escriba una palabra, como SNAP, EITC o desempleo.',close:'Cerrar'}
+    :{btn:'Search',ph:'Search calculators and guides',none:'No matches. Try another word, like "SNAP" or "refund".',hint:'Type a word, like SNAP, refund, EITC or unemployment.',close:'Close'};
+  var b=d.createElement('button');b.type='button';b.className='themebtn searchbtn';b.setAttribute('aria-label',L.btn);b.title=L.btn+' (/)';
+  b.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.3" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15.3 15.3 20.5 20.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+  bar.insertBefore(b,theme||bar.firstChild);
+  var box,inp,list,last,loading;
+  /* other words people use for the same thing */
+  var SYN={'food stamps':'snap','food stamp':'snap','ebt':'snap','cupones':'snap','estampillas':'snap','disability':'ssi ssdi','medicaid':'ohp apple health','obamacare':'marketplace','aca':'marketplace',
+    'earned income':'eitc','ctc':'child tax credit','pfml':'paid leave','fmla':'paid leave','maternity':'paid leave','layoff':'unemployment','laid off':'unemployment','jobless':'unemployment','desempleo':'unemployment',
+    'take home':'paycheck','salary':'paycheck','wages':'paycheck','refund':'refund reembolso','reembolso':'refund reembolso','social security':'ssi ssdi retirement cola','veteran':'va','daycare':'child care','gratuity':'tips','propinas':'tips'};
+  var norm=function(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9$%]+/g,' ').trim();};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
+  var STOP=' a an and the of for to in on my i is it how what do does can with or de la el los las en y por para mi que como ';
+  function load(cb){if(window.BM_SEARCH)return cb();if(loading)return;loading=1;var s=d.createElement('script');s.src='assets/search-index.js';s.onload=function(){(window.BM_SEARCH||[]).forEach(function(p){p.nt=norm(p.t);p.nh=norm(p.h);p.nd=norm(p.d);p.nb=norm(p.b);});cb();};s.onerror=function(){loading=0;};d.head.appendChild(s);}
+  function search(q){
+    var nq=' '+norm(q)+' ';Object.keys(SYN).forEach(function(k){if(nq.indexOf(' '+k+' ')>-1)nq+=' '+SYN[k]+' ';});
+    var words=nq.split(' ').filter(function(w){return w&&STOP.indexOf(' '+w+' ')<0;});
+    var typed=norm(q).split(' ').filter(function(w){return w&&STOP.indexOf(' '+w+' ')<0;});
+    if(!typed.length)return [];
+    var res=(window.BM_SEARCH||[]).map(function(p){
+      var sc=0,hit=0;
+      words.forEach(function(w){var m=0;
+        if(p.nt.indexOf(w)>-1){sc+=8;m=1;} if(p.nh.indexOf(w)>-1){sc+=4;m=1;} if(p.nd.indexOf(w)>-1){sc+=3;m=1;}
+        var n=p.nb.split(w).length-1;if(n){sc+=1+Math.min(n,6)*.4;m=1;}
+        if(m&&typed.indexOf(w)>-1)hit++;});
+      if(!sc)return null;
+      if(hit===typed.length)sc+=10;           /* every typed word found */
+      if(p.nt.indexOf(norm(q))>-1)sc+=10;      /* whole phrase in the title */
+      if(p.l===(es?'es':'en'))sc+=3;
+      if(/calculat|calculadora/.test(p.nt))sc+=3;  /* calculators first on a tie */
+      return {p:p,s:sc,w:words,all:hit===typed.length};
+    }).filter(Boolean);
+    /* when some pages match every word, hide the ones that match only some */
+    var r=res.some(function(x){return x.all;})?res.filter(function(x){return x.all;}):res;
+    return r.sort(function(a,b){return b.s-a.s;}).slice(0,8);
+  }
+  function snip(p,ws){
+    var fold=function(t){return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');};
+    var t=p.d,at=-1;
+    [p.d,p.b].some(function(src){var f=fold(src||'');return ws.some(function(w){var i=f.indexOf(w);if(i>-1){t=src;at=i;return true;}return false;});});
+    if(at<0)return esc(p.d||p.b.slice(0,160));
+    var st=t===p.d?0:Math.max(0,at-60),s=t===p.d?t:(st?'… ':'')+t.slice(st,st+170)+'…',h=esc(s);
+    ws.forEach(function(w){if(w.length>2)h=h.replace(new RegExp('('+w.replace(/[$%]/g,'\\$&')+')','gi'),'<mark>$1</mark>');});
+    return h;
+  }
+  function render(){
+    var q=inp.value.trim();if(q===last)return;last=q;
+    if(!q){list.innerHTML='<li class="sr-hint">'+L.hint+'</li>';return;}
+    if(!window.BM_SEARCH){list.innerHTML='';return;}
+    var r=search(q);
+    list.innerHTML=r.length?r.map(function(x,i){return '<li><a href="'+esc(x.p.u)+'"'+(i?'':' class="sel"')+'><b>'+esc(x.p.t)+'</b><span>'+snip(x.p,x.w)+'</span></a></li>';}).join(''):'<li class="sr-hint">'+L.none+'</li>';
+  }
+  function open(){
+    if(!box){
+      box=d.createElement('div');box.className='srch';box.hidden=true;box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-label',L.btn);
+      box.innerHTML='<div class="srch-in"><div class="srch-top"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.3" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15.3 15.3 20.5 20.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><input type="search" autocomplete="off" spellcheck="false" aria-label="'+L.ph+'" placeholder="'+L.ph+'"><button type="button" class="srch-x">'+L.close+'</button></div><ul class="srch-r" aria-live="polite"></ul></div>';
+      d.body.appendChild(box);inp=box.querySelector('input');list=box.querySelector('ul');
+      inp.addEventListener('input',function(){load(render);render();});
+      box.addEventListener('click',function(e){if(e.target===box||e.target.closest('.srch-x'))close();});
+      box.addEventListener('keydown',function(e){
+        if(e.key==='Escape'){e.preventDefault();close();return;}
+        var as=[].slice.call(list.querySelectorAll('a')),i=as.indexOf(list.querySelector('a.sel'));
+        if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!as.length)return;e.preventDefault();if(i>-1)as[i].classList.remove('sel');i=(i+(e.key==='ArrowDown'?1:-1)+as.length)%as.length;as[i].classList.add('sel');as[i].scrollIntoView({block:'nearest'});}
+        else if(e.key==='Enter'&&e.target===inp&&i>-1){e.preventDefault();location.href=as[i].getAttribute('href');}
+        else if(e.key==='Tab'){var f=[inp,box.querySelector('.srch-x')].concat(as),k=f.indexOf(d.activeElement);if(e.shiftKey&&k<=0){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&k===f.length-1){e.preventDefault();inp.focus();}}
+      });
+    }
+    box.hidden=false;d.documentElement.classList.add('srch-open');b.setAttribute('aria-expanded','true');last=null;render();inp.focus();inp.select();load(function(){last=null;render();});
+  }
+  function close(){if(!box||box.hidden)return;box.hidden=true;d.documentElement.classList.remove('srch-open');b.setAttribute('aria-expanded','false');b.focus();}
+  b.setAttribute('aria-expanded','false');b.addEventListener('click',open);
+  d.addEventListener('keydown',function(e){var t=e.target,typing=/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable;
+    if((e.key==='/'&&!typing)||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();open();}});
+})();
