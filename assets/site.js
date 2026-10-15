@@ -8,7 +8,7 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
 (function(){
   var tb=document.querySelector('.themebtn'),R=document.documentElement;
   function eff(){var a=R.getAttribute('data-theme');return a||'light';}
-  function label(){if(tb){var d=eff()==='dark';tb.setAttribute('aria-label',d?'Switch to light mode':'Switch to dark mode');}}
+  function label(){if(tb){var d=eff()==='dark';var lg=document.documentElement.lang||'';tb.setAttribute('aria-label',lg==='es'?(d?'Cambiar a modo claro':'Cambiar a modo oscuro'):/^zh/.test(lg)?(d?'切换到浅色模式':'切换到深色模式'):(d?'Switch to light mode':'Switch to dark mode'));}}
   if(tb){tb.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';R.setAttribute('data-theme',n);try{localStorage.setItem('bm-theme',n);}catch(e){}label();});label();}
 })();
 (function(){
@@ -23,8 +23,8 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
 /* ---- share / copy / print bar under calculator results ---- */
 (function(){
   var sum=document.querySelector('.summary');if(!sum||document.querySelector('.sharebar'))return;
-  var es=document.documentElement.lang==='es',canShare=!!navigator.share;
-  var L=es?{share:'Compartir',link:'Copiar enlace',copy:'Copiar resultados',print:'Imprimir',ok:'¡Copiado!'}:{share:'Share',link:'Copy link',copy:'Copy results',print:'Print',ok:'Copied!'};
+  var es=document.documentElement.lang==='es',zh=/^zh/.test(document.documentElement.lang),canShare=!!navigator.share;
+  var L=es?{share:'Compartir',link:'Copiar enlace',copy:'Copiar resultados',print:'Imprimir',ok:'¡Copiado!'}:zh?{share:'分享',link:'复制链接',copy:'复制结果',print:'打印',ok:'已复制！'}:{share:'Share',link:'Copy link',copy:'Copy results',print:'Print',ok:'Copied!'};
   var bar=document.createElement('div');bar.className='sharebar';
   bar.innerHTML='<button type="button" data-a="share">'+(canShare?L.share:L.link)+'</button>'+(document.getElementById('copy')?'':'<button type="button" data-a="copy">'+L.copy+'</button>')+'<button type="button" data-a="print">'+L.print+'</button>';
   sum.insertAdjacentElement('afterend',bar);
@@ -44,11 +44,11 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
   var es=document.documentElement.lang==='es';
   /* FAQs: show the first 5, the rest behind a button (they stay in the page for search) */
   document.querySelectorAll('section.faq').forEach(function(sec){
-    var items=[].slice.call(sec.querySelectorAll(':scope > details, :scope > div > details')).filter(function(d){return (d.parentNode===sec||d.parentNode.parentNode===sec)&&!/^\s*(Sources|Fuentes)/.test((d.querySelector('summary')||{}).textContent||'');});
+    var items=[].slice.call(sec.querySelectorAll(':scope > details, :scope > div > details')).filter(function(d){return (d.parentNode===sec||d.parentNode.parentNode===sec)&&!/^\s*(Sources|Fuentes|资料来源|来源)/.test((d.querySelector('summary')||{}).textContent||'');});
     if(items.length<=5||sec.querySelector('.faqmore'))return;
     var extra=items.slice(5);extra.forEach(function(d){d.hidden=true;});
     var b=document.createElement('button');b.type='button';b.className='faqmore';
-    var lab=function(open){return open?(es?'Menos preguntas':'Fewer questions'):(es?'Más preguntas ('+extra.length+')':'More questions ('+extra.length+')');};
+    var zh=/^zh/.test(document.documentElement.lang);var lab=function(open){return open?(es?'Menos preguntas':zh?'收起问题':'Fewer questions'):(es?'Más preguntas ('+extra.length+')':zh?'更多问题（'+extra.length+'）':'More questions ('+extra.length+')');};
     b.textContent=lab(false);b.setAttribute('aria-expanded','false');
     extra[extra.length-1].insertAdjacentElement('afterend',b);
     b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')!=='true';extra.forEach(function(d){d.hidden=!o;});b.setAttribute('aria-expanded',String(o));b.textContent=lab(o);});
@@ -99,9 +99,10 @@ window.BM_SIGNUP={action:"",field:"email"};
   var C=window.BM_SIGNUP||{},ft=document.querySelector('footer');if(!C.action||!ft||document.querySelector('.signup'))return;
   var es=document.documentElement.lang==='es';
   var L=es?{h:'Avísame cuando cambien las reglas',p:'Un correo cuando cambien SNAP, los créditos tributarios o los beneficios de Oregon y Washington. Sin spam; cancele cuando quiera.',ph:'Su correo electrónico',b:'Suscribirme',ok:'¡Listo! Revise su correo para confirmar.'}
+    :/^zh/.test(document.documentElement.lang)?{h:'规则变化时通知我',p:'SNAP、税收抵免或俄勒冈州和华盛顿州福利有变化时，我们发一封简短邮件。没有垃圾邮件，随时可退订。',ph:'您的电子邮箱',b:'订阅',ok:'完成！请查收邮件确认。'}
     :{h:'Get an email when the rules change',p:'One short email when SNAP, tax credits or Oregon and Washington benefits change. No spam; unsubscribe anytime.',ph:'Your email address',b:'Sign me up',ok:'Done! Check your inbox to confirm.'};
   var s=document.createElement('section');s.className='signup';s.setAttribute('aria-labelledby','su-h');
-  s.innerHTML='<div><h2 id="su-h">'+L.h+'</h2><p>'+L.p+' <a href="privacy.html">'+(es?'Privacidad':'Privacy')+'</a></p></div>'+
+  s.innerHTML='<div><h2 id="su-h">'+L.h+'</h2><p>'+L.p+' <a href="privacy.html">'+(es?'Privacidad':/^zh/.test(document.documentElement.lang)?'隐私政策':'Privacy')+'</a></p></div>'+
     '<form method="post" target="_blank"><label class="vh" for="su-e">'+L.ph+'</label><input id="su-e" type="email" required autocomplete="email" placeholder="'+L.ph+'"><button type="submit">'+L.b+'</button></form><p class="su-ok" hidden>'+L.ok+'</p>';
   var f=s.querySelector('form'),i=s.querySelector('input');f.action=C.action;i.name=C.field||'email';
   f.addEventListener('submit',function(){setTimeout(function(){f.hidden=true;s.querySelector('.su-ok').hidden=false;},50);});
@@ -113,8 +114,8 @@ window.BM_SIGNUP={action:"",field:"email"};
    After adding or editing a page, rebuild it: python3 scripts/build-search-index.py */
 (function(){
   var bar=document.querySelector('.site .site-r'),theme=bar&&bar.querySelector('.themebtn');if(!bar)return;
-  var d=document,es=d.documentElement.lang==='es';
-  var L=es?{btn:'Buscar',ph:'Buscar calculadoras y guías',none:'Sin resultados. Pruebe otra palabra, como "SNAP" o "reembolso".',hint:'Escriba una palabra, como SNAP, EITC o desempleo.',close:'Cerrar'}
+  var d=document,es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
+  var L=zh?{btn:'搜索',ph:'搜索计算器和指南',none:'没有结果。请换个词试试，比如“SNAP”或“退税”。',hint:'输入一个词，比如 SNAP、退税或 EITC。',close:'关闭'}:es?{btn:'Buscar',ph:'Buscar calculadoras y guías',none:'Sin resultados. Pruebe otra palabra, como "SNAP" o "reembolso".',hint:'Escriba una palabra, como SNAP, EITC o desempleo.',close:'Cerrar'}
     :{btn:'Search',ph:'Search calculators and guides',none:'No matches. Try another word, like "SNAP" or "refund".',hint:'Type a word, like SNAP, refund, EITC or unemployment.',close:'Close'};
   var b=d.createElement('button');b.type='button';b.className='themebtn searchbtn';b.setAttribute('aria-label',L.btn);b.title=L.btn+' (/)';
   b.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.3" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M15.3 15.3 20.5 20.5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
@@ -123,8 +124,9 @@ window.BM_SIGNUP={action:"",field:"email"};
   /* other words people use for the same thing */
   var SYN={'food stamps':'snap','food stamp':'snap','ebt':'snap','cupones':'snap','estampillas':'snap','disability':'ssi ssdi','medicaid':'ohp apple health','obamacare':'marketplace','aca':'marketplace',
     'earned income':'eitc','ctc':'child tax credit','pfml':'paid leave','fmla':'paid leave','maternity':'paid leave','layoff':'unemployment','laid off':'unemployment','jobless':'unemployment','desempleo':'unemployment',
-    'take home':'paycheck','salary':'paycheck','wages':'paycheck','refund':'refund reembolso','reembolso':'refund reembolso','social security':'ssi ssdi retirement cola','veteran':'va','daycare':'child care','gratuity':'tips','propinas':'tips'};
-  var norm=function(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9$%]+/g,' ').trim();};
+    'take home':'paycheck','salary':'paycheck','wages':'paycheck','refund':'refund reembolso','reembolso':'refund reembolso','social security':'ssi ssdi retirement cola','veteran':'va','daycare':'child care','gratuity':'tips','propinas':'tips',
+    '粮食券':'snap','食品券':'snap','食物券':'snap','退税':'refund','儿童':'child tax credit','失业':'unemployment','医疗':'ohp apple health','残疾':'ssi ssdi'};
+  var norm=function(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9$%\u3400-\u9fff]+/g,' ').trim();};
   var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
   var STOP=' a an and the of for to in on my i is it how what do does can with or de la el los las en y por para mi que como ';
   function load(cb){if(window.BM_SEARCH)return cb();if(loading)return;loading=1;var s=d.createElement('script');s.src='assets/search-index.js';s.onload=function(){(window.BM_SEARCH||[]).forEach(function(p){p.nt=norm(p.t);p.nh=norm(p.h);p.nd=norm(p.d);p.nb=norm(p.b);});cb();};s.onerror=function(){loading=0;};d.head.appendChild(s);}
@@ -142,7 +144,7 @@ window.BM_SIGNUP={action:"",field:"email"};
       if(!sc)return null;
       if(hit===typed.length)sc+=10;           /* every typed word found */
       if(p.nt.indexOf(norm(q))>-1)sc+=10;      /* whole phrase in the title */
-      if(p.l===(es?'es':'en'))sc+=3;
+      if(p.l===(es?'es':zh?'zh':'en'))sc+=3;
       if(/calculat|calculadora/.test(p.nt))sc+=3;  /* calculators first on a tie */
       return {p:p,s:sc,w:words,all:hit===typed.length};
     }).filter(Boolean);
