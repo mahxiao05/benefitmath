@@ -42,7 +42,7 @@
 .perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
 
 /* ---- one place for the rules-checked date ---- */
-html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 14, 2026"}
+html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 15, 2026"}
 /* ---- top links on phones ---- */
 @media (max-width:800px){
   .site{flex-wrap:wrap!important}
@@ -115,7 +115,7 @@ details.alsochk>summary span{font-size:13px;color:var(--muted)}
 .signup button:focus-visible,.signup input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .signup .su-ok{grid-column:1/-1;font-weight:600}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-html[lang="es"] .summary::before{content:"✓ Reglas revisadas 14 oct 2026"}
+html[lang="es"] .summary::before{content:"✓ Reglas revisadas 15 oct 2026"}
 /* ---- site search ---- */
 .searchbtn svg{display:block}
 @media (max-width:800px){.site .searchbtn{order:1;margin-left:auto}.site .searchbtn~.themebtn{margin-left:0}}

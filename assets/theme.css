@@ -19,7 +19,7 @@
 .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--accent)}
 .tabs button[aria-selected="true"] small{color:var(--muted);opacity:1}
 .summary{border-top:3px solid var(--ink)}
-.summary::before{content:"✓ Rules checked Oct 14, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
+.summary::before{content:"✓ Rules checked Oct 15, 2026";font:500 10.5px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--accent);border:1px solid currentColor;border-radius:4px;padding:2px 7px;align-self:flex-start}
 .tot b{color:var(--ink)}
 details.math{background:var(--sunk)}
 .mathin td{border-bottom:1px dashed var(--rule)}
