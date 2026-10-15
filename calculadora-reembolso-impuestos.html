@@ -53,6 +53,7 @@
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <div class="filebox" data-filebox></div>
   <aside class="ad-slot rect" aria-label="Publicidad"><span class="ad-label">Publicidad</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
@@ -75,6 +76,7 @@
 </footer>
 </div>
 <script src="assets/tax2026.js"></script>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -144,6 +146,12 @@ function run(){
     p:["Oregon cobra impuesto sobre los ingresos en su propia declaración y tiene su propio crédito por ingreso del trabajo y crédito por hijos. Washington no tiene impuesto sobre los ingresos, pero quienes reciben el EITC pueden solicitar el crédito Working Families.",
       `Calcule el suyo (en inglés): <a href="state-credits.html?st-or=1&fed=${e.cr}">crédito de Oregon</a> · <a href="state-credits.html?st-wa=1&fs=${fs==="mfj"?"j":"s"}&kids=${Math.min(kids+older,3)}&inc=${Math.round(agi)}&eitc=${e.cr>0?1:0}">crédito de Washington</a>`]});
   $("cards").innerHTML=out;
+  const paid=wh+refundable;
+  BMChart.bar($("chart"),!paid?null:refund?{title:"De dónde viene su reembolso",scope:`${m0(paid)} retenido y en créditos · 2026`,fmt:m0,
+    parts:[{name:"Impuesto retenido",value:wh,color:"var(--c2)"},{name:"Reembolso del crédito por hijos",value:c.actc,color:"var(--c1)"},{name:"Crédito por ingreso del trabajo",value:e.cr,color:"var(--c3)"}],
+    note:owed>0?`Menos ${m0(owed)} de impuesto después de créditos, le quedan ${m0(net)} de reembolso.`:null}
+    :{title:"Por qué debe",scope:`${m0(owed)} impuesto después de créditos · 2026`,fmt:m0,
+    parts:[{name:"Pagado con retención y créditos",value:paid,color:"var(--c6)"},{name:"Pendiente al declarar",value:-net,color:"var(--c3)",main:true}]});
 }
 wire("bm-refund-es",run);
 })();

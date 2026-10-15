@@ -53,6 +53,7 @@
 </form>
 <div class="results">
   <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="chart"></div>
   <div id="cards" class="results"></div>
   <div class="filebox" data-filebox></div>
   <aside class="ad-slot rect" aria-label="Advertisement"><span class="ad-label">Advertisement</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
@@ -75,6 +76,7 @@
 </footer>
 </div>
 <script src="assets/tax2026.js"></script>
+<script src="assets/charts.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
@@ -141,6 +143,12 @@ function run(){
     p:["Oregon taxes income on its own return and adds its own earned income credit and kids credit. Washington has no income tax, but people who get the EITC can apply for the Working Families credit.",
       `Estimate yours: <a href="state-credits.html?st-or=1&fed=${e.cr}">Oregon credit</a> · <a href="state-credits.html?st-wa=1&fs=${fs==="mfj"?"j":"s"}&kids=${Math.min(kids+older,3)}&inc=${Math.round(agi)}&eitc=${e.cr>0?1:0}">Washington credit</a> · <a href="kicker.html">Oregon kicker</a>`]});
   $("cards").innerHTML=out;
+  const paid=wh+refundable;
+  BMChart.bar($("chart"),!paid?null:refund?{title:"Where your refund comes from",scope:`${m0(paid)} withheld and credited · 2026`,fmt:m0,
+    parts:[{name:"Tax withheld",value:wh,color:"var(--c2)"},{name:"Child tax credit refund",value:c.actc,color:"var(--c1)"},{name:"Earned Income Tax Credit",value:e.cr,color:"var(--c3)"}],
+    note:owed>0?`Minus ${m0(owed)} tax after credits, which leaves your ${m0(net)} refund.`:null}
+    :{title:"Why you owe",scope:`${m0(owed)} tax after credits · 2026`,fmt:m0,
+    parts:[{name:"Paid through withholding and credits",value:paid,color:"var(--c6)"},{name:"Still due when you file",value:-net,color:"var(--c3)",main:true}]});
 }
 wire("bm-refund",run);
 })();
