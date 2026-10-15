@@ -136,3 +136,20 @@ html.srch-open{overflow:hidden}
 .srch-r a.sel,.srch-r a:hover,.srch-r a:focus-visible{background:var(--sunk);outline:none}
 .srch-r a.sel b,.srch-r a:hover b{color:var(--accent)}
 .sr-hint{padding:14px 12px;font-size:14px;color:var(--muted)}
+/* ---- form fields read as text, not code; monospace stays for result numbers ---- */
+input[type=number],select{font-family:var(--f-body);font-variant-numeric:tabular-nums}
+.money::before{font-family:var(--f-body)}
+/* ---- small links next to the federal/state badge (En español, In English) ---- */
+.sb-d a{color:var(--accent);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.sb-d a:hover{text-decoration-thickness:2px}
+/* ---- phones: one-row header; the quick links live in the Calculators menu ---- */
+@media (max-width:800px){
+  .site{flex-wrap:nowrap!important;gap:6px}
+  .site .navlinks{display:none!important}
+  .site .brand{min-width:0;white-space:nowrap}
+  .site .navbtn{padding:8px 12px}
+}
+@media (max-width:380px){
+  .site .searchbtn,.site .themebtn{width:36px;height:36px}
+  .site .navbtn{padding:7px 10px;font-size:13.5px;min-height:36px}
+}
