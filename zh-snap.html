@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SNAP食品补助计算器：俄勒冈州和华盛顿州 2026 | BenefitMath</title>
+<meta name="description" content="能领多少SNAP食品补助？免费计算器，适用于俄勒冈州和华盛顿州，含2026年收入上限、每月估算金额和到账日期。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+.figlist td:first-child{color:var(--muted)}
+.callout{background:var(--info-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.callout b{color:var(--info)}
+.warnbox{background:var(--warn-soft);border-radius:var(--r);padding:12px 14px;font-size:14px}
+.qrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:420px){.qrow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.scopebox a,.prose a,.card a,.panel a{color:var(--accent)}
+</style>
+
+<script>try{var t=localStorage.getItem("bm-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="assets/theme.css">
+<style>:lang(zh){--f-body:"Public Sans","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif}</style>
+<link rel="canonical" href="https://benefitmath.com/zh-snap.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%231d6b57%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Georgia,serif%22 font-style=%22italic%22%3E%CE%A3%3C/text%3E%3C/svg%3E">
+<meta name="google-adsense-account" content="ca-pub-7867146450299069">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7867146450299069" crossorigin="anonymous"></script>
+<style>
+#sources .srcdrop{border:1px solid var(--line);border-radius:var(--r,10px);background:var(--surface)}
+#sources .srcdrop>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;font:600 16px var(--f-display,inherit);color:var(--ink)}
+#sources .srcdrop>summary::-webkit-details-marker{display:none}
+#sources .srcdrop>summary small{font:500 12.5px var(--f-body,inherit);color:var(--muted);display:block;margin-top:2px}
+#sources .srcdrop>summary::after{content:"";width:9px;height:9px;flex:none;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-right:4px}
+#sources .srcdrop[open]>summary::after{transform:rotate(-135deg)}
+#sources .srcdrop>.srcin{padding:0 16px 12px}
+#sources{padding:0!important;border:0!important;background:none!important;box-shadow:none!important}
+</style>
+<style>
+.snapk{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}
+.snapk span{font:600 11px var(--f-mono);letter-spacing:.07em;text-transform:uppercase;border-radius:999px;padding:4px 10px;background:var(--surface);color:var(--accent);border:1px solid var(--accent)}
+.snapk span.new{background:var(--accent);color:var(--accent-ink)}
+.snapjump{display:flex;gap:8px;overflow-x:auto;padding:14px 0 2px;scrollbar-width:none}
+.snapjump::-webkit-scrollbar{display:none}
+.snapjump a{flex:none;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap}
+.snapjump a:hover{border-color:var(--accent);color:var(--accent)}
+#limits,#arrive,#stretch{scroll-margin-top:16px;border-top:3px solid var(--accent)}
+.arr{display:flex;flex-direction:column;gap:12px;max-width:620px}
+.arr .seg{max-width:320px}
+.digits{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.digits input{position:absolute;opacity:0;pointer-events:none}
+.digits label{text-align:center;padding:10px 0;font:600 15px var(--f-mono);cursor:pointer;background:var(--sunk);color:var(--muted);border-left:1px solid var(--line)}
+.digits label:first-of-type{border-left:0}
+.digits input:checked+label{background:var(--accent);color:var(--accent-ink)}
+.digits input:focus-visible+label{outline:2px solid var(--accent);outline-offset:-3px}
+.arr-out{background:var(--accent-soft);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.arr-out b{font:600 24px var(--f-display);color:var(--ink)}
+.arr-out span{font-size:14.5px;color:var(--ink)}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.perk{background:var(--sunk);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.perk b{font:600 16px var(--f-display);color:var(--ink)}
+.perk span{font-size:14px;color:var(--muted)}
+.perk a,.perkmore a{color:var(--accent);font-weight:600}
+.perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
+@media (min-width:900px){.perks{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+<link rel="alternate" hreflang="en" href="https://benefitmath.com/snap.html"><link rel="alternate" hreflang="es" href="https://benefitmath.com/calculadora-snap.html"><link rel="alternate" hreflang="zh-Hans" href="https://benefitmath.com/zh-snap.html"><link rel="alternate" hreflang="x-default" href="https://benefitmath.com/snap.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "BenefitMath", "item": "https://benefitmath.com/"}, {"@type": "ListItem", "position": 2, "name": "SNAP食品补助计算器：俄勒冈州和华盛顿州", "item": "https://benefitmath.com/zh-snap.html"}]}, {"@type": "WebApplication", "name": "SNAP食品补助计算器：俄勒冈州和华盛顿州", "url": "https://benefitmath.com/zh-snap.html", "description": "能领多少SNAP食品补助？免费计算器，适用于俄勒冈州和华盛顿州，含2026年收入上限、每月估算金额和到账日期。", "inLanguage": "zh-Hans", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "publisher": {"@id": "https://benefitmath.com/#org"}, "dateModified": "2026-10-12"}, {"@type": "Organization", "@id": "https://benefitmath.com/#org", "name": "BenefitMath", "url": "https://benefitmath.com/", "email": "info@benefitmath.com"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "我能领多少SNAP？", "acceptedAnswer": {"@type": "Answer", "text": "先算出您家每月的总收入。减去工作收入的20%、一笔标准扣除额（1到3人家庭为$217），以及托儿费用。再把房租和您所在州的水电费标准额加起来。超过剩余收入一半的部分可以算作住房扣除额，最多$769（家里有60岁以上或残障成员时不设上限）。SNAP假定您会把剩下收入的30%用在食物上。您能领的金额 = 您家人数对应的最高金额 − 这30%。"}}, {"@type": "Question", "name": "俄勒冈州SNAP的收入上限是多少？", "acceptedAnswer": {"@type": "Answer", "text": "对大多数家庭来说，税前月收入要低于：1人$2,660，2人$3,607，3人$4,554，4人$5,500，每多1人加$947。这些上限适用于2026年3月到2027年2月。"}}, {"@type": "Question", "name": "华盛顿州食品补助的收入上限是多少？", "acceptedAnswer": {"@type": "Answer", "text": "华盛顿州的基本食品计划（Basic Food）使用同样的贫困线200%上限：1人每月$2,660，2人$3,607，3人约$4,553，4人$5,500。"}}, {"@type": "Question", "name": "有资产（存款）上限吗？", "acceptedAnswer": {"@type": "Answer", "text": "在两个州，收入低于上限的大多数家庭都没有资产上限。如果收入超过上限，但家里有人60岁以上或有残障，只要净收入低于贫困线的100%、资产低于$4,750，仍然可以符合资格。"}}, {"@type": "Question", "name": "SNAP算的是税前还是税后工资？", "acceptedAnswer": {"@type": "Answer", "text": "税前。SNAP用的是税前总收入，然后减去工作收入的20%，用来抵扣税款和工作开支。"}}, {"@type": "Question", "name": "领SNAP必须工作吗？", "acceptedAnswer": {"@type": "Answer", "text": "大多数18到64岁的成年人需要登记找工作。家里没有14岁以下孩子的成年人，3年内可能只能领3个月SNAP，除非每周工作或参加培训至少20小时，或者符合豁免条件（例如有影响工作的残障）。"}}, {"@type": "Question", "name": "怎么申请？", "acceptedAnswer": {"@type": "Answer", "text": "俄勒冈州：通过ONE Oregon在网上申请，或拨打800-699-9075。华盛顿州：在Washington Connection申请，或拨打877-501-2233。两个州都需要面谈，通常是电话面谈，可以要求免费口译员。"}}, {"@type": "Question", "name": "领SNAP会影响我的其他福利吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。SNAP不算作报税、SSI或Medicaid的收入。领SNAP还可能让您符合其他补助的资格，比如学校免费餐和电话、网络优惠。"}}]}]}</script>
+<meta property="og:title" content="SNAP食品补助计算器：俄勒冈州和华盛顿州 2026 | BenefitMath"><meta property="og:description" content="能领多少SNAP食品补助？免费计算器，适用于俄勒冈州和华盛顿州，含2026年收入上限、每月估算金额和到账日期。"><meta property="og:type" content="website"><meta property="og:url" content="https://benefitmath.com/zh-snap.html"><meta property="og:site_name" content="BenefitMath"><meta property="og:image" content="https://benefitmath.com/assets/og/zh-snap.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="zh_CN"><meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/site.css">
+<style>html[lang="zh-Hans"] .sample::before{content:"示例 · "}html[lang="zh-Hans"] .summary::before{content:"✓ 规则核对日期：2026年10月14日"}@media print{html[lang="zh-Hans"] .results::after{content:"估算来自benefitmath.com，不是官方决定：只有政府机构才能决定。"}}</style>
+</head><body>
+<div class="wrap">
+<div class="site">
+  <a class="brand" href="./"><i>Σ</i>BenefitMath</a>
+  <div class="site-r">
+    <nav class="navlinks" aria-label="网站"><a class="qk" href="zh-snap.html" aria-current="page">SNAP</a><a class="qk" href="benefits.html">残障福利</a><a class="qk" href="zh-eitc.html">税收抵免</a><a class="qk" href="guides.html">指南</a><a class="xt" href="how-we-check.html">我们如何核对</a></nav>
+    <button type="button" class="themebtn" aria-label="切换到深色模式" title="浅色或深色模式"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.3 8.3 0 0 1 9.4 4a8.3 8.3 0 1 0 10.6 10.6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="navbtn" aria-expanded="false" aria-controls="sitenav">计算器<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="mega" id="sitenav" role="navigation" aria-label="所有计算器"><div class="mleg">圆点表示规则由谁制定：<span class="sb sb-fed">联邦</span><span class="sb sb-state">俄勒冈州和华盛顿州</span><span class="sb sb-both">联邦 + 州</span></div><div class="mcols"><div class="mcol"><h3 class="mtitle">食物、医疗和家庭</h3><div class="ngroup"><a href="zh-snap.html" class="j-both" aria-current="page"><span class="jn">SNAP食品补助</span><small>您能领多少</small></a><a href="ebt-deposit-schedule.html" class="j-state"><span class="jn">EBT到账日期</span><small>每月SNAP什么时候到</small></a><a href="health-coverage.html" class="j-both"><span class="jn">医疗保险</span><small>OHP、Apple Health、保险市场</small></a><a href="family-help.html" class="j-both"><span class="jn">现金、WIC和能源补助</span><small>TANF、WIC、水电账单</small></a><a href="child-care.html" class="j-state"><span class="jn">托儿补助</span><small>ERDC、Working Connections</small></a></div></div><div class="mcol"><h3 class="mtitle">残障和退休</h3><div class="ngroup"><a href="benefits.html" class="j-both"><span class="jn">残障福利</span><small>SSI、SSDI、Medicaid、住房</small></a><a href="ssi-ssdi-work.html" class="j-fed"><span class="jn">领SSI或SSDI时工作</span><small>您能赚多少</small></a><a href="benefits.html#va" class="j-fed"><span class="jn">退伍军人（VA）福利</span><small>评级、补偿金、退休金</small></a><a href="retirement.html" class="j-fed"><span class="jn">社会安全退休金</span><small>什么时候开始领</small></a><a href="cola.html" class="j-fed"><span class="jn">2027年生活费调整（COLA）</span><small>您的支票涨多少</small></a><a href="wa-cares.html" class="j-state"><span class="jn">WA Cares</span><small>长期护理福利</small></a></div></div><div class="mcol"><h3 class="mtitle">工作和工资</h3><div class="ngroup"><a href="paycheck.html" class="j-both"><span class="jn">到手工资</span><small>每项扣款都讲清楚</small></a><a href="or-vs-wa.html" class="j-state"><span class="jn">俄勒冈州 vs. 华盛顿州</span><small>住一个州，在另一个州工作</small></a><a href="unemployment.html" class="j-state"><span class="jn">失业救济</span><small>您每周能领多少</small></a><a href="paid-leave.html" class="j-state"><span class="jn">带薪假</span><small>Paid Leave Oregon、WA PFML</small></a></div></div><div class="mcol"><h3 class="mtitle">税和退税</h3><div class="ngroup"><a href="zh-tax-refund.html" class="j-fed"><span class="jn">退税</span><small>退税或欠税金额</small></a><a href="zh-eitc.html" class="j-fed"><span class="jn">劳动所得税收抵免</span><small>EITC</small></a><a href="zh-child-tax-credit.html" class="j-fed"><span class="jn">儿童税收抵免</span><small>每个孩子的抵免</small></a><a href="state-credits.html" class="j-state"><span class="jn">州税收抵免</span><small>华盛顿州Working Families、俄勒冈州</small></a><a href="kicker.html" class="j-state"><span class="jn">俄勒冈州kicker退税</span><small>报税时的盈余抵免</small></a><a href="tips.html" class="j-fed"><span class="jn">小费免税</span><small>您能省多少税</small></a><a href="overtime.html" class="j-fed"><span class="jn">加班费免税</span><small>您能省多少税</small></a><a href="senior-deduction.html" class="j-fed"><span class="jn">老年人扣除额</span><small>65岁以上，最多$6,000</small></a></div></div></div><div class="mega-foot"><a class="mstart" href="./#screener"><b>不知道从哪里开始？</b><span>回答6个简单问题（英文），看看您可能符合哪些福利 →</span></a><div class="mlinks"><a href="./">所有计算器</a><a href="guides.html">指南</a><a href="changes.html">更新内容</a><a href="how-we-check.html">我们如何核对</a><a href="about.html">关于我们</a><a href="contact.html">联系我们</a></div></div></div>
+</div>
+<header class="top" id="top"><p class="pscope"><span class="sb sb-both">联邦 + 州</span><span class="sb-d">联邦项目，各州有自己的规则 · <a href="snap.html" hreflang="en" lang="en">English</a> · <a href="calculadora-snap.html" hreflang="es" lang="es">Español</a></span></p>
+  <h1>SNAP食品补助计算器：俄勒冈州和华盛顿州</h1>
+  <p class="lede">您能领多少食品补助（SNAP，俗称“粮食券”）？估算您在俄勒冈州或华盛顿州基本食品计划（Basic Food）每月能领多少，并查看您家庭适用的2026年收入上限。</p>
+  <p class="snapk"><span class="new">已按2026年10月1日新规则更新</span><span>免费</span><span>保护隐私：数据不会离开您的设备</span></p>
+  <nav class="snapjump" aria-label="本页内容"><a href="#calculator">您的估算</a><a href="#limits">收入上限</a><a href="#arrive">什么时候到账</a><a href="#stretch">让SNAP更划算</a><a href="#faq">常见问题</a></nav>
+</header>
+<section class="grid" id="calculator">
+<form class="panel" id="f" novalidate>
+<fieldset><legend>您的家庭</legend>
+<div class="seg" role="radiogroup" aria-label="州"><input type="radio" name="st" id="st-or" value="OR" checked><label for="st-or">俄勒冈州</label><input type="radio" name="st" id="st-wa" value="WA"><label for="st-wa">华盛顿州</label></div>
+<div class="field"><label for="hh">一起买食物、做饭的人数</label><select id="hh"><option value="1">1人</option><option value="2">2人</option><option value="3" selected>3人</option><option value="4">4人</option><option value="5">5人</option><option value="6">6人</option><option value="7">7人</option><option value="8">8人</option><option value="9">9人</option><option value="10">10人</option></select></div>
+<label class="check"><input type="checkbox" id="ed"><span>家里有人60岁或以上，或有残障</span></label>
+</fieldset>
+<fieldset><legend>每月收入（税前）</legend>
+<div class="field"><label for="earn">工作收入</label><div class="money"><input type="number" id="earn" inputmode="decimal" min="0" step="any" value="2400"></div></div>
+<div class="field"><label for="unearn">其他收入</label><div class="money"><input type="number" id="unearn" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">社会安全金（Social Security）、SSI、失业救济金、您收到的子女抚养费等。</span></div>
+</fieldset>
+<fieldset><legend>每月开支</legend>
+<div class="field"><label for="rent">房租或房贷</label><div class="money"><input type="number" id="rent" inputmode="decimal" min="0" step="any" value="1300"></div><span class="hint">如果房子是您自己的，请把房产税和房屋保险也算进去。</span></div>
+<div class="field"><label for="util">您付的水电等费用</label><select id="util"><option value="heat" selected>暖气或冷气（任何燃料）</option><option value="two">两项或以上，但没有暖气（如电、水、垃圾）</option><option value="one">只有一项，不是暖气或电话（如水费）</option><option value="phone">只有电话</option><option value="none">没有，全部包含在房租里</option></select></div>
+<div class="field"><label for="care">为了工作或上学付的孩子或家人照顾费用</label><div class="money"><input type="number" id="care" inputmode="decimal" min="0" step="any" value="0"></div></div>
+<div class="field" id="w-med" hidden><label for="med">60岁以上或残障家人自付的医疗费用</label><div class="money"><input type="number" id="med" inputmode="decimal" min="0" step="any" value="0"></div></div>
+<div class="field" id="w-res" hidden><label for="res">存款和其他计入的资产</label><div class="money"><input type="number" id="res" inputmode="decimal" min="0" step="any" value="0"></div><span class="hint">只有收入超过一般上限时才需要填。</span></div>
+</fieldset>
+<p class="sample">已经填好示例数字，请换成您自己的。</p>
+<div class="btns"><button type="button" id="reset">恢复示例</button><button type="button" id="clearall">全部清空</button></div>
+</form>
+<div class="results">
+  <div class="summary" id="sum" aria-live="polite"></div>
+  <div id="cards" class="results"></div>
+  <div id="chart"></div>
+  <aside class="ad-slot rect" aria-label="广告"><span class="ad-label">广告</span><div class="ad-box" data-ad-slot="infeed"></div></aside>
+  <div id="cards2" class="results"></div>
+</div>
+</section>
+<aside class="ad-slot" aria-label="广告"><span class="ad-label">广告</span><div class="ad-box" data-ad-slot="mid"></div></aside>
+<section class="prose" id="limits"><h2>俄勒冈州和华盛顿州的SNAP收入上限（2026年）</h2>
+<p>两个州的每月上限相同：税前收入低于联邦贫困线的大约200%。SNAP的最高金额已在2026年10月1日上调。</p>
+<div class="tbl"><table><tr><th style="text-align:left">家庭人数</th><th style="text-align:right">每月收入上限</th><th style="text-align:right">SNAP最高金额</th></tr>
+<tr><td>1人</td><td>$2,660</td><td>$306</td></tr><tr><td>2人</td><td>$3,607</td><td>$562</td></tr><tr><td>3人</td><td>$4,554</td><td>$808</td></tr><tr><td>4人</td><td>$5,500</td><td>$1,023</td></tr>
+<tr><td>5人</td><td>$6,447</td><td>$1,217</td></tr><tr><td>6人</td><td>$7,394</td><td>$1,463</td></tr><tr><td>7人</td><td>$8,340</td><td>$1,616</td></tr><tr><td>8人</td><td>$9,287</td><td>$1,841</td></tr>
+<tr><td>每多1人</td><td>+$947</td><td>+$225</td></tr></table></div>
+<p>收入低于上限不代表能领到最高金额：收入越高，能领的越少。即使收入超过上限，家里有60岁以上或残障成员的家庭也可能符合资格。详细说明请看<a href="guide-snap-income-limits-or-wa.html">SNAP收入上限指南（英文）</a>。</p>
+</section>
+<section class="prose" id="arrive"><h2>我的SNAP什么时候到账？</h2>
+<div class="arr" id="arr">
+<div class="seg" role="radiogroup" aria-label="州"><input type="radio" name="ast" id="ast-or" value="OR" checked><label for="ast-or">俄勒冈州</label><input type="radio" name="ast" id="ast-wa" value="WA"><label for="ast-wa">华盛顿州</label></div>
+<div class="field" id="a-dig"><label for="adig">户主社会安全号码（SSN）的最后一位数字</label><div class="digits" role="radiogroup" aria-label="最后一位数字"><input type="radio" name="adg" id="adg0" value="0"><label for="adg0">0</label><input type="radio" name="adg" id="adg1" value="1"><label for="adg1">1</label><input type="radio" name="adg" id="adg2" value="2"><label for="adg2">2</label><input type="radio" name="adg" id="adg3" value="3"><label for="adg3">3</label><input type="radio" name="adg" id="adg4" value="4"><label for="adg4">4</label><input type="radio" name="adg" id="adg5" value="5"><label for="adg5">5</label><input type="radio" name="adg" id="adg6" value="6"><label for="adg6">6</label><input type="radio" name="adg" id="adg7" value="7" checked><label for="adg7">7</label><input type="radio" name="adg" id="adg8" value="8"><label for="adg8">8</label><input type="radio" name="adg" id="adg9" value="9"><label for="adg9">9</label></div></div>
+<div class="arr-out" id="arrout" aria-live="polite"></div>
+</div>
+<p class="hint" style="margin-top:10px">第一个月，以及续期后的那个月，到账日期可能不一样。您的批准信上有具体日期。在<a href="ebt-deposit-schedule.html">EBT到账日期</a>页面可以查看接下来三次的日期。</p>
+</section>
+<section class="prose" id="stretch"><h2>让SNAP更划算</h2>
+<div class="perks" id="perks"></div>
+</section>
+<section class="prose related" data-rel><h2>相关内容</h2><div class="rel"><a href="ebt-deposit-schedule.html"><b>EBT到账日期</b><span>接下来三次的到账日期。</span></a><a href="zh-eitc.html"><b>劳动所得税收抵免</b><span>收入低于SNAP上限的工作家庭通常也能领。</span></a><a href="benefits.html"><b>残障福利</b><span>SSI、SSDI和Medicaid，也包括SNAP。</span></a></div></section>
+<section class="prose faq" id="faq"><h2>常见问题</h2>
+<details id="how"><summary>我能领多少SNAP？</summary><div><ol>
+<li>先算出您家每月的总收入。减去工作收入的20%、一笔标准扣除额（1到3人家庭为$217），以及托儿费用。</li>
+<li>把房租和您所在州的水电费标准额加起来。超过剩余收入一半的部分算作住房扣除额，最多$769（家里有60岁以上或残障成员时不设上限）。</li>
+<li>SNAP假定您会把剩下收入的30%用在食物上。您能领的金额 = 您家人数对应的最高金额 − 这30%。</li></ol></div></details>
+<details><summary>俄勒冈州SNAP的收入上限是多少？</summary><p>对大多数家庭来说，税前月收入要低于：1人$2,660，2人$3,607，3人$4,554，4人$5,500，每多1人加$947。这些上限适用于2026年3月到2027年2月。</p></details>
+<details><summary>华盛顿州食品补助的收入上限是多少？</summary><p>华盛顿州的基本食品计划（Basic Food）使用同样的贫困线200%上限：1人每月$2,660，2人$3,607，3人约$4,553，4人$5,500。</p></details>
+<details><summary>有资产（存款）上限吗？</summary><p>在两个州，收入低于上限的大多数家庭都没有资产上限。如果收入超过上限，但家里有人60岁以上或有残障，只要净收入低于贫困线的100%、资产低于$4,750，仍然可以符合资格。</p></details>
+<details><summary>SNAP算的是税前还是税后工资？</summary><p>税前。SNAP用的是税前总收入，然后减去工作收入的20%，用来抵扣税款和工作开支。</p></details>
+<details><summary>领SNAP必须工作吗？</summary><p>大多数18到64岁的成年人需要登记找工作。家里没有14岁以下孩子的成年人，3年内可能只能领3个月SNAP，除非每周工作或参加培训至少20小时，或者符合豁免条件（例如有影响工作的残障）。</p></details>
+<details><summary>怎么申请？</summary><p>俄勒冈州：通过<a href="https://one.oregon.gov/" target="_blank" rel="noopener">ONE Oregon</a>在网上申请，或拨打800-699-9075。华盛顿州：在<a href="https://www.washingtonconnection.org/" target="_blank" rel="noopener">Washington Connection</a>申请，或拨打877-501-2233。两个州都需要面谈，通常是电话面谈，可以要求免费口译员。</p></details>
+<details><summary>领SNAP会影响我的其他福利吗？</summary><p>不会。SNAP不算作报税、SSI或Medicaid的收入。领SNAP还可能让您符合其他补助的资格，比如学校免费餐和电话、网络优惠。</p></details>
+</section>
+
+<section class="prose" id="sources"><details class="srcdrop"><summary><span>资料来源<small>14个来源 · 2026年10月13日核对</small></span></summary><div class="srcin"><p>本页每个数字都来自下面的某个来源。点任何一个<a class="cite" href="#sources" style="pointer-events:none">来源</a>标签，就能看到它的内容。全部在2026年10月13日核对过。</p><ul class="srclist"><li><a href="https://www.usda.gov/sites/default/files/guidance-documents/fna.snap-cola2027.pdf" target="_blank" rel="noopener">SNAP cost-of-living adjustments for fiscal year 2027</a><span class="s-o">美国农业部（USDA）</span><span class="s-n">从2026年10月1日起：最高补助从1人$306到8人$1,841（每多1人加$225），净收入上限为贫困线的100%，标准扣除额$217到$308，住房扣除上限$769，1到2人家庭最低$25，有老人或残障成员的家庭资产上限$4,750。</span></li><li><a href="https://www.oregon.gov/odhs/food/pages/snap.aspx" target="_blank" rel="noopener">SNAP food benefits</a><span class="s-o">俄勒冈州公众服务部（ODHS）</span><span class="s-n">每月收入上限从1人$2,660到8人$9,287（每多1人加$947），适用于2026年3月到2027年2月。可以通过ONE在网上申请、在benefits.oregon.gov申请，或拨打800-699-9075。</span></li><li><a href="https://ch461rules.odhs.oregon.gov/rules/461-135-0505.pdf" target="_blank" rel="noopener">OAR 461-135-0505: SNAP categorical eligibility</a><span class="s-o">俄勒冈州行政法规（OAR）</span><span class="s-n">可计入收入低于联邦贫困线200%的家庭，按收入就符合资格，不用做一般的资产审查。</span></li><li><a href="https://ch461rules.odhs.oregon.gov/rules/461-160-0420.pdf" target="_blank" rel="noopener">OAR 461-160-0420: Utility allowances</a><span class="s-o">俄勒冈州行政法规（OAR）</span><span class="s-n">从2026年10月1日起：付暖气或冷气费为$533，有限标准额$418，单项费用$67，电话$84。</span></li><li><a href="https://ch461rules.odhs.oregon.gov/rules/461-165-0100.pdf" target="_blank" rel="noopener">OAR 461-165-0100: When benefits are available</a><span class="s-o">俄勒冈州行政法规（OAR）</span><span class="s-n">SNAP补助在与户主社会安全号码最后一位数字相同的日子到账；没有社会安全号码的在1日到账。认证期的第一个月和第七个月可能不同。</span></li><li><a href="https://211info.org/agency/19068/14666" target="_blank" rel="noopener">When do I receive my SNAP benefits?</a><span class="s-o">211info</span><span class="s-n">最后一位是0或1：1日到账。2到9：分别在2日到9日到账。</span></li><li><a href="https://www.doubleuporegon.org/" target="_blank" rel="noopener">Double Up Food Bucks</a><span class="s-o">Double Up Food Bucks Oregon</span><span class="s-n">在俄勒冈州参与的农贸市场、农场摊位、社区农业（CSA）和超市，用SNAP买新鲜蔬果，可以得到同样金额的补贴。</span></li><li><a href="https://apps.oregon.gov/oregon-newsroom/OR/ODHS/Posts/Post/summer-ebt-is-back-to-help-feed-oregon-children-during-summer-break" target="_blank" rel="noopener">Summer EBT is back (May 28, 2026)</a><span class="s-o">俄勒冈州公众服务部（ODHS）</span><span class="s-n">每个孩子$120的暑期伙食费。在学年期间领SNAP的家庭，6到18岁的孩子自动获得。</span></li><li><a href="https://www.dshs.wa.gov/esa/community-services-offices/basic-food" target="_blank" rel="noopener">Basic Food</a><span class="s-o">华盛顿州社会与健康服务部（DSHS）</span><span class="s-n">可以在washingtonconnection.org申请、拨打877-501-2233，或去社区服务办公室（Community Services Office）。必须面谈。家里没有14岁以下孩子的18到64岁成年人，36个月内可能只能领3个月，除非符合工作规定或豁免条件。</span></li><li><a href="https://app.leg.wa.gov/wac/default.aspx?cite=388-414-0001" target="_blank" rel="noopener">WAC 388-414-0001: Categorical eligibility for Basic Food</a><span class="s-o">华盛顿州行政法规（WAC）</span><span class="s-n">可计入收入等于或低于联邦贫困线200%的家庭，自动按收入符合资格。</span></li><li><a href="https://kingcounty.gov/en/dept/dph/health-safety/health-centers-programs-services/access-outreach-program/basic-food-program" target="_blank" rel="noopener">Basic Food program income limits</a><span class="s-o">西雅图和金县公共卫生局</span><span class="s-n">每月上限为联邦贫困线的200%：1人$2,660，2人$3,607，3人$4,553，4人$5,500。</span></li><li><a href="https://dshs.wa.gov/sites/default/files/2026-10/103E-26-20-060.pdf" target="_blank" rel="noopener">WSR 26-20-060: Basic Food amounts, October 1, 2026</a><span class="s-o">华盛顿州社会与健康服务部（DSHS）</span><span class="s-n">从2026年10月1日起的水电费标准额：暖气或冷气$533，有限标准额$420，电话$60。</span></li><li><a href="https://app.leg.wa.gov/wac/default.aspx?cite=388-412-0020" target="_blank" rel="noopener">WAC 388-412-0020: When you get benefits</a><span class="s-o">华盛顿州行政法规（WAC）</span><span class="s-n">基本食品计划的补助在每月20日前发放。具体日期在批准时确定，写在您的批准信上。</span></li><li><a href="https://doh.wa.gov/you-and-your-family/nutrition-and-physical-activity/healthy-eating/snap-match-programs/snap-market-match" target="_blank" rel="noopener">SNAP Market Match</a><span class="s-o">华盛顿州卫生部（DOH）</span><span class="s-n">100多个农贸市场和农场摊位会按您用SNAP买新鲜蔬果的金额给同等补贴，从2026年1月1日起每天$10或更多。领SUN Bucks的家庭也可以用。</span></li></ul></div></details></section>
+<footer>
+  <div class="links site-links"><a href="./">所有计算器</a><a href="guides.html">指南</a><a href="about.html">关于我们</a><a href="privacy.html">隐私政策</a><a href="terms.html">使用条款</a><a href="contact.html">联系我们</a><a href="changes.html">更新内容</a><a href="how-we-check.html">我们如何核对</a></div>
+  <p>这是一个独立的免费计算器网站，与任何政府机构都没有关系。结果只是估算，不是官方决定；只有政府机构才能决定您是否符合资格。</p>
+  <p style="font-size:12px;opacity:.7;margin-top:6px">© 2026 X Ventures LLC</p>
+</footer>
+</div>
+<script>window.BM_SOURCES={"usda": {"o": "美国农业部（USDA）", "t": "SNAP cost-of-living adjustments for fiscal year 2027", "u": "https://www.usda.gov/sites/default/files/guidance-documents/fna.snap-cola2027.pdf", "n": "从2026年10月1日起：最高补助从1人$306到8人$1,841（每多1人加$225），净收入上限为贫困线的100%，标准扣除额$217到$308，住房扣除上限$769，1到2人家庭最低$25，有老人或残障成员的家庭资产上限$4,750。", "d": "2026年10月13日"}, "or-snap": {"o": "俄勒冈州公众服务部（ODHS）", "t": "SNAP food benefits", "u": "https://www.oregon.gov/odhs/food/pages/snap.aspx", "n": "每月收入上限从1人$2,660到8人$9,287（每多1人加$947），适用于2026年3月到2027年2月。可以通过ONE在网上申请、在benefits.oregon.gov申请，或拨打800-699-9075。", "d": "2026年10月13日"}, "or-ce": {"o": "俄勒冈州行政法规（OAR）", "t": "OAR 461-135-0505: SNAP categorical eligibility", "u": "https://ch461rules.odhs.oregon.gov/rules/461-135-0505.pdf", "n": "可计入收入低于联邦贫困线200%的家庭，按收入就符合资格，不用做一般的资产审查。", "d": "2026年10月13日"}, "or-util": {"o": "俄勒冈州行政法规（OAR）", "t": "OAR 461-160-0420: Utility allowances", "u": "https://ch461rules.odhs.oregon.gov/rules/461-160-0420.pdf", "n": "从2026年10月1日起：付暖气或冷气费为$533，有限标准额$418，单项费用$67，电话$84。", "d": "2026年10月13日"}, "wa-bf": {"o": "华盛顿州社会与健康服务部（DSHS）", "t": "Basic Food", "u": "https://www.dshs.wa.gov/esa/community-services-offices/basic-food", "n": "可以在washingtonconnection.org申请、拨打877-501-2233，或去社区服务办公室（Community Services Office）。必须面谈。家里没有14岁以下孩子的18到64岁成年人，36个月内可能只能领3个月，除非符合工作规定或豁免条件。", "d": "2026年10月13日"}, "wa-ce": {"o": "华盛顿州行政法规（WAC）", "t": "WAC 388-414-0001: Categorical eligibility for Basic Food", "u": "https://app.leg.wa.gov/wac/default.aspx?cite=388-414-0001", "n": "可计入收入等于或低于联邦贫困线200%的家庭，自动按收入符合资格。", "d": "2026年10月13日"}, "wa-kc": {"o": "西雅图和金县公共卫生局", "t": "Basic Food program income limits", "u": "https://kingcounty.gov/en/dept/dph/health-safety/health-centers-programs-services/access-outreach-program/basic-food-program", "n": "每月上限为联邦贫困线的200%：1人$2,660，2人$3,607，3人$4,553，4人$5,500。", "d": "2026年10月13日"}, "wa-util": {"o": "华盛顿州社会与健康服务部（DSHS）", "t": "WSR 26-20-060: Basic Food amounts, October 1, 2026", "u": "https://dshs.wa.gov/sites/default/files/2026-10/103E-26-20-060.pdf", "n": "从2026年10月1日起的水电费标准额：暖气或冷气$533，有限标准额$420，电话$60。", "d": "2026年10月13日"}, "or-issue": {"o": "俄勒冈州行政法规（OAR）", "t": "OAR 461-165-0100: When benefits are available", "u": "https://ch461rules.odhs.oregon.gov/rules/461-165-0100.pdf", "n": "SNAP补助在与户主社会安全号码最后一位数字相同的日子到账；没有社会安全号码的在1日到账。认证期的第一个月和第七个月可能不同。", "d": "2026年10月13日"}, "or-211": {"o": "211info", "t": "When do I receive my SNAP benefits?", "u": "https://211info.org/agency/19068/14666", "n": "最后一位是0或1：1日到账。2到9：分别在2日到9日到账。", "d": "2026年10月13日"}, "wa-issue": {"o": "华盛顿州行政法规（WAC）", "t": "WAC 388-412-0020: When you get benefits", "u": "https://app.leg.wa.gov/wac/default.aspx?cite=388-412-0020", "n": "基本食品计划的补助在每月20日前发放。具体日期在批准时确定，写在您的批准信上。", "d": "2026年10月13日"}, "wa-mm": {"o": "华盛顿州卫生部（DOH）", "t": "SNAP Market Match", "u": "https://doh.wa.gov/you-and-your-family/nutrition-and-physical-activity/healthy-eating/snap-match-programs/snap-market-match", "n": "100多个农贸市场和农场摊位会按您用SNAP买新鲜蔬果的金额给同等补贴，从2026年1月1日起每天$10或更多。领SUN Bucks的家庭也可以用。", "d": "2026年10月13日"}, "or-du": {"o": "Double Up Food Bucks Oregon", "t": "Double Up Food Bucks", "u": "https://www.doubleuporegon.org/", "n": "在俄勒冈州参与的农贸市场、农场摊位、社区农业（CSA）和超市，用SNAP买新鲜蔬果，可以得到同样金额的补贴。", "d": "2026年10月13日"}, "or-sebt": {"o": "俄勒冈州公众服务部（ODHS）", "t": "Summer EBT is back (May 28, 2026)", "u": "https://apps.oregon.gov/oregon-newsroom/OR/ODHS/Posts/Post/summer-ebt-is-back-to-help-feed-oregon-children-during-summer-break", "n": "每个孩子$120的暑期伙食费。在学年期间领SNAP的家庭，6到18岁的孩子自动获得。", "d": "2026年10月13日"}};</script>
+<script src="assets/charts.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const num=id=>{const el=$(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/[$,\s]/g,""));return isFinite(v)&&v>0?v:0;};
+const m0=n=>(n<0?"−":"")+"$"+Math.round(Math.abs(n)).toLocaleString("en-US");
+const m2=n=>(n<0?"−":"")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function tbl(rows){return `<div class="tbl"><table>${rows.map(r=>`<tr${r[2]?` class="${r[2]}"`:""}><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table></div>`;}
+function card(o){
+  return `<article class="card st-${o.st||"info"}"><div class="head"><div><h3>${o.t}</h3>${o.scope?`<div class="scope">${o.scope}</div>`:""}</div>${o.amt!=null?`<div class="amt">${o.amt}<small>${o.al||""}</small></div>`:""}</div>`+
+  `<div class="body">${o.chip?`<span class="chip ${o.st||"info"}">${o.chip}</span>`:""}${(o.p||[]).map(x=>`<p>${x}</p>`).join("")}</div>`+
+  (o.rows?`<details class="math"${o.open?" open":""}><summary>查看计算过程</summary><div class="mathin">${tbl(o.rows)}${o.notes&&o.notes.length?`<ul class="notes">${o.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`:""}</div></details>`:"")+`</article>`;
+}
+function tot(items){return `<div class="totals">${items.map(i=>`<div class="tot"><b>${i[0]}</b><span>${i[1]}</span></div>`).join("")}</div>`;}
+function wire(key,run){
+  const f=$("f"),els=[...f.querySelectorAll("input,select")];
+  try{const o=JSON.parse(localStorage.getItem(key)||"null");if(o)els.forEach(e=>{
+    if(e.type==="radio"){if(("r:"+e.name) in o)e.checked=o["r:"+e.name]===e.value;}
+    else if(e.id in o){if(e.type==="checkbox")e.checked=!!o[e.id];else e.value=o[e.id];}
+  });}catch(e){}
+  const save=()=>{try{const o={};els.forEach(e=>{if(e.type==="checkbox")o[e.id]=e.checked;else if(e.type==="radio"){if(e.checked)o["r:"+e.name]=e.value;}else o[e.id]=e.value;});localStorage.setItem(key,JSON.stringify(o));}catch(e){}};
+  const go=()=>{save();run();};
+  f.addEventListener("input",go);f.addEventListener("change",go);f.addEventListener("submit",e=>e.preventDefault());
+  const note=f.querySelector(".sample");const r=$("reset");if(r)r.addEventListener("click",()=>{try{localStorage.removeItem(key);}catch(e){}HTMLFormElement.prototype.reset.call(f);if(note)note.hidden=false;setTimeout(()=>{f.dispatchEvent(new Event("change"));try{localStorage.removeItem(key);}catch(e){}},0);});const c=$("clearall");if(c)c.addEventListener("click",()=>{els.forEach(e=>{if(e.type==="checkbox")e.checked=false;else if(e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="hidden")e.value="";});if(note)note.hidden=true;go();const first=els.find(e=>e.tagName==="INPUT"&&e.type!=="radio"&&e.type!=="checkbox"&&e.offsetParent);if(first)first.focus();});
+  run();
+}
+
+const C=(k,l)=>`<a class="cite" data-cite="${k}" href="${(window.BM_SOURCES[k]||{}).u||"#sources"}" target="_blank" rel="noopener" aria-expanded="false">${l}</a>`;
+const R={MAX:[306,562,808,1023,1217,1463,1616,1841],MAX_ADD:225,STD:[217,217,217,229,268,308],
+  NET:[1330,1804,2277,2750,3224,3697,4170,4644],NET_ADD:474,
+  LIM:[2660,3607,4554,5500,6447,7394,8340,9287],LIM_ADD:947,
+  CAP:769,MIN:25,ED_ASSET:4750,MED_FLOOR:35,
+  UTIL:{OR:{heat:533,two:418,one:67,phone:84,none:0},WA:{heat:533,two:420,one:0,phone:60,none:0}}};
+const byHH=(arr,add,n)=>n<=arr.length?arr[n-1]:arr[arr.length-1]+add*(n-arr.length);
+function snap(p){
+  const n=p.hh,gross=p.earn+p.unearn,lim=byHH(R.LIM,R.LIM_ADD,n),netLim=byHH(R.NET,R.NET_ADD,n),maxA=byHH(R.MAX,R.MAX_ADD,n);
+  const std=R.STD[Math.min(n,6)-1],earnDed=0.2*p.earn,medDed=p.ed?Math.max(0,p.med-R.MED_FLOOR):0;
+  const adj=Math.max(0,gross-earnDed-std-medDed-p.care);
+  const ua=R.UTIL[p.st][p.util],shelter=p.rent+ua,half=adj/2,raw=Math.max(0,shelter-half);
+  const excess=p.ed?raw:Math.min(raw,R.CAP),net=Math.max(0,adj-excess),thirty=Math.ceil(0.3*net);
+  let ben=Math.max(0,maxA-thirty),path,elig;
+  if(gross<lim){elig=true;path="under";}
+  else if(p.ed&&net<=netLim&&p.res<=R.ED_ASSET){elig=true;path="ed";}
+  else{elig=false;path="over";}
+  if(elig&&n<=2&&ben<R.MIN&&net<=netLim)ben=R.MIN;
+  if(!elig)ben=0;
+  return {n,gross,lim,netLim,maxA,std,earnDed,medDed,adj,ua,shelter,half,raw,excess,net,thirty,ben,elig,path,capped:!p.ed&&raw>R.CAP};
+}
+window.BM_SNAP={snap,R};
+const UN={heat:"暖气或冷气费用标准额",two:"有限水电费标准额",one:"单项水电费标准额",phone:"电话费标准额",none:"无水电费标准额"};
+const ppl=n=>n+"人";
+function run(){
+  const st=$("st-wa").checked?"WA":"OR",ed=$("ed").checked;
+  $("w-med").hidden=!ed;$("w-res").hidden=!ed;
+  const p={st,ed,hh:+$("hh").value,earn:num("earn"),unearn:num("unearn"),rent:num("rent"),util:$("util").value,care:num("care"),med:ed?num("med"):0,res:ed?num("res"):0};
+  const r=snap(p),SN=st==="OR"?"俄勒冈州":"华盛顿州",prog=st==="WA"?"基本食品计划（SNAP）":"SNAP";
+  const lead=!r.elig?`您的收入${m0(r.gross)}超过了${SN}${ppl(r.n)}家庭每月${m0(r.lim)}的上限${ed?"，而且您的净收入或资产也超过了有60岁以上或残障成员家庭的上限":""}。`:
+    r.ben>0?`${ppl(r.n)}家庭最多可领${m0(r.maxA)}。补助每月存入EBT卡${st==="OR"?"（Oregon Trail卡）":"（Washington Quest卡）"}。`:
+    "您符合收入上限，但按这个收入算出来是$0。如果房租、水电费或托儿费用更高，结果可能会不同。";
+  $("sum").innerHTML=`<h2>您估算的${prog}</h2>`+tot([[m0(r.ben),"每月"],[m0(r.ben*12),"每年"],[m0(r.lim),"每月收入上限"]])+`<p>${lead}</p>`;
+  const rows=[["税前收入",m2(r.gross)],[`− 工作收入的20% ${C("usda","USDA")}`,"−"+m2(r.earnDed)],[`− ${ppl(r.n)}家庭的标准扣除额 ${C("usda","USDA")}`,"−"+m0(r.std)]];
+  if(ed)rows.push([`− 超过$35的医疗费用 ${C("usda","USDA")}`,"−"+m0(r.medDed)]);
+  if(p.care)rows.push(["− 孩子或家人照顾费用","−"+m0(p.care)]);
+  rows.push(["= 调整后收入",m2(r.adj),"total"],["房租或房贷",m0(p.rent)],[`+ ${SN}${UN[p.util]} ${C(st==="OR"?"or-util":"wa-util",st==="OR"?"OAR":"DSHS")}`,m0(r.ua)],
+    ["− 调整后收入的一半","−"+m2(r.half)],[ed?"= 住房扣除额（家里有60岁以上或残障成员，不设上限）":`= 住房扣除额${r.capped?"（上限$769）":""}`,m2(r.excess),"total"],
+    ["净收入（调整后收入 − 住房扣除额）",m2(r.net)],["净收入的30%（向上取整）",m0(r.thirty)],[`${ppl(r.n)}家庭的最高金额 ${C("usda","USDA")}`,m0(r.maxA)],["= 您估算的SNAP",m0(r.ben),"total"]);
+  const pathTxt=r.path==="under"?`您的收入低于${m0(r.lim)}（约为贫困线的200%），所以按收入就符合资格，不用审查资产 ${C(st==="OR"?"or-ce":"wa-ce",st==="OR"?"OAR":"WAC")}。`:
+    r.path==="ed"?`您的收入超过${m0(r.lim)}，但家里有60岁以上或残障成员，只要净收入低于${m0(r.netLim)}、资产低于${m0(R.ED_ASSET)}就可以 ${C("usda","USDA")}。`:
+    `要符合资格，每月收入需要低于${m0(r.lim)}${ed?`，或者净收入低于${m0(r.netLim)}且资产低于${m0(R.ED_ASSET)}`:""}。`;
+  $("cards").innerHTML=card({t:`您的${prog}是怎么算的`,scope:`${SN} · 2026年10月1日起`,amt:m0(r.ben),al:"每月",st:r.elig?(r.ben>0?"good":"warn"):"no",
+    chip:r.elig?(r.path==="ed"?"符合60岁以上或残障的规则":"低于收入上限"):"超过收入上限",p:[pathTxt],rows,open:true,
+    notes:["SNAP不把网费算作水电费。",r.n<=2?"符合资格的1人或2人家庭，每月至少能领$25。":"您必须支付的子女抚养费，也可以降低计入的收入。",
+      "这只是估算。州政府会在面谈时根据您的材料计算实际金额。"]});
+  if(window.BMChart){
+    const top=Math.max(r.lim*1.15,r.gross*1.15),step=Math.max(25,Math.round(top/120/25)*25),xs=[];for(let x=0;x<=top;x+=step)xs.push(x);
+    const share=r.gross>0?p.earn/r.gross:1;
+    const ys=xs.map(x=>snap(Object.assign({},p,{earn:x*share,unearn:x*(1-share)})).ben);
+    BMChart.curve($("chart"),{title:"SNAP随收入怎么变化",scope:`${SN} · ${ppl(r.n)} · 您的开支保持不变`,
+      xs,series:[{name:prog,color:"var(--c2)",ys}],marks:[{x:r.lim,label:"收入上限"}],you:{x:r.gross,y:r.ben,label:"您"},
+      xFmt:v=>BMChart.short(v),alt:`${SN}${ppl(r.n)}家庭的SNAP金额，按每月收入从$0到${m0(top)}计算。收入到${m0(r.lim)}时补助停止。`,
+      readout:i=>`收入 <b>${m0(xs[i])}</b>/月 → ${prog} <b>${m0(ys[i])}</b>/月`,
+      note:"收入每多1美元，SNAP大约少24到45美分，所以多工作还是更划算，直到超过收入上限。"});
+  }
+  const also=[];
+  if(p.earn>0)also.push(`<a href="zh-eitc.html">劳动所得税收抵免（EITC）</a>：收入低于SNAP上限的工作家庭通常也符合资格，可能有几千美元。`);
+  also.push(`<a href="family-help.html">WIC</a>：如果家里有人怀孕或有5岁以下的孩子，可以多领食物补助。`);
+  also.push(`<a href="health-coverage.html">${st==="OR"?"俄勒冈健康计划（OHP）":"Apple Health"}</a>：很多领SNAP的家庭可以免费获得医疗保险。`);
+  if(p.care>0)also.push(`<a href="child-care.html">托儿补助</a>：${st==="OR"?"ERDC":"Working Connections"}可以减少您的托儿费用。`);
+  $("cards2").innerHTML=card({t:"您可能还符合这些补助",scope:"适合像您这样家庭的其他补助",st:"info",p:["<ul class=\"notes\" style=\"color:var(--ink);font-size:14.5px\">"+also.map(x=>`<li>${x}</li>`).join("")+"</ul>"]})+
+    card({t:"如何申请",scope:SN,st:"info",p:[st==="OR"?`通过<a href="https://one.oregon.gov/" target="_blank" rel="noopener">ONE Oregon</a>在网上申请，拨打800-699-9075，或去当地办公室 ${C("or-snap","ODHS")}。`:
+      `在<a href="https://www.washingtonconnection.org/" target="_blank" rel="noopener">Washington Connection</a>申请，拨打877-501-2233，或去社区服务办公室（Community Services Office） ${C("wa-bf","DSHS")}。`,"您需要做一个简短的面谈，通常是电话面谈，可以要求免费口译员。补助从您申请那天开始算。"]});
+}
+wire("bm-snap",run);
+(function(){
+  const out=$("arrout"),dig=$("a-dig");
+  const ord=d=>d+(d===1?"st":d===2?"nd":d===3?"rd":"th");
+  function arr(){
+    const wa=$("ast-wa").checked;dig.hidden=wa;
+    if(wa){out.innerHTML=`<b>每月20日前</b><span>华盛顿州把基本食品计划（Basic Food）的补助分散在每月前20天发放。您的日期在批准时确定，写在您的批准信上 ${C("wa-issue","WAC")}。</span>`;}
+    else{const el=document.querySelector('input[name=adg]:checked'),d=el?+el.value:7,day=d<=1?1:d;
+      out.innerHTML=`<b>每月${day}日</b><span>俄勒冈州会在与户主社会安全号码最后一位数字相同的那天，把SNAP存入您的Oregon Trail卡${d===0?"（尾数0在1日到账）":""} ${C("or-issue","OAR")} ${C("or-211","211info")}。</span>`;}
+  }
+  $("arr").addEventListener("change",arr);arr();
+  function perks(){
+    const wa=$("st-wa").checked;
+    const P=wa?[
+      ["买蔬果的钱翻倍",`SNAP Market Match：100多个农贸市场和农场摊位，会按您买新鲜蔬果花的钱给同等补贴，每天$10或更多 ${C("wa-mm","DOH")}。`],
+      ["孩子的暑期伙食","SUN Bucks给有学龄孩子的家庭发暑期额外伙食费，存入EBT卡，领SNAP的家庭自动获得。"]]:[
+      ["买蔬果的钱翻倍",`Double Up Food Bucks：在参与的农贸市场、农场摊位和超市，用SNAP买新鲜蔬果可以得到同等补贴 ${C("or-du","Double Up")}。`],
+      ["孩子的暑期伙食",`Summer EBT每个孩子发$120暑期伙食费，领SNAP家庭中6到18岁的孩子自动获得 ${C("or-sebt","ODHS")}。`]];
+    P.push(["学校免费餐","领SNAP家庭的孩子可以在学校免费吃早餐和午餐，通常不用另外填表。"],
+           ["电话和网络优惠","有SNAP就符合Lifeline资格，每月可以减免电话或网络费用。"]);
+    $("perks").innerHTML=P.map(([t,d])=>`<div class="perk"><b>${t}</b><span>${d}</span></div>`).join("")+
+      `<p class="perkmore">领SNAP的家庭通常还能领更多补助：看看<a href="family-help.html">WIC</a>、<a href="zh-eitc.html">EITC</a>和<a href="health-coverage.html">医疗保险</a>。</p>`;
+  }
+  document.getElementById("f").addEventListener("change",perks);perks();
+  const syncArr=()=>{const wa=$("st-wa").checked;$(wa?"ast-wa":"ast-or").checked=true;arr();};
+  document.getElementById("f").addEventListener("change",syncArr);syncArr();
+})();
+})();
+</script>
+<script src="assets/cite.js"></script>
+<script src="assets/site.js"></script>
+<div class="mbar" id="mbar" role="region" aria-label="您的估算">
+  <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
+  <button type="button">查看详情</button>
+</div>
+<script>
+(function(){
+  var PAIRS=[{"f": "#f", "s": "#sum", "i": -1}];
+  var bar=document.getElementById('mbar');if(!bar)return;
+  document.body.classList.add('has-mbar');
+  var lv=bar.querySelector('.mb-l'),vv=bar.querySelector('.mb-v'),go=bar.querySelector('button'),pend=false;
+  function active(){for(var i=0;i<PAIRS.length;i++){var f=document.querySelector(PAIRS[i].f);if(f&&f.offsetParent!==null)return PAIRS[i];}return PAIRS[0];}
+  function update(){
+    pend=false;
+    var p=active(),s=document.querySelector(p.s),f=document.querySelector(p.f);
+    var tots=s?s.querySelectorAll('.tot'):[],t=tots.length?tots[p.i<0?tots.length+p.i:p.i]:null;
+    if(t){
+      var b=t.querySelector('b'),sp=t.querySelector('span'),nv=b?b.textContent:'';
+      if(vv.textContent!==nv){if(vv.textContent){bar.classList.remove('bump');void bar.offsetWidth;bar.classList.add('bump');}vv.textContent=nv;}
+      lv.textContent=sp?sp.textContent:'';
+    }
+    var vh=window.innerHeight,fr=f?f.getBoundingClientRect():null,sr=s?s.getBoundingClientRect():null;
+    var inForm=fr&&fr.top<vh*0.75&&fr.bottom>vh*0.25;
+    var sumVis=sr&&sr.top<vh-40&&sr.bottom>60;
+    bar.classList.toggle('show',!!(t&&inForm&&!sumVis));
+  }
+  function q(){if(!pend){pend=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',q,{passive:true});window.addEventListener('resize',q);
+  document.addEventListener('input',q);document.addEventListener('change',q);document.addEventListener('click',function(){setTimeout(q,0);});
+  PAIRS.forEach(function(p){var s=document.querySelector(p.s);if(s&&window.MutationObserver)new MutationObserver(q).observe(s,{childList:true,subtree:true,characterData:true});});
+  go.addEventListener('click',function(){
+    var s=document.querySelector(active().s);if(!s)return;
+    var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    s.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+    if(!s.hasAttribute('tabindex'))s.setAttribute('tabindex','-1');
+    try{s.focus({preventScroll:true});}catch(e){}
+  });
+  update();
+})();
+</script>
+<script>(function(){function o(){if(location.hash==="#sources"){var d=document.querySelector("#sources details");if(d)d.open=true;}}o();window.addEventListener("hashchange",o);document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href="#sources"]');if(a){var d=document.querySelector("#sources details");if(d)d.open=true;}});})();</script>
+<script src="assets/ads.js"></script>
+</body></html>
