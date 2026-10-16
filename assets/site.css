@@ -153,3 +153,9 @@ input[type=number],select{font-family:var(--f-body);font-variant-numeric:tabular
   .site .searchbtn,.site .themebtn{width:36px;height:36px}
   .site .navbtn{padding:7px 10px;font-size:13.5px;min-height:36px}
 }
+.crumbs{margin:-6px 0 14px;font-size:13px;color:var(--muted)}
+.crumbs ol{display:flex;list-style:none;margin:0;padding:0}
+.crumbs li{flex:none;white-space:nowrap}
+.crumbs li+li::before{content:"›";margin:0 7px;color:var(--muted)}
+.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--ink);text-decoration:underline}
+.crumbs li[aria-current]{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
