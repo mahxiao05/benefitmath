@@ -122,3 +122,17 @@ a.cite:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   footer details summary,.faq summary,details.math summary,details.about summary{min-height:44px;display:flex;align-items:center}
   .crumbs a{display:inline-flex;align-items:center;min-height:32px}
 }
+/* smoother pages: gentle scrolling, and boxes that slide open instead of jumping */
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  :root{interpolate-size:allow-keywords}
+  details::details-content{height:0;overflow:clip;transition:height .25s ease,content-visibility .25s allow-discrete}
+  details[open]::details-content{height:auto}
+  .summary .tot b,.mbar .mb-v{transition:color .2s}
+}
+/* questions: a quiet chevron instead of the browser triangle */
+.faq details>summary{list-style:none;display:flex;align-items:center;gap:12px}
+.faq details>summary::-webkit-details-marker{display:none}
+.faq details>summary::after{content:"";flex:none;margin-left:auto;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg) translate(-2px,-2px);transition:transform .2s,border-color .2s}
+.faq details[open]>summary::after{transform:rotate(-135deg);border-color:var(--accent)}
+.faq details>summary:hover{color:var(--accent)}

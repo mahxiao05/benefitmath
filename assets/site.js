@@ -281,3 +281,43 @@ window.BM_SIGNUP={action:"",field:"email"};
   d.addEventListener('keydown',function(e){var t=e.target,typing=/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable;
     if((e.key==='/'&&!typing)||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();open();}});
 })();
+
+/* ---- calmer results: "Show the math" starts closed, and extra info cards fold into one "More about your result" box ----
+   Nothing is removed. Cards with a dollar amount, the first chart, and "how to apply" / "you may also qualify" cards stay in view. */
+(function(){
+  var d=document;if(!window.MutationObserver||/benefits\.html$/.test(location.pathname))return;
+  [].filter.call(d.querySelectorAll('.results'),function(b){return !b.parentNode.closest('.results');}).forEach(calm);
+  function calm(box){
+  var lg=d.documentElement.lang||'',es=lg==='es',zh=/^zh/.test(lg);
+  var LBL=function(n){return es?'Más sobre su resultado ('+n+')':zh?'关于结果的更多信息（'+n+'）':'More about your result ('+n+')';};
+  var KEEP=/apply|qualify|solicitar|calific|申请|符合/i, opened={}, moreOpen=false, busy=false;
+  var title=function(c){var h=c.querySelector('h3');return h?h.textContent.trim():'';};
+  function tidy(){
+    if(busy)return;busy=true;
+    /* math boxes: closed unless the visitor opened that one */
+    var many=box.querySelectorAll('article.card').length>1;
+    if(many)[].forEach.call(box.querySelectorAll('details.math'),function(m){var c=m.closest('article');var want=!!opened[c?title(c):''];if(m.open!==want)m.open=want;});
+    /* fold extra info cards, per container */
+    var parents=[];[].forEach.call(box.querySelectorAll('article.card'),function(c){var p=c.parentNode;if(p.classList.contains('morein'))p=p.parentNode.parentNode;if(parents.indexOf(p)<0)parents.push(p);});
+    /* pages that already fold their own cards (like the disability page) are left as they are */
+    if([].some.call(box.querySelectorAll('details:not(.morecards):not(.math) article.card'),function(){return true;}))return busy=false;
+    parents.forEach(function(p){
+      if(p.querySelector(':scope > details.morecards'))return;
+      var chart=false,fold=[].filter.call(p.children,function(c){
+        if(c.tagName!=='ARTICLE'||!c.classList.contains('card')||c.querySelector('.amt'))return false;
+        if(KEEP.test(title(c)))return false;
+        if(c.classList.contains('bmc')&&!chart){chart=true;return false;}
+        return true;});
+      if(fold.length<2)return;
+      var det=d.createElement('details');det.className='morecards';det.open=moreOpen;
+      det.innerHTML='<summary>'+LBL(fold.length)+'</summary><div class="morein"></div>';
+      p.insertBefore(det,fold[0]);var inn=det.querySelector('.morein');fold.forEach(function(c){inn.appendChild(c);});
+      det.addEventListener('toggle',function(){moreOpen=det.open;});
+    });
+    busy=false;
+  }
+  box.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('details.math > summary');if(!s)return;var c=s.closest('article');if(c)opened[title(c)]=!s.parentNode.open;});
+  new MutationObserver(function(){if(!busy)tidy();}).observe(box,{childList:true,subtree:true});
+  tidy();
+  }
+})();
