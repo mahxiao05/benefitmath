@@ -75,6 +75,97 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
   window.addEventListener('hashchange',openHash);openHash();
   document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var t=document.getElementById(a.getAttribute('href').slice(1));if(t&&t._open)t._open();});
 })();
+/* ---- shared answers: numbers typed in one calculator fill in the others ----
+   Saved only in this browser (localStorage "bm-profile"). Each page lists which of its fields map to a shared answer.
+   Shared answers: st (or/wa), hh (household size), age, fs (filing status), kids (under 17), k19 (under 19),
+   n65 (people 65+), earnY (yearly pay from work), incM (household income per month).
+   To share a new field, add it to MAP under the page's name. Translated pages use the English page's entry. */
+(function(){
+  var f=document.getElementById('f')||document.getElementById('sf');if(!f)return;
+  var KEY='bm-profile',d=document;
+  var page=(location.pathname.split('/').pop()||'index').replace(/\.html$/,'')||'index';
+  page=({'calculadora-reembolso-impuestos':'tax-refund','zh-tax-refund':'tax-refund','calculadora-eitc':'eitc','zh-eitc':'eitc',
+    'calculadora-credito-por-hijos':'child-tax-credit','zh-child-tax-credit':'child-tax-credit','calculadora-snap':'snap','zh-snap':'snap'})[page]||page;
+  var has=function(v){return v!==undefined&&v!==null&&v!=='';};
+  var num=function(v){return has(v)&&isFinite(+v)?+v:undefined;};
+  var r=Math.round;
+  /* field builders: in(P,val) turns shared answers into this field's value; out(v,val) turns the field's value into shared answers */
+  function N(id,k,o){o=o||{};return {id:id,in:o.in||function(P){return num(P[k]);},out:o.out||function(v){var n=num(v);return n===undefined?null:obj(k,n);}};}
+  function S(id,k,o){o=o||{};return {id:id,in:o.in||function(P){return has(P[k])?String(P[k]):undefined;},out:o.out||function(v){return has(v)?obj(k,v):null;}};}
+  function R(ids,k){return {radio:ids,in:function(P){return P[k];},out:function(v){return v?obj(k,v):null;}};}
+  function obj(k,v){var o={};o[k]=v;return o;}
+  var ST=R({or:'st-or',wa:'st-wa'},'st');
+  var kidsIn=function(P){return num(has(P.kids)?P.kids:P.k19);}, k19In=function(P){return num(has(P.k19)?P.k19:P.kids);};
+  var eitcKids=S('kids','',{in:function(P){var k=k19In(P);return k===undefined?undefined:String(Math.min(3,k));},out:function(){return null;}});
+  var yr=function(id){return N(id,'earnY');};
+  var mo=function(id){return N(id,'earnY',{in:function(P){var n=num(P.earnY);return n===undefined?undefined:r(n/12);},out:function(v){var n=num(v);return n===undefined?null:{earnY:n*12};}});};
+  var MAP={
+    'index':[R({or:'s-or',wa:'s-wa'},'st'),N('s-hh','hh'),N('s-inc','incM'),N('s-age','age'),N('s-kids','k19',{in:k19In})],
+    'tax-refund':[S('fs','fs'),S('n65','n65'),yr('earned'),
+      N('kids','kids',{in:kidsIn,out:function(v,val){var n=num(v);return n===undefined?null:{kids:n,k19:n+(num(val('older'))||0)};}}),
+      N('older','',{in:function(P){var a=num(P.k19),b=kidsIn(P);return a===undefined||b===undefined?undefined:Math.max(0,a-b);},out:function(v,val){var n=num(v);return n===undefined?null:{k19:n+(num(val('kids'))||0)};}})],
+    'eitc':[S('fs','fs'),yr('earned'),eitcKids],
+    'child-tax-credit':[S('fs','fs'),yr('earned'),N('kids','kids',{in:kidsIn})],
+    'overtime':[S('fs','fs'),S('x65','n65')],
+    'tips':[S('fs','fs'),S('x65','n65')],
+    'senior-deduction':[S('fs','fs'),S('n65','n65',{in:function(P){var n=num(P.n65);return n>=1?String(Math.min(2,n)):undefined;}})],
+    'state-credits':[ST,eitcKids,S('fs','fs',{in:function(P){return has(P.fs)?(P.fs==='mfj'?'j':'s'):undefined;},out:function(v){return v==='j'?{fs:'mfj'}:(load().fs==='mfj'?{fs:'single'}:null);}})],
+    'paycheck':[ST,S('fs','fs'),N('gross','earnY',{in:function(P){var n=num(P.earnY),p=num(val('per'));return n===undefined||!p?undefined:r(n/p);},out:function(v){var n=num(v),p=num(val('per'));return n===undefined||!p?null:{earnY:r(n*p)};}})],
+    'or-vs-wa':[S('fs','fs'),yr('sal')],
+    'snap':[ST,S('hh','hh',{in:function(P){var n=num(P.hh);return n===undefined?undefined:String(Math.max(1,Math.min(10,n)));}}),mo('earn')],
+    'benefits':[ST,N('hh','hh'),N('age','age'),mo('earned')],
+    'health-coverage':[ST,N('hh','hh'),N('age','age'),N('inc','incM',{in:function(P){var n=num(P.incM);return n===undefined?undefined:r(n*12);},out:function(v){var n=num(v);return n===undefined?null:{incM:r(n/12)};}})],
+    'child-care':[ST,N('hh','hh'),N('inc','incM')],
+    'family-help':[ST,N('hh','hh'),mo('earn')],
+    'ssi-ssdi-work':[ST,mo('earn')],
+    'unemployment':[ST],
+    'paid-leave':[ST,yr('yr')],
+    'wa-cares':[yr('wages')],
+    'tax-brackets':[S('fs','fs'),S('n65','n65'),yr('inc')],
+    'w4-withholding':[S('fs','fs'),N('kids','kids',{in:kidsIn}),N('gross','earnY',{in:function(P){var n=num(P.earnY),p=num(val('per'));return n===undefined||!p?undefined:r(n/p);},out:function(v){var n=num(v),p=num(val('per'));return n===undefined||!p?null:{earnY:r(n*p)};}})],
+    'self-employment-tax':[S('fs','fs')],
+    'medicare-premiums':[S('fs','fs',{in:function(P){return has(P.fs)?(P.fs==='mfj'||P.fs==='mfs'?P.fs:'ind'):undefined;},out:function(v){return v==='ind'?(/^mf/.test(load().fs||'')?{fs:'single'}:null):{fs:v};}})]
+  }[page];
+  if(!MAP)return;
+  function val(id){var e=d.getElementById(id);return e?e.value:undefined;}
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')||{};}catch(e){return {};}}
+  function store(P){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
+  function el(s){return s.radio?null:d.getElementById(s.id);}
+  function get(s){if(s.radio){for(var k in s.radio){var e=d.getElementById(s.radio[k]);if(e&&e.checked)return k;}return undefined;}var e=el(s);return e?e.value:undefined;}
+  function set(s,v){
+    if(s.radio){var e=d.getElementById(s.radio[v]);if(!e||e.checked)return false;e.checked=true;return true;}
+    var e=el(s);if(!e)return false;v=String(v);
+    if(e.tagName==='SELECT'&&![].some.call(e.options,function(o){return o.value===v;}))return false;
+    if(e.value===v||(num(e.value)!==undefined&&num(v)!==undefined&&Math.abs(num(e.value)-num(v))<1))return false;
+    e.value=v;return true;
+  }
+  /* 1. fill in from shared answers (links with ?field=value, read after this, still win) */
+  var P=load(),before=[],n=0;
+  MAP.forEach(function(s){if(!s.radio&&!el(s))return;var v=s.in(P,val);if(v===undefined)return;var old=get(s);if(set(s,v)){before.push([s,old]);n++;}});
+  if(n){
+    var note=f.querySelector('.sample');if(note)note.hidden=true;
+    f.dispatchEvent(new Event('change',{bubbles:true}));
+    var lg=d.documentElement.lang||'',es=lg==='es',zh=/^zh/.test(lg);
+    var L=es?{t:function(n){return 'Completamos '+n+(n>1?' respuestas':' respuesta')+' con lo que escribió en otras calculadoras.';},s:'Se guarda solo en este dispositivo.',u:'Deshacer'}
+      :zh?{t:function(n){return '已用您在其他计算器中填写的内容填好 '+n+' 项。';},s:'只保存在本设备上。',u:'撤销'}
+      :{t:function(n){return 'We filled in '+n+(n>1?' answers':' answer')+' from your other calculators.';},s:'Saved only on this device.',u:'Undo'};
+    var bar=d.createElement('p');bar.className='prefill';bar.setAttribute('role','status');
+    bar.innerHTML='<span>'+L.t(n)+' <small>'+L.s+'</small></span><button type="button">'+L.u+'</button>';
+    bar.querySelector('button').addEventListener('click',function(){before.forEach(function(b){if(has(b[1]))set(b[0],b[1]);});f.dispatchEvent(new Event('change',{bubbles:true}));bar.remove();});
+    f.insertBefore(bar,f.firstChild);
+  }
+  /* 2. when someone types here, update the shared answers */
+  function onEdit(e){
+    if(!e.target||e.target===f||!e.target.id)return;var id=e.target.id;
+    MAP.forEach(function(s){
+      var mine=s.radio?Object.keys(s.radio).some(function(k){return s.radio[k]===id;}):s.id===id;
+      if(!mine)return;var P=load(),o=s.out(get(s),val);if(!o)return;
+      for(var k in o)P[k]=o[k];store(P);
+    });
+    var b=f.querySelector('.prefill');if(b&&e.type==='change')b.remove();
+  }
+  f.addEventListener('input',onEdit);f.addEventListener('change',onEdit);
+})();
 /* Prefill a calculator from a link another calculator sends, e.g. or-vs-wa.html?sal=52000&fs=mfj.
    Keys are form field ids; checkboxes and radios take 1 or 0. Pages keep their canonical URL, so search engines see one page. */
 (function(){
@@ -189,4 +280,44 @@ window.BM_SIGNUP={action:"",field:"email"};
   b.setAttribute('aria-expanded','false');b.addEventListener('click',open);
   d.addEventListener('keydown',function(e){var t=e.target,typing=/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)||t.isContentEditable;
     if((e.key==='/'&&!typing)||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();open();}});
+})();
+
+/* ---- calmer results: "Show the math" starts closed, and extra info cards fold into one "More about your result" box ----
+   Nothing is removed. Cards with a dollar amount, the first chart, and "how to apply" / "you may also qualify" cards stay in view. */
+(function(){
+  var d=document;if(!window.MutationObserver||/benefits\.html$/.test(location.pathname))return;
+  [].filter.call(d.querySelectorAll('.results'),function(b){return !b.parentNode.closest('.results');}).forEach(calm);
+  function calm(box){
+  var lg=d.documentElement.lang||'',es=lg==='es',zh=/^zh/.test(lg);
+  var LBL=function(n){return es?'Más sobre su resultado ('+n+')':zh?'关于结果的更多信息（'+n+'）':'More about your result ('+n+')';};
+  var KEEP=/apply|qualify|solicitar|calific|申请|符合/i, opened={}, moreOpen=false, busy=false;
+  var title=function(c){var h=c.querySelector('h3');return h?h.textContent.trim():'';};
+  function tidy(){
+    if(busy)return;busy=true;
+    /* math boxes: closed unless the visitor opened that one */
+    var many=box.querySelectorAll('article.card').length>1;
+    if(many)[].forEach.call(box.querySelectorAll('details.math'),function(m){var c=m.closest('article');var want=!!opened[c?title(c):''];if(m.open!==want)m.open=want;});
+    /* fold extra info cards, per container */
+    var parents=[];[].forEach.call(box.querySelectorAll('article.card'),function(c){var p=c.parentNode;if(p.classList.contains('morein'))p=p.parentNode.parentNode;if(parents.indexOf(p)<0)parents.push(p);});
+    /* pages that already fold their own cards (like the disability page) are left as they are */
+    if([].some.call(box.querySelectorAll('details:not(.morecards):not(.math) article.card'),function(){return true;}))return busy=false;
+    parents.forEach(function(p){
+      if(p.querySelector(':scope > details.morecards'))return;
+      var chart=false,fold=[].filter.call(p.children,function(c){
+        if(c.tagName!=='ARTICLE'||!c.classList.contains('card')||c.querySelector('.amt'))return false;
+        if(KEEP.test(title(c)))return false;
+        if(c.classList.contains('bmc')&&!chart){chart=true;return false;}
+        return true;});
+      if(fold.length<2)return;
+      var det=d.createElement('details');det.className='morecards';det.open=moreOpen;
+      det.innerHTML='<summary>'+LBL(fold.length)+'</summary><div class="morein"></div>';
+      p.insertBefore(det,fold[0]);var inn=det.querySelector('.morein');fold.forEach(function(c){inn.appendChild(c);});
+      det.addEventListener('toggle',function(){moreOpen=det.open;});
+    });
+    busy=false;
+  }
+  box.addEventListener('click',function(e){var s=e.target.closest&&e.target.closest('details.math > summary');if(!s)return;var c=s.closest('article');if(c)opened[title(c)]=!s.parentNode.open;});
+  new MutationObserver(function(){if(!busy)tidy();}).observe(box,{childList:true,subtree:true});
+  tidy();
+  }
 })();
