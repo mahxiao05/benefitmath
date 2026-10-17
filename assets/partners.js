@@ -23,6 +23,7 @@ window.BM_PARTNERS=[
     '<a class="fb-item" href="https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free" target="_blank" rel="noopener"><b>'+L.ff+'</b><span>'+L.ffd+'</span><em>'+L.free+'</em></a>'+
     '<a class="fb-item" href="https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers" target="_blank" rel="noopener"><b>'+L.vita+'</b><span>'+L.vitad+'</span><em>'+L.free+'</em></a>';
   P.forEach(function(p){h+='<a class="fb-item paid" href="'+esc(p.url)+'" target="_blank" rel="sponsored noopener"><b>'+esc(p.name)+'</b><span>'+esc(zh?(p.zh||p.en):es?p.es:p.en)+'</span><em>'+L.paid+'</em></a>';});
-  h+='</div><p class="fb-foot"><a href="'+L.guide+'">'+L.more+'</a>'+(P.length?' · '+L.disc:'')+'</p>';
+  var foot=[];if(location.pathname.indexOf(L.guide)<0)foot.push('<a href="'+L.guide+'">'+L.more+'</a>');if(P.length)foot.push(L.disc);
+  h+='</div>'+(foot.length?'<p class="fb-foot">'+foot.join(' · ')+'</p>':'');
   boxes.forEach(function(b){b.innerHTML=h;b.classList.add("on");});
 })();

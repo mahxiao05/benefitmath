@@ -39,3 +39,16 @@
 .glist em{font:600 11px var(--f-mono);font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
 .ghub h2{font-family:var(--f-display);font-size:20px;margin:26px 0 10px}
 .gt table{width:100%}.gt td a{overflow-wrap:anywhere}@media (max-width:560px){.gt table{table-layout:fixed}.gt td:first-child{width:26%}}
+
+/* "Ways to file" box on tax guides (same as calculators) */
+.filebox{display:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.filebox.on{display:block}
+.filebox h3{font:600 17px var(--f-display);margin:0 0 10px;color:var(--ink)}
+.fb-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+.fb-item{position:relative;display:flex;flex-direction:column;gap:3px;padding:12px 14px 12px;background:var(--sunk);border-radius:10px;text-decoration:none;color:var(--ink);border:1px solid transparent}
+.fb-item:hover{border-color:var(--accent)}.fb-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fb-item b{font-size:15px;font-weight:600;padding-right:56px}.fb-item span{font-size:13px;color:var(--muted);line-height:1.4}
+.fb-item em{position:absolute;top:12px;right:12px;font:500 10.5px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;font-style:normal;color:var(--good)}
+.fb-item.paid em{color:var(--muted)}
+.fb-foot{margin:10px 0 0;font-size:12.5px;color:var(--muted)}.fb-foot a{color:var(--accent)}
+.gsec+.filebox,.filebox{margin:0}
