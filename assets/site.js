@@ -120,7 +120,11 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
     'ssi-ssdi-work':[ST,mo('earn')],
     'unemployment':[ST],
     'paid-leave':[ST,yr('yr')],
-    'wa-cares':[yr('wages')]
+    'wa-cares':[yr('wages')],
+    'tax-brackets':[S('fs','fs'),S('n65','n65'),yr('inc')],
+    'w4-withholding':[S('fs','fs'),N('kids','kids',{in:kidsIn}),N('gross','earnY',{in:function(P){var n=num(P.earnY),p=num(val('per'));return n===undefined||!p?undefined:r(n/p);},out:function(v){var n=num(v),p=num(val('per'));return n===undefined||!p?null:{earnY:r(n*p)};}})],
+    'self-employment-tax':[S('fs','fs')],
+    'medicare-premiums':[S('fs','fs',{in:function(P){return has(P.fs)?(P.fs==='mfj'||P.fs==='mfs'?P.fs:'ind'):undefined;},out:function(v){return v==='ind'?(/^mf/.test(load().fs||'')?{fs:'single'}:null):{fs:v};}})]
   }[page];
   if(!MAP)return;
   function val(id){var e=d.getElementById(id);return e?e.value:undefined;}
