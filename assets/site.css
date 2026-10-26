@@ -1,5 +1,5 @@
 /* BenefitMath shared styles: menu, featured layout, ad spots, phone top links, related links. */
-/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px;min-height:90px}.ad-slot.rect ins.adsbygoogle{max-width:336px;min-height:250px}
+/* Ad spots stay hidden until a slot ID is set in BM_ADS (bottom of page), and hide again if Google has no ad to fill them. Until an ad actually arrives the spot takes no space and shows no label, so visitors and reviewers never see empty "Advertisement" boxes. It stays in the layout (not display:none) so Google can still measure its width. */.ad-slot:not(.on){display:none!important}.ad-slot.on:has(ins[data-ad-status="unfilled"]){display:none!important}.ad-slot ins.adsbygoogle{width:100%;max-width:728px}.ad-slot.rect ins.adsbygoogle{max-width:336px}.ad-slot ins[data-ad-status="filled"]{min-height:90px}.ad-slot.rect ins[data-ad-status="filled"]{min-height:250px}.ad-slot.on:not(:has(ins[data-ad-status="filled"])){margin-block:0;gap:0}.ad-slot.on:not(:has(ins[data-ad-status="filled"])) .ad-label{display:none}
 .mega{width:min(1010px,calc(100vw - 32px))}
 @media (min-width:1061px){.mcols{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .mtitle{font:600 15px var(--f-display);color:var(--ink);margin:4px 10px 6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
@@ -42,7 +42,7 @@
 .perkmore{grid-column:1/-1;margin:4px 0 0;font-size:14.5px}
 
 /* ---- one place for the rules-checked date ---- */
-html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 19, 2026"}
+html:not([lang="es"]) .summary::before{content:"✓ Rules checked Oct 26, 2026"}
 /* ---- top links on phones ---- */
 @media (max-width:800px){
   .site{flex-wrap:wrap!important}
@@ -115,7 +115,7 @@ details.alsochk>summary span{font-size:13px;color:var(--muted)}
 .signup button:focus-visible,.signup input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .signup .su-ok{grid-column:1/-1;font-weight:600}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-html[lang="es"] .summary::before{content:"✓ Reglas revisadas 19 oct 2026"}
+html[lang="es"] .summary::before{content:"✓ Reglas revisadas 26 oct 2026"}
 /* ---- site search ---- */
 .searchbtn svg{display:block}
 @media (max-width:800px){.site .searchbtn{order:1;margin-left:auto}.site .searchbtn~.themebtn{margin-left:0}}
