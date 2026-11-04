@@ -141,28 +141,6 @@ details.math>summary{border-radius:0 0 var(--r) var(--r)}
 .prose[style*="background:none"]{box-shadow:none!important}
 @media (max-width:520px){.gstats{display:flex!important;flex-direction:column;gap:8px}.gstat{display:grid!important;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center}.gstat b{font-size:20px!important}}
 
-/* ===== trail touches: original Pacific Northwest drawings in the site's own greens ===== */
-:root{--art-far:#d5e1d6;--art-mid:#a9c6b2;--art-peak:#7ea58d;--art-near:#8fb79d;--art-tree:#17694e;--art-tree2:#2f7d5f;--art-snow:#fffdf8;--art-sun:#f1e2b8;--art-path:#efe6d2;--art-wood:#8a6a45}
-:root[data-theme="dark"]{--art-far:#1f2b24;--art-mid:#26392e;--art-peak:#2f4a3b;--art-near:#2c4436;--art-tree:#5fc49f;--art-tree2:#3f9a78;--art-snow:#d9ddd3;--art-sun:#4a4128;--art-path:#3a3a30;--art-wood:#b08a5e}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--art-far:#1f2b24;--art-mid:#26392e;--art-peak:#2f4a3b;--art-near:#2c4436;--art-tree:#5fc49f;--art-tree2:#3f9a78;--art-snow:#d9ddd3;--art-sun:#4a4128;--art-path:#3a3a30;--art-wood:#b08a5e}}
-.art{display:block;width:100%;height:auto}
-.art .far{fill:var(--art-far)}.art .mid{fill:var(--art-mid)}.art .peak{fill:var(--art-peak)}.art .near{fill:var(--art-near)}
-.art .tree{fill:var(--art-tree)}.art .tree2{fill:var(--art-tree2)}.art .snow{fill:var(--art-snow)}.art .sun{fill:var(--art-sun)}
-.art .path{fill:none;stroke:var(--art-path);stroke-linecap:round}.art .wood{fill:var(--art-wood)}.art .sign{fill:var(--surface);stroke:var(--art-wood);stroke-width:1.5}
-.art .signt{fill:var(--accent);font:700 11px var(--f-body)}
-
-/* homepage: postcard scene on the tax season card */
-.season{padding-top:0!important;overflow:hidden}
-.season .art{margin:0 -20px 2px;width:calc(100% + 40px);max-width:none}
-/* footer ridge on every page */
-.ridge{display:block;width:calc(100% + 32px);margin:48px -16px -1px;height:56px}
-.ridge+footer{margin-top:0!important;border-top:0!important;padding-top:20px}
-/* guides: small trailhead drawing beside the title */
-header.has-art{display:grid;grid-template-columns:minmax(0,1fr) 230px;column-gap:28px;align-items:end}
-header.has-art>*{grid-column:1}
-header.has-art>.gart{grid-column:2;grid-row:1/span 6;align-self:center}
-@media (max-width:760px){header.has-art{display:flex!important}.has-art .gart{display:none}}
-.gart svg{border-radius:14px}
 /* trail blazes: section numbers and form steps */
 .prose.gsec h2 i{border-radius:3px!important;width:22px!important;height:28px!important;font-size:13px!important;display:inline-grid!important;place-items:center;background:var(--accent)!important;color:var(--accent-ink)!important;margin-right:12px;font-style:normal}
 .panel{counter-reset:step}
@@ -170,3 +148,68 @@ header.has-art>.gart{grid-column:2;grid-row:1/span 6;align-self:center}
 .scr-k::before{content:"";display:inline-block;width:8px;height:8px;margin-right:7px;background:var(--accent);transform:rotate(45deg);vertical-align:1px}
 .tosum{align-self:flex-start;font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;margin-top:-6px}
 .tosum:hover{text-decoration:underline}
+/* photos: calm, rounded, fixed shape so nothing jumps while they load */
+.photo{margin:28px 0;padding:0}
+.photo .ph{border-radius:var(--r);overflow:hidden;background:var(--sunk);box-shadow:var(--shadow)}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 35%;opacity:0;transition:opacity .5s ease}
+.photo.in img{opacity:1}
+:root[data-theme="dark"] .photo img{filter:brightness(.88)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .photo img{filter:brightness(.88)}}
+.photo figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.4}
+.photo figcaption a{color:var(--muted);white-space:nowrap;margin-left:auto}
+.photo figcaption a:hover{color:var(--accent)}
+/* photo headers: the words sit on the photo, which fades away into the page behind them.
+   <header class="... phero" data-ph="mountain" data-pp="center 40%">; v2.js adds the .phbg image */
+.phero{position:relative;isolation:isolate}
+.phbg{position:absolute;z-index:-1;top:-28px;bottom:-28px;right:0;left:28%;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.35) 30%,#000 62%),linear-gradient(to bottom,transparent,#000 14%,#000 80%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,rgba(0,0,0,.35) 30%,#000 62%),linear-gradient(to bottom,transparent,#000 14%,#000 80%,transparent);
+  mask-composite:intersect}
+.phbg img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s ease}
+.phbg.in img{opacity:1}
+:root[data-theme="dark"] .phbg img{filter:brightness(.7)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .phbg img{filter:brightness(.7)}}
+.phero.top .phbg{left:42%}
+/* a soft halo in the page color keeps words readable where they cross the photo */
+.phero h1,.phero .lede,.phero .pscope,.phero .hk{text-shadow:0 0 14px var(--bg),0 0 4px var(--bg)}
+@media (max-width:760px){
+  .phero{padding-top:175px}
+  .phbg{left:-16px;right:-16px;top:-16px;bottom:auto;height:270px;
+    -webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent);mask-image:linear-gradient(to bottom,#000 35%,transparent);
+    -webkit-mask-composite:source-over;mask-composite:add}
+}
+@media (max-width:640px){.photo .ph{aspect-ratio:16/10!important}.photo{margin:20px 0}}
+@media (prefers-reduced-motion:reduce){.photo img{transition:none}}
+
+/* ===== big photo hero (homepage, guides): full-width photo, white words on it, topic icons along the bottom ===== */
+html,body{overflow-x:clip}
+.phero.bighero{margin:-28px calc(50% - 50vw) 28px;padding:64px calc(50vw - 50%) 0;color:#fff;min-height:540px;align-content:center;row-gap:28px}
+.bighero .phbg{inset:0!important;left:0!important;right:0!important;top:0!important;bottom:0!important;height:auto!important;-webkit-mask-image:none!important;mask-image:none!important;background:#1d2a22}
+.bighero .phbg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,22,17,.82) 0%,rgba(12,22,17,.6) 40%,rgba(12,22,17,.12) 75%,rgba(12,22,17,.05) 100%),linear-gradient(0deg,rgba(12,22,17,.75) 0%,transparent 30%)}
+.bighero .phbg img,:root[data-theme="dark"] .bighero .phbg img{filter:none}
+.bighero h1,.bighero .lede,.bighero .pscope,.bighero .hk{text-shadow:0 1px 18px rgba(0,0,0,.35)}
+.bighero h1{color:#fff}
+.bighero .lede,.bighero .trust li,.bighero .hk,.bighero .pop>span{color:rgba(255,255,255,.86)!important}
+.bighero .hk span:first-child{color:#a8e6c6!important}
+.bighero .hk span+span::before{color:rgba(255,255,255,.4)}
+.bighero .pop a{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32);color:#fff;backdrop-filter:blur(4px)}
+.bighero .pop a:hover{background:rgba(255,255,255,.22);color:#fff;border-color:#fff}
+.bighero .trust li::before{filter:brightness(1.6)}
+.bighero .season{color:var(--ink)}
+.phero.bighero.ghead{margin-top:4px;min-height:300px;padding-top:56px;padding-bottom:48px;row-gap:10px}
+.bighero.ghead .lede{max-width:52ch}
+.hicons{grid-column:1/-1;display:flex;justify-content:space-between;gap:4px;border-top:1px solid rgba(255,255,255,.28);padding:16px 0 18px;margin-top:8px}
+.hicons a{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;text-decoration:none;font:600 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:8px 4px;border-radius:10px;opacity:.9}
+.hicons a:hover{opacity:1;background:rgba(255,255,255,.1)}
+@media (max-width:760px){
+  .phero.bighero{padding-top:40px;min-height:0}
+  .bighero .phbg::after{background:linear-gradient(180deg,rgba(12,22,17,.55) 0%,rgba(12,22,17,.78) 55%,rgba(12,22,17,.9) 100%)}
+  .hicons{overflow-x:auto;justify-content:flex-start;scrollbar-width:none;margin-inline:-16px;padding-inline:8px}
+  .hicons a{flex:0 0 92px;font-size:11px}
+}
+.crumbs+.phero.bighero{margin-top:4px}
+/* type: Fraunces (serif) headlines, Public Sans for everything else; numbers line up in columns */
+table,.tot b,.big,.season li b{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-display);font-optical-sizing:auto;letter-spacing:-.01em}
+h1{font-weight:600}

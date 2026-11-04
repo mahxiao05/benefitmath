@@ -44,45 +44,6 @@
   }
 })();
 
-/* ---- trail touches: original NW drawings (mountains, firs, a trail sign), colored by the theme ---- */
-(function(){
-  var d=document,NS='http://www.w3.org/2000/svg';
-  function tree(x,y,s,c){s=s||1;var p=function(a,b){return (x+a*s).toFixed(1)+','+(y+b*s).toFixed(1);};
-    return '<g class="'+(c||'tree')+'"><polygon points="'+[p(0,-34),p(-8,-20),p(-4,-20),p(-11,-9),p(-6,-9),p(-14,2),p(14,2),p(6,-9),p(11,-9),p(4,-20),p(8,-20)].join(' ')+'"/><rect x="'+(x-1.6*s).toFixed(1)+'" y="'+(y+2*s).toFixed(1)+'" width="'+(3.2*s).toFixed(1)+'" height="'+(5*s).toFixed(1)+'"/></g>';}
-  function svg(vb,body,fit,cls){return '<svg class="art '+(cls||'')+'" viewBox="'+vb+'" preserveAspectRatio="'+(fit||'xMidYMax slice')+'" role="img" aria-hidden="true" focusable="false">'+body+'</svg>';}
-  var ART={
-    scene:function(sign){return svg('0 0 640 220',
-      '<circle class="sun" cx="486" cy="62" r="30"/>'+
-      '<path class="far" d="M0 140 L60 104 L110 126 L170 88 L230 120 L290 94 L340 118 L400 84 L460 116 L520 92 L580 120 L640 98 V220 H0Z"/>'+
-      '<path class="peak" d="M206 168 L330 46 L454 168Z"/>'+
-      '<path class="snow" d="M330 46 L299 77 L311 74 L321 84 L333 72 L345 82 L356 74 L362 78Z"/>'+
-      '<path class="mid" d="M0 178 C80 150 150 160 220 170 C300 182 380 150 460 158 C540 166 600 154 640 160 V220 H0Z"/>'+
-      '<path class="near" d="M0 200 C120 186 220 192 320 198 C430 204 540 186 640 194 V220 H0Z"/>'+
-      '<path class="path" stroke-width="7" d="M296 222 C318 210 352 208 344 199 C336 191 302 192 318 184 C330 178 360 180 372 175"/>'+
-      tree(36,200,.9)+tree(64,196,1.25,'tree2')+tree(96,201,1.05)+tree(128,192,.75,'tree2')+tree(470,186,.7,'tree2')+tree(512,194,1)+tree(546,199,1.35,'tree2')+tree(584,196,1.05)+tree(614,201,1.2,'tree2')+
-      (sign?'<rect class="wood" x="392" y="160" width="4" height="34" rx="1"/><path class="sign" d="M396 158 h52 l8 8 l-8 8 h-52z"/><text class="signt" x="402" y="170">'+sign+'</text><path class="sign" d="M392 178 h-40 l-8 7 l8 7 h40z"/>':''));},
-    ridge:function(){return '<svg class="ridge art" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="far" d="M0 56 V34 L80 20 L140 31 L230 10 L300 27 L380 16 L470 33 L560 12 L640 29 L720 18 L820 35 L900 14 L980 28 L1060 20 L1140 32 L1200 24 V56Z"/><path class="mid" d="M0 56 V44 C150 34 260 40 400 45 C560 50 700 36 860 41 C1000 46 1100 38 1200 42 V56Z"/></svg>';},
-    trailhead:function(sign){sign=sign||'Trailhead';return svg('0 0 230 150',
-      '<circle class="sun" cx="170" cy="40" r="20"/>'+
-      '<path class="far" d="M0 104 L40 76 L72 92 L112 60 L150 88 L190 66 L230 84 V150 H0Z"/>'+
-      '<path class="peak" d="M70 118 L128 50 L186 118Z"/><path class="snow" d="M128 50 L114 66 L120 64 L126 70 L132 63 L138 69 L142 65Z"/>'+
-      '<path class="mid" d="M0 126 C60 112 120 120 170 122 C200 123 215 118 230 120 V150 H0Z"/>'+
-      '<path class="path" stroke-width="5" d="M100 152 C112 144 132 142 126 136 C120 131 104 131 112 126"/>'+
-      tree(22,136,.9)+tree(44,132,1.2,'tree2')+tree(196,132,1.1,'tree2')+tree(216,137,.85)+
-      '<rect class="wood" x="150" y="104" width="3.5" height="30" rx="1"/><path class="sign" d="M153 104 h60 l7 7 l-7 7 h-60z"/><text class="signt" x="158" y="115">'+sign+'</text>','xMidYMid meet','');}
-  };
-  /* placeholders: <div data-art="scene" data-sign="Apr 15"></div> */
-  [].forEach.call(d.querySelectorAll('[data-art]'),function(el){var k=el.getAttribute('data-art');if(ART[k])el.outerHTML=ART[k](el.getAttribute('data-sign'));});
-  /* ridge above the footer */
-  var ft=d.querySelector('footer');if(ft&&!d.querySelector('.ridge'))ft.insertAdjacentHTML('beforebegin',ART.ridge());
-  /* guides: trailhead drawing beside the title */
-  /* calculators and guides: a small trailhead drawing beside the title */
-  var gh=d.querySelector('header.ghead, header.top');
-  if(gh&&!gh.querySelector('.gart')&&gh.querySelector('h1')){var es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
-    var sign=gh.classList.contains('ghead')?(es?'Sendero':zh?'步道':'Trailhead'):(es?'Empiece':zh?'从这里开始':'Start here');
-    gh.classList.add('has-art');gh.insertAdjacentHTML('afterbegin','<div class="gart">'+ART.trailhead(sign)+'</div>');}
-})();
-
 /* ---- "Your summary": after someone types their own numbers, keep this page's headline result
    (only in this browser, localStorage "bm-results") so summary.html can list every result in one place ---- */
 (function(){
@@ -103,4 +64,52 @@
   f.addEventListener('change',function(e){if(e.isTrusted){mine=true;setTimeout(save,60);}});
   var reset=d.getElementById('reset');if(reset)reset.addEventListener('click',function(){mine=false;});
   new MutationObserver(function(){if(mine)save();}).observe(sum,{childList:true,subtree:true});
+})();
+
+/* ---- Photos (Pexels license: free to use, no attribution required; we credit anyway).
+   Placeholders: <div data-photo="mountain"></div>. To swap a photo, change its entry here.
+   - file: our own WebP copies in assets/photos/ (made by scripts/add-photo.py). Preferred: fast, never breaks.
+   - pexels: photo id, used straight from Pexels' image server until we have our own copy.
+   Images load only when scrolled near (loading=lazy), have a fixed shape (no page jump),
+   and if one fails to load its spot quietly disappears. ---- */
+(function(){
+  var d=document;
+  var PHOTOS={
+    mountain:{file:'mountain',pexels:'5409751',page:'https://www.pexels.com/photo/snow-capped-mountain-under-gray-clouds-5409751/',
+      alt:'Mount Hood at sunset above a dark evergreen forest',cap:'Made for Oregon and Washington.',ratio:'3/1'},
+    bills:{file:'bills',pexels:'6964105',page:'https://www.pexels.com/photo/couple-looking-at-their-bills-6964105/',
+      alt:'A couple going over their bills and tax papers together at home',cap:'Have your W-2s and last year’s return handy and the numbers go fast.',ratio:'5/2'},
+    family:{file:'helpers',pexels:'6646917',page:'https://www.pexels.com/photo/volunteers-handing-out-food-and-water-6646917/',
+      alt:'Volunteers handing out food and water at a community table',cap:'Food banks, WIC offices and energy programs are there to help.',ratio:'5/2'},
+    forest:{file:'forest',pexels:'1179229',page:'https://www.pexels.com/photo/aerial-view-of-evergreen-forest-1179229/',
+      alt:'Looking down on a dense evergreen forest',ratio:'3/1'}
+  };
+  var es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
+  var credit=es?'Foto: Pexels':zh?'图片：Pexels':'Photo: Pexels';
+  function srcs(p){
+    if(p.file)return {src:'assets/photos/'+p.file+'-1200.webp',set:'assets/photos/'+p.file+'-640.webp 640w, assets/photos/'+p.file+'-1200.webp 1200w'};
+    var u='https://images.pexels.com/photos/'+p.pexels+'/pexels-photo-'+p.pexels+'.jpeg?auto=compress&cs=tinysrgb&w=';
+    return {src:u+1200,set:u+640+' 640w, '+u+960+' 960w, '+u+1400+' 1400w'};
+  }
+  /* photo headers: <header class="phero" data-ph="name" data-pp="center 40%"> gets the photo behind its words */
+  [].forEach.call(d.querySelectorAll('.phero[data-ph]'),function(h){
+    var p=PHOTOS[h.getAttribute('data-ph')];if(!p||!p.file)return;
+    var w=d.createElement('div');w.className='phbg';w.setAttribute('aria-hidden','true');
+    var img=d.createElement('img');img.alt='';img.decoding='async';img.sizes='(max-width:760px) 100vw, 70vw';
+    img.style.objectPosition=h.getAttribute('data-pp')||'center';
+    img.srcset='assets/photos/'+p.file+'-640.webp 640w, assets/photos/'+p.file+'-1200.webp 1200w';img.src='assets/photos/'+p.file+'-1200.webp';
+    img.addEventListener('load',function(){w.classList.add('in');});img.addEventListener('error',function(){w.remove();});
+    w.appendChild(img);h.insertBefore(w,h.firstChild);
+  });
+  [].forEach.call(d.querySelectorAll('[data-photo]'),function(el){
+    var p=PHOTOS[el.getAttribute('data-photo')];if(!p){el.remove();return;}
+    var s=srcs(p),f=d.createElement('figure');f.className='photo '+(el.className||'');
+    var cap=el.getAttribute('data-cap');if(cap===null)cap=es||zh?'':(p.cap||'');
+    f.innerHTML='<div class="ph" style="aspect-ratio:'+p.ratio+'"><img alt="" loading="lazy" decoding="async" sizes="(max-width:1100px) 100vw, 1100px"></div>'+
+      '<figcaption>'+(cap?'<span>'+cap+'</span>':'')+'<a href="'+p.page+'" target="_blank" rel="noopener">'+credit+'</a></figcaption>';
+    var img=f.querySelector('img');img.alt=p.alt;img.srcset=s.set;img.src=s.src;
+    img.addEventListener('error',function(){f.remove();});
+    img.addEventListener('load',function(){f.classList.add('in');});
+    el.replaceWith(f);
+  });
 })();
