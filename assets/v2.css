@@ -209,3 +209,7 @@ html,body{overflow-x:clip}
   .hicons a{flex:0 0 92px;font-size:11px}
 }
 .crumbs+.phero.bighero{margin-top:4px}
+/* type: Fraunces (serif) headlines, Public Sans for everything else; numbers line up in columns */
+table,.tot b,.big,.season li b{font-variant-numeric:tabular-nums}
+h1,h2,h3{font-family:var(--f-display);font-optical-sizing:auto;letter-spacing:-.01em}
+h1{font-weight:600}
