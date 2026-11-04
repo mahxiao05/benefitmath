@@ -43,3 +43,42 @@
     tick();window.addEventListener('scroll',tick,{passive:true});window.addEventListener('resize',tick);
   }
 })();
+
+/* ---- trail touches: original NW drawings (mountains, firs, a trail sign), colored by the theme ---- */
+(function(){
+  var d=document,NS='http://www.w3.org/2000/svg';
+  function tree(x,y,s,c){s=s||1;var p=function(a,b){return (x+a*s).toFixed(1)+','+(y+b*s).toFixed(1);};
+    return '<g class="'+(c||'tree')+'"><polygon points="'+[p(0,-34),p(-8,-20),p(-4,-20),p(-11,-9),p(-6,-9),p(-14,2),p(14,2),p(6,-9),p(11,-9),p(4,-20),p(8,-20)].join(' ')+'"/><rect x="'+(x-1.6*s).toFixed(1)+'" y="'+(y+2*s).toFixed(1)+'" width="'+(3.2*s).toFixed(1)+'" height="'+(5*s).toFixed(1)+'"/></g>';}
+  function svg(vb,body,fit,cls){return '<svg class="art '+(cls||'')+'" viewBox="'+vb+'" preserveAspectRatio="'+(fit||'xMidYMax slice')+'" role="img" aria-hidden="true" focusable="false">'+body+'</svg>';}
+  var ART={
+    scene:function(sign){return svg('0 0 640 220',
+      '<circle class="sun" cx="486" cy="62" r="30"/>'+
+      '<path class="far" d="M0 140 L60 104 L110 126 L170 88 L230 120 L290 94 L340 118 L400 84 L460 116 L520 92 L580 120 L640 98 V220 H0Z"/>'+
+      '<path class="peak" d="M206 168 L330 46 L454 168Z"/>'+
+      '<path class="snow" d="M330 46 L299 77 L311 74 L321 84 L333 72 L345 82 L356 74 L362 78Z"/>'+
+      '<path class="mid" d="M0 178 C80 150 150 160 220 170 C300 182 380 150 460 158 C540 166 600 154 640 160 V220 H0Z"/>'+
+      '<path class="near" d="M0 200 C120 186 220 192 320 198 C430 204 540 186 640 194 V220 H0Z"/>'+
+      '<path class="path" stroke-width="7" d="M296 222 C318 210 352 208 344 199 C336 191 302 192 318 184 C330 178 360 180 372 175"/>'+
+      tree(36,200,.9)+tree(64,196,1.25,'tree2')+tree(96,201,1.05)+tree(128,192,.75,'tree2')+tree(470,186,.7,'tree2')+tree(512,194,1)+tree(546,199,1.35,'tree2')+tree(584,196,1.05)+tree(614,201,1.2,'tree2')+
+      (sign?'<rect class="wood" x="392" y="160" width="4" height="34" rx="1"/><path class="sign" d="M396 158 h52 l8 8 l-8 8 h-52z"/><text class="signt" x="402" y="170">'+sign+'</text><path class="sign" d="M392 178 h-40 l-8 7 l8 7 h40z"/>':''));},
+    ridge:function(){return '<svg class="ridge art" viewBox="0 0 1200 56" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="far" d="M0 56 V34 L80 20 L140 31 L230 10 L300 27 L380 16 L470 33 L560 12 L640 29 L720 18 L820 35 L900 14 L980 28 L1060 20 L1140 32 L1200 24 V56Z"/><path class="mid" d="M0 56 V44 C150 34 260 40 400 45 C560 50 700 36 860 41 C1000 46 1100 38 1200 42 V56Z"/></svg>';},
+    trailhead:function(sign){sign=sign||'Trailhead';return svg('0 0 230 150',
+      '<circle class="sun" cx="170" cy="40" r="20"/>'+
+      '<path class="far" d="M0 104 L40 76 L72 92 L112 60 L150 88 L190 66 L230 84 V150 H0Z"/>'+
+      '<path class="peak" d="M70 118 L128 50 L186 118Z"/><path class="snow" d="M128 50 L114 66 L120 64 L126 70 L132 63 L138 69 L142 65Z"/>'+
+      '<path class="mid" d="M0 126 C60 112 120 120 170 122 C200 123 215 118 230 120 V150 H0Z"/>'+
+      '<path class="path" stroke-width="5" d="M100 152 C112 144 132 142 126 136 C120 131 104 131 112 126"/>'+
+      tree(22,136,.9)+tree(44,132,1.2,'tree2')+tree(196,132,1.1,'tree2')+tree(216,137,.85)+
+      '<rect class="wood" x="150" y="104" width="3.5" height="30" rx="1"/><path class="sign" d="M153 104 h60 l7 7 l-7 7 h-60z"/><text class="signt" x="158" y="115">'+sign+'</text>','xMidYMid meet','');}
+  };
+  /* placeholders: <div data-art="scene" data-sign="Apr 15"></div> */
+  [].forEach.call(d.querySelectorAll('[data-art]'),function(el){var k=el.getAttribute('data-art');if(ART[k])el.outerHTML=ART[k](el.getAttribute('data-sign'));});
+  /* ridge above the footer */
+  var ft=d.querySelector('footer');if(ft&&!d.querySelector('.ridge'))ft.insertAdjacentHTML('beforebegin',ART.ridge());
+  /* guides: trailhead drawing beside the title */
+  /* calculators and guides: a small trailhead drawing beside the title */
+  var gh=d.querySelector('header.ghead, header.top');
+  if(gh&&!gh.querySelector('.gart')&&gh.querySelector('h1')){var es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
+    var sign=gh.classList.contains('ghead')?(es?'Sendero':zh?'步道':'Trailhead'):(es?'Empiece':zh?'从这里开始':'Start here');
+    gh.classList.add('has-art');gh.insertAdjacentHTML('afterbegin','<div class="gart">'+ART.trailhead(sign)+'</div>');}
+})();
