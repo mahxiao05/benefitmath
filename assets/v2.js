@@ -114,13 +114,13 @@
 (function(){
   var d=document;
   var PHOTOS={
-    mountain:{pexels:'5409751',page:'https://www.pexels.com/photo/snow-capped-mountain-under-gray-clouds-5409751/',
+    mountain:{file:'mountain',pexels:'5409751',page:'https://www.pexels.com/photo/snow-capped-mountain-under-gray-clouds-5409751/',
       alt:'A snow-capped Cascade peak above evergreen forest',cap:'Made for Oregon and Washington.',ratio:'3/1'},
-    gorge:{pexels:'73916',page:'https://www.pexels.com/photo/body-of-water-near-mountain-slope-and-green-trees-and-grass-during-daytime-73916/',
-      alt:'Calm water below green, tree-covered hills',ratio:'3/1'},
-    bills:{pexels:'6964105',page:'https://www.pexels.com/photo/couple-looking-at-their-bills-6964105/',
+    gorge:{file:'gorge',pexels:'5409751',page:'https://www.pexels.com/photo/snow-capped-mountain-under-gray-clouds-5409751/',
+      alt:'Mount Hood at sunset above a dark evergreen forest',ratio:'3/1'},
+    bills:{file:'bills',pexels:'6964105',page:'https://www.pexels.com/photo/couple-looking-at-their-bills-6964105/',
       alt:'A couple going over their bills and tax papers together at home',cap:'Have your W-2s and last year’s return handy and the numbers go fast.',ratio:'16/7'},
-    family:{pexels:'6964107',page:'https://www.pexels.com/photo/couple-calculating-all-their-bills-6964107/',
+    family:{file:'family',pexels:'6964107',page:'https://www.pexels.com/photo/couple-calculating-all-their-bills-6964107/',
       alt:'Two people working through their monthly budget at the kitchen table',cap:'Pay stubs and your latest bills are all you need to get started.',ratio:'16/7'}
   };
   var es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
