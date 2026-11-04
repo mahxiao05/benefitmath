@@ -104,3 +104,41 @@
   var reset=d.getElementById('reset');if(reset)reset.addEventListener('click',function(){mine=false;});
   new MutationObserver(function(){if(mine)save();}).observe(sum,{childList:true,subtree:true});
 })();
+
+/* ---- Photos (Pexels license: free to use, no attribution required; we credit anyway).
+   Placeholders: <div data-photo="mountain"></div>. To swap a photo, change its entry here.
+   - file: our own WebP copies in assets/photos/ (made by scripts/add-photo.py). Preferred: fast, never breaks.
+   - pexels: photo id, used straight from Pexels' image server until we have our own copy.
+   Images load only when scrolled near (loading=lazy), have a fixed shape (no page jump),
+   and if one fails to load its spot quietly disappears. ---- */
+(function(){
+  var d=document;
+  var PHOTOS={
+    mountain:{pexels:'5409751',page:'https://www.pexels.com/photo/snow-capped-mountain-under-gray-clouds-5409751/',
+      alt:'A snow-capped Cascade peak above evergreen forest',cap:'Made for Oregon and Washington.',ratio:'3/1'},
+    gorge:{pexels:'73916',page:'https://www.pexels.com/photo/body-of-water-near-mountain-slope-and-green-trees-and-grass-during-daytime-73916/',
+      alt:'Calm water below green, tree-covered hills',ratio:'3/1'},
+    bills:{pexels:'6964105',page:'https://www.pexels.com/photo/couple-looking-at-their-bills-6964105/',
+      alt:'A couple going over their bills and tax papers together at home',cap:'Have your W-2s and last year’s return handy and the numbers go fast.',ratio:'16/7'},
+    family:{pexels:'6964107',page:'https://www.pexels.com/photo/couple-calculating-all-their-bills-6964107/',
+      alt:'Two people working through their monthly budget at the kitchen table',cap:'Pay stubs and your latest bills are all you need to get started.',ratio:'16/7'}
+  };
+  var es=d.documentElement.lang==='es',zh=/^zh/.test(d.documentElement.lang);
+  var credit=es?'Foto: Pexels':zh?'图片：Pexels':'Photo: Pexels';
+  function srcs(p){
+    if(p.file)return {src:'assets/photos/'+p.file+'-1200.webp',set:'assets/photos/'+p.file+'-640.webp 640w, assets/photos/'+p.file+'-1200.webp 1200w'};
+    var u='https://images.pexels.com/photos/'+p.pexels+'/pexels-photo-'+p.pexels+'.jpeg?auto=compress&cs=tinysrgb&w=';
+    return {src:u+1200,set:u+640+' 640w, '+u+960+' 960w, '+u+1400+' 1400w'};
+  }
+  [].forEach.call(d.querySelectorAll('[data-photo]'),function(el){
+    var p=PHOTOS[el.getAttribute('data-photo')];if(!p){el.remove();return;}
+    var s=srcs(p),f=d.createElement('figure');f.className='photo '+(el.className||'');
+    var cap=el.getAttribute('data-cap');if(cap===null)cap=es||zh?'':(p.cap||'');
+    f.innerHTML='<div class="ph" style="aspect-ratio:'+p.ratio+'"><img alt="" loading="lazy" decoding="async" sizes="(max-width:1100px) 100vw, 1100px"></div>'+
+      '<figcaption>'+(cap?'<span>'+cap+'</span>':'')+'<a href="'+p.page+'" target="_blank" rel="noopener">'+credit+'</a></figcaption>';
+    var img=f.querySelector('img');img.alt=p.alt;img.srcset=s.set;img.src=s.src;
+    img.addEventListener('error',function(){f.remove();});
+    img.addEventListener('load',function(){f.classList.add('in');});
+    el.replaceWith(f);
+  });
+})();
