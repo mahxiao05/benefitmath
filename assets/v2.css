@@ -181,3 +181,31 @@ details.math>summary{border-radius:0 0 var(--r) var(--r)}
 }
 @media (max-width:640px){.photo .ph{aspect-ratio:16/10!important}.photo{margin:20px 0}}
 @media (prefers-reduced-motion:reduce){.photo img{transition:none}}
+
+/* ===== big photo hero (homepage, guides): full-width photo, white words on it, topic icons along the bottom ===== */
+html,body{overflow-x:clip}
+.phero.bighero{margin:-28px calc(50% - 50vw) 28px;padding:64px calc(50vw - 50%) 0;color:#fff;min-height:540px;align-content:center;row-gap:28px}
+.bighero .phbg{inset:0!important;left:0!important;right:0!important;top:0!important;bottom:0!important;height:auto!important;-webkit-mask-image:none!important;mask-image:none!important;background:#1d2a22}
+.bighero .phbg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,22,17,.82) 0%,rgba(12,22,17,.6) 40%,rgba(12,22,17,.12) 75%,rgba(12,22,17,.05) 100%),linear-gradient(0deg,rgba(12,22,17,.75) 0%,transparent 30%)}
+.bighero .phbg img,:root[data-theme="dark"] .bighero .phbg img{filter:none}
+.bighero h1,.bighero .lede,.bighero .pscope,.bighero .hk{text-shadow:0 1px 18px rgba(0,0,0,.35)}
+.bighero h1{color:#fff}
+.bighero .lede,.bighero .trust li,.bighero .hk,.bighero .pop>span{color:rgba(255,255,255,.86)!important}
+.bighero .hk span:first-child{color:#a8e6c6!important}
+.bighero .hk span+span::before{color:rgba(255,255,255,.4)}
+.bighero .pop a{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32);color:#fff;backdrop-filter:blur(4px)}
+.bighero .pop a:hover{background:rgba(255,255,255,.22);color:#fff;border-color:#fff}
+.bighero .trust li::before{filter:brightness(1.6)}
+.bighero .season{color:var(--ink)}
+.phero.bighero.ghead{margin-top:4px;min-height:300px;padding-top:56px;padding-bottom:48px;row-gap:10px}
+.bighero.ghead .lede{max-width:52ch}
+.hicons{grid-column:1/-1;display:flex;justify-content:space-between;gap:4px;border-top:1px solid rgba(255,255,255,.28);padding:16px 0 18px;margin-top:8px}
+.hicons a{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;text-decoration:none;font:600 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:8px 4px;border-radius:10px;opacity:.9}
+.hicons a:hover{opacity:1;background:rgba(255,255,255,.1)}
+@media (max-width:760px){
+  .phero.bighero{padding-top:40px;min-height:0}
+  .bighero .phbg::after{background:linear-gradient(180deg,rgba(12,22,17,.55) 0%,rgba(12,22,17,.78) 55%,rgba(12,22,17,.9) 100%)}
+  .hicons{overflow-x:auto;justify-content:flex-start;scrollbar-width:none;margin-inline:-16px;padding-inline:8px}
+  .hicons a{flex:0 0 92px;font-size:11px}
+}
+.crumbs+.phero.bighero{margin-top:4px}
