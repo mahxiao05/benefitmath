@@ -18,6 +18,7 @@
 <meta property="og:title" content="2026年退税计算器 | BenefitMath"><meta property="og:description" content="估算您2026年的联邦退税或需要补缴的税款，包括儿童税收抵免、劳动所得税抵免（EITC），以及小费、加班费和老年人的新扣除额。免费，并列出计算过程。"><meta property="og:type" content="website"><meta property="og:url" content="https://benefitmath.com/zh-tax-refund.html"><meta property="og:site_name" content="BenefitMath"><meta property="og:image" content="https://benefitmath.com/assets/og/zh-tax-refund.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="zh_CN"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/site.css">
 <style>:lang(zh){--f-body:"Public Sans","PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif}</style>
+<link rel="stylesheet" href="assets/v2.css">
 </head><body>
 <!-- AD NETWORK: paste your AdSense (or other network) loader script into <head>, then fill each .ad-slot below. -->
 <div class="wrap">
@@ -69,7 +70,7 @@
 <section class="prose faq" id="faq"><h2>常见问题</h2><p>想知道退税什么时候到？请看<a href="guide-tax-refund-timing.html">我的退税什么时候到？</a>（英文）。</p><p>只想算其中一项？可以试试<a href="zh-child-tax-credit.html">儿童税收抵免</a>和<a href="zh-eitc.html">EITC</a>计算器，或者<a href="tips.html">小费</a>、<a href="overtime.html">加班费</a>、<a href="senior-deduction.html">老年人扣除额</a>计算器（英文）。</p><details id="q0"><summary>退税是怎么算出来的</summary><div><p>您的退税 = 从工资里预扣的联邦税 + 可退还的税收抵免 − 抵免后您应缴的所得税。本页先把您的收入加起来，减去标准扣除额，以及新的老年人、小费和加班费扣除额，再按2026年税率表算出税款，最后计入儿童税收抵免（Child Tax Credit）和劳动所得税抵免（EITC）。</p></div></details><details id="q1"><summary>我2026年的退税什么时候到？</summary><div><p>美国国税局（IRS）通常在2027年1月下旬开始受理2026年的报税。大多数电子报税并选择直接存款的人，会在21天内收到退税。按照法律，含有EITC或额外儿童税收抵免的退税要等到2月中旬才会发放，所以一般在3月初到账。</p></div></details><details id="q2"><summary>在哪里能查到预扣了多少税？</summary><div><p>W-2表格第2栏（box 2）显示全年预扣的联邦所得税。收到W-2之前，可以看当年最后一张工资单上的“年初至今联邦预扣税”。如果您另外缴过预估税，也要加上。</p></div></details><details id="q3"><summary>为什么显示我要补税？</summary><div><p>如果预扣的税少于您应缴的税，差额要在报税时补上。常见原因有：做第二份工作、有自雇收入、失业救济金没有预扣税，或者W-4表格上申报了太多抵免。</p></div></details><details id="q4"><summary>退税会影响我的SNAP或SSI吗？</summary><div><p>不会。联邦退税不算作SNAP、SSI、Medicaid或住房补助的收入，而且在收到后的12个月内也不算作存款。</p></div></details><details id="q5"><summary>这个计算没有包括哪些项目？</summary><div><p>自雇税、逐项扣除、教育和托儿抵免、医保保费税收抵免、资本利得税率，以及州所得税。如果其中有适用于您的项目，请把这里的结果当作起点，并核对您的报税表。</p></div></details></section>
 <aside class="ad-slot" aria-label="广告"><span class="ad-label">广告</span><div class="ad-box" data-ad-slot="bottom"></div></aside>
 <footer id="about">
-  <div class="links site-links"><a href="./">所有计算器</a><a href="guides.html">指南</a><a href="about.html">关于我们</a><a href="privacy.html">隐私政策</a><a href="terms.html">使用条款</a><a href="contact.html">联系我们</a><a href="changes.html">规则变化</a><a href="how-we-check.html">我们如何核实</a></div>
+  <div class="links site-links"><a href="./">所有计算器</a><a href="guides.html">指南</a><a href="about.html">关于我们</a><a href="privacy.html">隐私政策</a><a href="terms.html">使用条款</a><a href="contact.html">联系我们</a><a href="changes.html">规则变化</a><a href="how-we-check.html">我们如何核实</a><a href="summary.html">我的摘要</a></div>
   <p>独立、免费的计算器。与美国国税局（IRS）、俄勒冈州就业局、华盛顿州就业保障局（ESD）或任何其他政府机构都没有关系。网站靠广告维持免费；我们不会向您索要个人信息。结果只是估算，不是官方决定。</p>
   <details><summary>资料来源、隐私和说明</summary><div>
   <p>规则核实日期：2026年10月16日。</p>
@@ -161,7 +162,7 @@ function run(){
 wire("bm-refund-zh",run);
 })();
 </script>
-<script src="assets/site.js"></script>
+<script src="assets/site.js"></script><script src="assets/v2.js" defer></script>
 <script src="assets/partners.js"></script>
 <div class="mbar" id="mbar" role="region" aria-label="您的估算结果">
   <div class="mb-txt"><span class="mb-l"></span><span class="mb-v"></span></div>
