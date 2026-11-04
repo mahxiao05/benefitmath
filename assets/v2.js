@@ -18,8 +18,8 @@
   if(jump&&secs.length){
     var lay=d.createElement('div');lay.className='glayout';
     var main=d.createElement('div');main.className='gmain';
-    var side=d.createElement('aside');side.className='gside';side.setAttribute('aria-label','On this page');
-    var toc=d.createElement('div');toc.className='gtoc';toc.innerHTML='<p>On this page</p>';
+    var side=d.createElement('aside');side.className='gside';side.setAttribute('aria-label',(document.documentElement.lang==='es')?'En esta página':'On this page');
+    var toc=d.createElement('div');toc.className='gtoc';var LG=document.documentElement.lang||'',ES=LG==='es',ZH=/^zh/.test(LG);toc.innerHTML='<p>'+(ES?'En esta página':ZH?'本页内容':'On this page')+'</p>';
     jump.parentNode.insertBefore(lay,jump);
     toc.appendChild(jump);side.appendChild(toc);
     /* move everything between the jump links and the sources box into the main column */
@@ -31,7 +31,7 @@
     if(calc){var c=d.createElement('div');c.className='gcta';
       var t=calc.querySelector('b'),s=calc.querySelector('span');
       c.innerHTML='<b></b><span></span><a></a>';c.querySelector('b').textContent=(t?t.textContent:'Calculator').replace(/\s*→\s*$/,'');
-      c.querySelector('span').textContent=s?s.textContent:'';var a=c.querySelector('a');a.href=calc.getAttribute('href');a.textContent='Open the calculator';side.appendChild(c);}
+      c.querySelector('span').textContent=s?s.textContent:'';var a=c.querySelector('a');a.href=calc.getAttribute('href');a.textContent=ES?'Abrir la calculadora':ZH?'打开计算器':'Open the calculator';side.appendChild(c);}
     /* reading bar + highlight the section in view */
     var bar=d.createElement('div');bar.className='gread-bar';bar.setAttribute('aria-hidden','true');d.body.appendChild(bar);
     var links=[].slice.call(jump.querySelectorAll('a'));
