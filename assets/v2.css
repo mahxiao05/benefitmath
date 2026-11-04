@@ -168,3 +168,5 @@ header.has-art>.gart{grid-column:2;grid-row:1/span 6;align-self:center}
 .panel{counter-reset:step}
 .panel fieldset>legend::before{counter-increment:step;content:counter(step);display:inline-grid;place-items:center;width:20px;height:26px;margin-right:10px;border-radius:3px;background:var(--accent);color:var(--accent-ink);font:600 12px var(--f-body);vertical-align:1px}
 .scr-k::before{content:"";display:inline-block;width:8px;height:8px;margin-right:7px;background:var(--accent);transform:rotate(45deg);vertical-align:1px}
+.tosum{align-self:flex-start;font-size:13.5px;font-weight:600;color:var(--accent);text-decoration:none;margin-top:-6px}
+.tosum:hover{text-decoration:underline}

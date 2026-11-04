@@ -82,3 +82,25 @@
     var sign=gh.classList.contains('ghead')?(es?'Sendero':zh?'步道':'Trailhead'):(es?'Empiece':zh?'从这里开始':'Start here');
     gh.classList.add('has-art');gh.insertAdjacentHTML('afterbegin','<div class="gart">'+ART.trailhead(sign)+'</div>');}
 })();
+
+/* ---- "Your summary": after someone types their own numbers, keep this page's headline result
+   (only in this browser, localStorage "bm-results") so summary.html can list every result in one place ---- */
+(function(){
+  var d=document,f=d.getElementById('f'),sum=d.getElementById('sum');if(!f||!sum||!window.MutationObserver)return;
+  var lg=d.documentElement.lang||'',es=lg==='es',zh=/^zh/.test(lg),mine=false,link=null;
+  var page=location.pathname.split('/').pop()||'index.html';
+  function save(){
+    var tots=[].slice.call(sum.querySelectorAll('.tot')),h1=d.querySelector('h1');
+    var tot=tots.filter(function(t){var x=t.querySelector('b');return x&&/[$¥]/.test(x.textContent);})[0]||tots[0];if(!tot||!h1)return;
+    var b=tot.querySelector('b'),l=tot.querySelector('span'),h=sum.querySelector('h2'),p=sum.querySelector(':scope>p');
+    var all={};try{all=JSON.parse(localStorage.getItem('bm-results')||'{}')||{};}catch(e){}
+    all[page]={t:h1.textContent.trim(),h:h?h.textContent.trim():'',v:b?b.textContent.trim():'',l:l?l.textContent.trim():'',s:p?p.textContent.trim().slice(0,220):'',at:Date.now()};
+    try{localStorage.setItem('bm-results',JSON.stringify(all));}catch(e){return;}
+    if(!link){link=d.createElement('a');link.className='tosum';link.href='summary.html';
+      link.textContent=es?'Guardado en su resumen →':zh?'已保存到您的摘要 →':'Saved to your summary →';sum.insertAdjacentElement('afterend',link);}
+  }
+  f.addEventListener('input',function(e){if(e.isTrusted){mine=true;setTimeout(save,60);}});
+  f.addEventListener('change',function(e){if(e.isTrusted){mine=true;setTimeout(save,60);}});
+  var reset=d.getElementById('reset');if(reset)reset.addEventListener('click',function(){mine=false;});
+  new MutationObserver(function(){if(mine)save();}).observe(sum,{childList:true,subtree:true});
+})();
