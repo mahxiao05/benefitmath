@@ -141,28 +141,6 @@ details.math>summary{border-radius:0 0 var(--r) var(--r)}
 .prose[style*="background:none"]{box-shadow:none!important}
 @media (max-width:520px){.gstats{display:flex!important;flex-direction:column;gap:8px}.gstat{display:grid!important;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center}.gstat b{font-size:20px!important}}
 
-/* ===== trail touches: original Pacific Northwest drawings in the site's own greens ===== */
-:root{--art-far:#d5e1d6;--art-mid:#a9c6b2;--art-peak:#7ea58d;--art-near:#8fb79d;--art-tree:#17694e;--art-tree2:#2f7d5f;--art-snow:#fffdf8;--art-sun:#f1e2b8;--art-path:#efe6d2;--art-wood:#8a6a45}
-:root[data-theme="dark"]{--art-far:#1f2b24;--art-mid:#26392e;--art-peak:#2f4a3b;--art-near:#2c4436;--art-tree:#5fc49f;--art-tree2:#3f9a78;--art-snow:#d9ddd3;--art-sun:#4a4128;--art-path:#3a3a30;--art-wood:#b08a5e}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--art-far:#1f2b24;--art-mid:#26392e;--art-peak:#2f4a3b;--art-near:#2c4436;--art-tree:#5fc49f;--art-tree2:#3f9a78;--art-snow:#d9ddd3;--art-sun:#4a4128;--art-path:#3a3a30;--art-wood:#b08a5e}}
-.art{display:block;width:100%;height:auto}
-.art .far{fill:var(--art-far)}.art .mid{fill:var(--art-mid)}.art .peak{fill:var(--art-peak)}.art .near{fill:var(--art-near)}
-.art .tree{fill:var(--art-tree)}.art .tree2{fill:var(--art-tree2)}.art .snow{fill:var(--art-snow)}.art .sun{fill:var(--art-sun)}
-.art .path{fill:none;stroke:var(--art-path);stroke-linecap:round}.art .wood{fill:var(--art-wood)}.art .sign{fill:var(--surface);stroke:var(--art-wood);stroke-width:1.5}
-.art .signt{fill:var(--accent);font:700 11px var(--f-body)}
-
-/* homepage: postcard scene on the tax season card */
-.season{padding-top:0!important;overflow:hidden}
-.season .art{margin:0 -20px 2px;width:calc(100% + 40px);max-width:none}
-/* footer ridge on every page */
-.ridge{display:block;width:calc(100% + 32px);margin:48px -16px -1px;height:56px}
-.ridge+footer{margin-top:0!important;border-top:0!important;padding-top:20px}
-/* guides: small trailhead drawing beside the title */
-header.has-art{display:grid;grid-template-columns:minmax(0,1fr) 230px;column-gap:28px;align-items:end}
-header.has-art>*{grid-column:1}
-header.has-art>.gart{grid-column:2;grid-row:1/span 6;align-self:center}
-@media (max-width:760px){header.has-art{display:flex!important}.has-art .gart{display:none}}
-.gart svg{border-radius:14px}
 /* trail blazes: section numbers and form steps */
 .prose.gsec h2 i{border-radius:3px!important;width:22px!important;height:28px!important;font-size:13px!important;display:inline-grid!important;place-items:center;background:var(--accent)!important;color:var(--accent-ink)!important;margin-right:12px;font-style:normal}
 .panel{counter-reset:step}
@@ -180,5 +158,12 @@ header.has-art>.gart{grid-column:2;grid-row:1/span 6;align-self:center}
 .photo figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font-size:13.5px;color:var(--muted);line-height:1.4}
 .photo figcaption a{color:var(--muted);white-space:nowrap;margin-left:auto}
 .photo figcaption a:hover{color:var(--accent)}
+/* "fade" photos: no frame, edges dissolve into the page */
+.photo.fade .ph{border-radius:0;box-shadow:none;background:none;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 74%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent),linear-gradient(to bottom,transparent,#000 18%,#000 74%,transparent);
+  mask-composite:intersect}
+.photo.fade figcaption{margin-top:2px}
 @media (max-width:640px){.photo .ph{aspect-ratio:16/10!important}.photo{margin:20px 0}}
 @media (prefers-reduced-motion:reduce){.photo img{transition:none}}
