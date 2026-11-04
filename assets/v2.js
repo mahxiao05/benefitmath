@@ -91,6 +91,16 @@
     var u='https://images.pexels.com/photos/'+p.pexels+'/pexels-photo-'+p.pexels+'.jpeg?auto=compress&cs=tinysrgb&w=';
     return {src:u+1200,set:u+640+' 640w, '+u+960+' 960w, '+u+1400+' 1400w'};
   }
+  /* photo headers: <header class="phero" data-ph="name" data-pp="center 40%"> gets the photo behind its words */
+  [].forEach.call(d.querySelectorAll('.phero[data-ph]'),function(h){
+    var p=PHOTOS[h.getAttribute('data-ph')];if(!p||!p.file)return;
+    var w=d.createElement('div');w.className='phbg';w.setAttribute('aria-hidden','true');
+    var img=d.createElement('img');img.alt='';img.decoding='async';img.sizes='(max-width:760px) 100vw, 70vw';
+    img.style.objectPosition=h.getAttribute('data-pp')||'center';
+    img.srcset='assets/photos/'+p.file+'-640.webp 640w, assets/photos/'+p.file+'-1200.webp 1200w';img.src='assets/photos/'+p.file+'-1200.webp';
+    img.addEventListener('load',function(){w.classList.add('in');});img.addEventListener('error',function(){w.remove();});
+    w.appendChild(img);h.insertBefore(w,h.firstChild);
+  });
   [].forEach.call(d.querySelectorAll('[data-photo]'),function(el){
     var p=PHOTOS[el.getAttribute('data-photo')];if(!p){el.remove();return;}
     var s=srcs(p),f=d.createElement('figure');f.className='photo '+(el.className||'');
