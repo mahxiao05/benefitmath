@@ -5,9 +5,9 @@ body{margin:0} img{max-width:100%} [hidden]{display:none!important}
   --bg:#f4f7f5; --surface:#ffffff; --sunk:#eaf0ed; --ink:#14211d; --muted:#56665f; --line:#d5e0db;
   --accent:#1d6b57; --accent-ink:#ffffff; --accent-soft:#dcefe8;
   --good:#1f7a4d; --good-soft:#dff3e7; --warn:#9a6200; --warn-soft:#fbefd6; --no:#a33a2c; --no-soft:#f9e1dd; --info:#3b5f8a; --info-soft:#e2ebf6;
-  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
   --f-body:"Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --f-mono:"Public Sans", "Segoe UI", system-ui, sans-serif;
   --r:10px;
 }
 :root[data-theme="dark"]{
