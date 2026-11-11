@@ -102,5 +102,7 @@ function simplify(){
   var tb=d.querySelector('.site .themebtn[title="Light or dark mode"]'),ml=d.querySelector(".mega-foot .mlinks");
   if(tb&&ml){var c=tb.cloneNode(true);ml.appendChild(c);c.addEventListener("click",function(){tb.click();});}
 }
-ready(function(){topics();steps();simplify();});
+function openQuiz(){var f=d.getElementById("scr-fold");if(!f)return;function o(){if(location.hash==="#screener"||location.hash==="#scr-fold"){f.open=true;}}o();addEventListener("hashchange",o);
+  [].slice.call(d.querySelectorAll('a[href$="#screener"]')).forEach(function(a){a.addEventListener("click",function(){f.open=true;});});}
+ready(function(){topics();steps();simplify();openQuiz();});
 })();

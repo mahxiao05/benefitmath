@@ -143,3 +143,11 @@ details.scopefold p{margin:6px 0 0}
 .site .site-r>.themebtn[title="Light or dark mode"]{display:none!important}
 .mega-foot .mlinks .themebtn{display:inline-flex!important;width:auto;height:auto;min-height:40px;padding:0 14px;gap:8px;font:inherit;font-size:14px}
 .mega-foot .mlinks .themebtn::after{content:"Light or dark";}
+.tlist a.tl-big{grid-column:1/-1;background:var(--accent-soft);border-color:var(--accent)}
+details.scr-fold>summary{display:inline-flex;align-items:center;min-height:48px;padding:0 20px;margin-top:6px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;cursor:pointer;list-style:none}
+details.scr-fold>summary::-webkit-details-marker{display:none}
+details.scr-fold[open]>summary{background:var(--surface);color:var(--ink);border:2px solid var(--rule)}
+details.scr-fold[open]>summary~*{margin-top:16px}
+.hubln{margin:0 0 14px;padding:12px 16px;border-radius:14px;background:var(--accent-soft);font-size:15.5px;line-height:1.45}
+.hubln a{font-weight:700}
+.summary p a,.season1 a,.alang a,.scr-head a,.afind>a{color:var(--accent);font-weight:700}
