@@ -15,6 +15,8 @@ for path in sorted(glob.glob(os.path.join(ROOT, "*.html"))):
     if name in SKIP:
         continue
     s = open(path, encoding="utf-8").read()
+    if 'http-equiv="refresh"' in s:  # old URLs that forward to a merged page
+        continue
     lang = (re.search(r'<html[^>]*lang="([a-z]+)', s) or [None, "en"])[1]
     title = text((re.search(r"(?s)<title>(.*?)</title>", s) or [None, name])[1])
     title = re.sub(r"\s*[|:]\s*BenefitMath$", "", title)
