@@ -116,7 +116,7 @@ window.BM_ANALYTICS={plausible:"",ga4:""};
     'benefits':[ST,N('hh','hh'),N('age','age'),mo('earned')],
     'health-coverage':[ST,N('hh','hh'),N('age','age'),N('inc','incM',{in:function(P){var n=num(P.incM);return n===undefined?undefined:r(n*12);},out:function(v){var n=num(v);return n===undefined?null:{incM:r(n/12)};}})],
     'child-care':[ST,N('hh','hh'),N('inc','incM')],
-    'family-help':[ST,N('hh','hh'),mo('earn')],
+    'family-help':[ST,N('hh','hh'),N('age','age'),mo('earn')],
     'ssi-ssdi-work':[ST,mo('earn')],
     'unemployment':[ST],
     'paid-leave':[ST,yr('yr')],

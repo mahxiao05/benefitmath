@@ -81,6 +81,8 @@
       alt:'A couple going over their bills and tax papers together at home',cap:'Have your W-2s and last year’s return handy and the numbers go fast.',ratio:'5/2'},
     family:{file:'helpers',pexels:'6646917',page:'https://www.pexels.com/photo/volunteers-handing-out-food-and-water-6646917/',
       alt:'Volunteers handing out food and water at a community table',cap:'Food banks, WIC offices and energy programs are there to help.',ratio:'5/2'},
+    disability:{file:'wheelchair-office',pexels:'6248964',page:'https://www.pexels.com/photo/photo-of-man-on-a-wheelchair-6248964/',
+      alt:'A smiling man in a wheelchair holding a tablet in a bright office',ratio:'5/2'},
     forest:{file:'forest',pexels:'1179229',page:'https://www.pexels.com/photo/aerial-view-of-evergreen-forest-1179229/',
       alt:'Looking down on a dense evergreen forest',ratio:'3/1'}
   };
