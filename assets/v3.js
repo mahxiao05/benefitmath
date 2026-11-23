@@ -96,7 +96,7 @@ function simplify(){
   /* the "this is a federal tool for…" box folds behind one line */
   [].slice.call(d.querySelectorAll("header .scopebox")).forEach(function(b){
     var det=d.createElement("details"),s=d.createElement("summary"),p=d.createElement("p");
-    det.className="scopefold";s.textContent=SC[lang]||SC.en;p.innerHTML=b.innerHTML;det.appendChild(s);det.appendChild(p);b.replaceWith(det);
+    det.className="scopefold";if(b.id){p.id=b.id;b.removeAttribute("id");}s.textContent=SC[lang]||SC.en;p.innerHTML=b.innerHTML;det.appendChild(s);det.appendChild(p);b.replaceWith(det);
   });
   /* dark-mode switch moves into the Calculators menu */
   var tb=d.querySelector('.site .themebtn[title="Light or dark mode"]'),ml=d.querySelector(".mega-foot .mlinks");
